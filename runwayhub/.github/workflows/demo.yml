@@ -1,0 +1,65 @@
+name: Demo System
+
+on:
+  schedule:
+    - cron: '*/10 * * * *' # Alle 10 Minuten
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: mbstring, xml, ctype, iconv, pdo_mysql
+        tools: composer:v2
+
+    - name: Install Dependencies
+      run: composer install --no-dev --no-interaction
+
+    - name: Setup Database
+      run: |
+        # MySQL Setup
+        mysql -e "CREATE DATABASE IF NOT EXISTS runwayhub_demo;"
+
+    - name: Run Demo Scripts
+      run: |
+        chmod +x demo/scripts/autonomous_demo.sh
+        ./demo/scripts/autonomous_demo.sh
+
+    - name: Health Check
+      run: |
+        ./demo/scripts/health_check.sh
+
+    - name: Show Metrics
+      run: |
+        ./demo/scripts/metrics.sh
+
+    - name: Watch Issues
+      run: |
+        php demo/scripts/watch_issues.php
+
+    - name: Upload Logs
+      uses: actions/upload-artifact@v3
+      with:
+        name: demo-logs
+        path: |
+          runwayhub/docs/demo-issues.log
+          runwayhub/docs/demo-sync.log
+        retention-days: 7
+
+    - name: Deploy to Pages
+      if: github.event_name == 'schedule'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./runwayhub/docs/deployment
