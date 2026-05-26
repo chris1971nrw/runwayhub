@@ -1,0 +1,81 @@
+# GitHub Actions Workflow - Issues Watcher
+# Überwacht neue Issues und leitet an Sub-Agents weiter
+name: Issues Watcher
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'  # Alle 10 Minuten prüfen
+  workflow_dispatch:
+    inputs:
+      check_issues:
+        description: 'Manuell Issues-Check auslösen'
+        required: false
+        type: boolean
+
+jobs:
+  watch-issues:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    
+    steps:
+      # 1. Repository checkout
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+
+      # 2. GitHub Issues API aufrufen
+      - name: Check for New Issues
+        id: check_issues
+        run: |
+          GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}"
+          GITHUB_OWNER="chris1971nrw"
+          GITHUB_REPO="runwayhub"
+          
+          # API-Call für neue Issues (nur open und demo/beta labels)
+          API_URL="https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/issues?state=open&labels=demo,beta"
+          
+          RESPONSE=$(curl -s -H "Authorization: token ${GITHUB_TOKEN}" "$API_URL")
+          ISSUE_COUNT=$(echo "$RESPONSE" | grep -c "number")
+          
+          if [ "$ISSUE_COUNT" -gt 0 ]; then
+            echo "NEW_ISSUES=true" >> $GITHUB_OUTPUT
+            echo "Issue-Count: $ISSUE_COUNT"
+          else
+            echo "No new issues found."
+          fi
+
+      # 3. Neue Issues an Agenten weiterleiten
+      - name: Route Issues to Agents
+        if: steps.check_issues.outputs.NEW_ISSUES == 'true'
+        run: |
+          # Issue-Details an Sub-Agent senden
+          ISSUE_DATA=$(curl -s -H "Authorization: token ${GITHUB_TOKEN}" \
+            "https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/issues?state=open&labels=demo,beta&per_page=100")
+          
+          echo "${ISSUE_DATA}" > /tmp/new_issues.json
+          
+          # Sub-Agent starten
+          OPENCLAW_GATEWAY="${{ secrets.OPENCLAW_GATEWAY }}"
+          OPENCLAW_TOKEN="${{ secrets.OPENCLAW_TOKEN }}"
+          
+          echo "Sending issues to sub-agent for triage..."
+          # Hier würde der Agent-Aufruf stehen
+          # curl -X POST "${OPENCLAW_GATEWAY}/api/agents/runwayhub/triage/issues" \
+          #   -H "Authorization: Bearer ${OPENCLAW_TOKEN}" \
+          #   -d @/tmp/new_issues.json
+
+      # 4. Log-Eintrag
+      - name: Log to GitHub Pages
+        run: |
+          LOG_FILE="docs/deployment/issues_watcher.log"
+          
+          if [ -f "$LOG_FILE" ]; then
+            echo "## Issues Watcher $(date '+%Y-%m-%d %H:%M:%S')" >> "$LOG_FILE"
+            echo "" >> "$LOG_FILE"
+          else
+            echo "$LOG_FILE" > "$LOG_FILE"
+          fi
+
+          echo "Issues werden täglich in der Dokumentation geloggt."
