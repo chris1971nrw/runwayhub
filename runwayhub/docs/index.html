@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RunwayHub - Virtual Airline Manager</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .logo {
+            font-size: 3.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            font-size: 1.3em;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .feature-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+        
+        .feature-desc {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stat-card {
+            text-align: center;
+            color: white;
+        }
+        
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        .latest-news {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+        
+        .news-item {
+            padding: 15px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 15px;
+            background: #f8f9ff;
+        }
+        
+        .news-date {
+            font-size: 0.8em;
+            color: #888;
+        }
+        
+        .news-title {
+            font-weight: 600;
+            margin: 5px 0;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: white;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5em;
+            }
+            .tagline {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">✈️ RunwayHub</div>
+            <div class="tagline">Your Virtual Airline Manager Software</div>
+            <a href="https://github.com/chris1971nrw/runwayhub" class="btn" style="margin-top: 20px;">
+                📁 View Source Code
+            </a>
+        </header>
+
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <div class="feature-title">Multi-Virtual Airlines</div>
+                <div class="feature-desc">
+                    Verwalten Sie mehrere Virtual Airlines mit OpenAIP Integration und vollautomatisierter Flugplanung.
+                </div>
+                <a href="/docs/features.md" class="btn">Mehr erfahren →</a>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <div class="feature-title">OpenAIP Integration</div>
+                <div class="feature-desc">
+                    Integrierte OpenAIP API für Echtzeit-Flughafen-, Wegpunkt- und Navigationshilfe-Daten.
+                </div>
+                <a href="/docs/openaip.md" class="btn">API Dokumentationen →</a>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <div class="feature-title">Rollen & Rechte</div>
+                <div class="feature-desc">
+                    Vollständige RBAC-System mit Admin, Staff, Pilot und Gast Rollen für sichere Multi-User-Bereitstellung.
+                </div>
+                <a href="/docs/features.md#roles-rolerechte" class="btn">Rollen sehen →</a>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🌍</div>
+                <div class="feature-title">Multi-Sprachen</div>
+                <div class="feature-desc">
+                    Vollständige Deutsch/Englisch-Unterstützung mit übersetzungs-freundlichem System.
+                </div>
+                <a href="/docs/i18n.md" class="btn">i18n Dokumentationen →</a>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <div class="feature-title">Statistiken</div>
+                <div class="feature-desc">
+                    Live-Statistiken, Leaderboards und Pilot-Reports (PIREPs) für flotten- und flugmanagement.
+                </div>
+                <a href="/docs/features.md#statistik" class="btn">Statistik-Docs →</a>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <div class="feature-title">Sicherheit</div>
+                <div class="feature-desc">
+                    DSGVO-konform, SSL/TLS-Encryptung, Input-Validation und Session-Security für sicheres Hosting.
+                </div>
+                <a href="/docs/security.md" class="btn">Security Guide →</a>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value">🔧</div>
+                <div class="stat-label">PHP 8.2+</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">📦</div>
+                <div class="stat-label">MySQL/MariaDB</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">🌐</div>
+                <div class="stat-label">REST API</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">✅</div>
+                <div class="stat-label">Open Source</div>
+            </div>
+        </div>
+
+        <div class="latest-news">
+            <h2 class="section-title">📢 Letzte Updates</h2>
+            
+            <div class="news-item">
+                <div class="news-date">🕐 Heute</div>
+                <div class="news-title">🚀 OpenAIP Integration vervollständigt!</div>
+                <p>Vollständige API für Flughäfen, Wegpunkte, Luftwege und Navigationshilfen.</p>
+            </div>
+
+            <div class="news-item">
+                <div class="news-date">🕐 Gestern</div>
+                <div class="news-title">🔒 Demo-User für Haupt-System erstellt</div>
+                <p>Demo-User (Admin, Pilot, Guest) direkt in der Haupt-Datenbank verfügbar.</p>
+            </div>
+
+            <div class="news-item">
+                <div class="news-date">🕐 Letztes Update</div>
+                <div class="news-title">📚 Dokumentation aktualisiert</div>
+                <p>Alle Dokumentationsebenen aktualisiert mit Architektur- und Tech-Notes.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>
+                <strong>RunwayHub</strong> - Virtual Airline Manager Software<br>
+                <a href="https://github.com/chris1971nrw/runwayhub">GitHub Repository</a> · 
+                <a href="/docs/architecture.md">Architektur</a> · 
+                <a href="/docs/features.md">Features</a> · 
+                <a href="/docs/roadmap.md">Roadmap</a>
+            </p>
+            <p style="margin-top: 15px; opacity: 0.7;">
+                © 2026 RunwayHub. Open Source - Mit ❤️ von Chris
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
