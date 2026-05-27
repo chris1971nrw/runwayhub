@@ -1,0 +1,35 @@
+{
+    "short_name": "RunwayHub App",
+    "name": "RunwayHub - Virtual Airline Manager",
+    "description": "Professional Virtual Airline Management Software",
+    "icons": [
+        {
+            "src": "assets/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "assets/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#1a1a2e",
+    "theme_color": "#667eea",
+    "categories": ["business", "travel"],
+    "scope": "/",
+    "prefer_related_applications": false,
+    "related_applications": [],
+    "orientation": "portrait-primary",
+    "screenshots": [
+        {
+            "src": "assets/screenshot-iphone.png",
+            "sizes": "1179x2532",
+            "type": "image/png",
+            "label": "iPhone Home",
+            "platform": "iphone"
+        }
+    ]
+}

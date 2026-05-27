@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Widget - RunwayHub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 2rem;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .weather-display {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            margin-bottom: 2rem;
+        }
+
+        .airport-input {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        .airport-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        button {
+            width: 100%;
+            padding: 1rem;
+            background: #ff9800;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            color: #1a1a1a;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background: #ffb74d;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            background: #757575;
+            cursor: not-allowed;
+        }
+
+        .weather-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .weather-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .weather-item .value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .weather-item .label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .error {
+            background: rgba(244, 67, 54, 0.9);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .weather-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌤️ Weather Widget</h1>
+        
+        <div class="weather-display">
+            <input 
+                type="text" 
+                id="airport"
+                class="airport-input"
+                placeholder="Enter airport code (e.g., DUS, FRA, KJFK)"
+                value="DUS"
+            />
+            
+            <button id="getWeather" onclick="getWeather()">
+                Get Current Weather
+            </button>
+            
+            <div id="loading" class="loading" style="display: none;">
+                Loading weather data...
+            </div>
+            
+            <div id="weather-info" class="weather-info" style="display: none;">
+                <!-- Weather data will be inserted here -->
+            </div>
+            
+            <div id="error" class="error" style="display: none;"></div>
+        </div>
+        
+        <div class="weather-display">
+            <h2>ℹ️ About This Widget</h2>
+            <p style="margin-top: 1rem; opacity: 0.9;">
+                This weather widget displays real-time weather data for airports worldwide.
+                Uses the Open-Meteo API with caching for optimal performance.
+            </p>
+            <ul style="margin-top: 1rem; opacity: 0.9;">
+                <li>✅ Airport code input</li>
+                <li>✅ Real-time weather display</li>
+                <li>✅ Responsive design</li>
+                <li>✅ Error handling</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Weather widget
+        async function getWeather() {
+            const airport = document.getElementById('airport').value.trim().toUpperCase();
+            const loading = document.getElementById('loading');
+            const info = document.getElementById('weather-info');
+            const error = document.getElementById('error');
+            const button = document.getElementById('getWeather');
+            
+            // Validate airport code
+            if (!airport || airport.length !== 4) {
+                showError('Please enter a valid 4-letter airport code (e.g., DUS, FRA, KJFK)');
+                return;
+            }
+            
+            // Show loading
+            loading.style.display = 'block';
+            info.style.display = 'none';
+            error.style.display = 'none';
+            button.disabled = true;
+            
+            try {
+                // Fetch weather data
+                const response = await fetch(`http://localhost/api/weather.php?airport=${airport}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayWeather(data.data);
+                } else {
+                    showError(data.error || 'Weather data not available');
+                }
+            } catch (error) {
+                showError('Unable to connect to the weather API. Please check your connection.');
+            } finally {
+                loading.style.display = 'none';
+                button.disabled = false;
+            }
+        }
+        
+        function displayWeather(data) {
+            const info = document.getElementById('weather-info');
+            
+            info.innerHTML = `
+                <div class="weather-item">
+                    <div class="value">${data.temperature}°C</div>
+                    <div class="label">Temperature</div>
+                </div>
+                <div class="weather-item">
+                    <div class="value">${data.conditions}</div>
+                    <div class="label">Conditions</div>
+                </div>
+                <div class="weather-item">
+                    <div class="value">${data.wind_speed} km/h</div>
+                    <div class="label">Wind Speed</div>
+                </div>
+                <div class="weather-item">
+                    <div class="value">${data.humidity}%</div>
+                    <div class="label">Humidity</div>
+                </div>
+            `;
+            info.style.display = 'grid';
+        }
+        
+        function showError(message) {
+            const error = document.getElementById('error');
+            error.textContent = message;
+            error.style.display = 'block';
+        }
+        
+        // Allow Enter key to trigger
+        document.getElementById('airport').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                getWeather();
+            }
+        });
+    </script>
+</body>
+</html>

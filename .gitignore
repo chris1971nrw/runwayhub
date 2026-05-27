@@ -1,0 +1,54 @@
+# Environment files
+.env
+.env.local
+.env.production
+
+# Composer
+/vendor/
+composer.lock
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log
+
+# Testing
+coverage.xml
+coverage/
+
+# Build
+/public/build/
+/public/dist/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Database backups
+*.sql.gz
+*.sql.backup
+
+# OS files
+Thumbs.db
+
+# Secrets
+*.key
+*.pem
+
+# Deployment
+public_html/
+
+# Node modules
+node_modules/
+
+# RunwayHub subproject
+runwayhub/.env
+runwayhub/.env.example
+runwayhub/.gitkeep

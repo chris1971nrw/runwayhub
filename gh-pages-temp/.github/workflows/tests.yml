@@ -1,0 +1,83 @@
+name: PHPUnit Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: PHPUnit Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: testing
+          MYSQL_DATABASE: runwayhub_test
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+        ports:
+          - 3306:3306/tcp
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: dom, curl, mbstring, xml, ctype, json, mysql, pdo_mysql
+          tools: composer
+      
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress
+      
+      - name: Create test database
+        run: |
+          mysql -h 127.0.0.1 -P 3306 -uroot -proot -e "CREATE DATABASE IF NOT EXISTS runwayhub_test DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+      
+      - name: Run PHPUnit tests
+        run: ./vendor/bin/phpunit --coverage-text --testdox
+        env:
+          APP_ENV: testing
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: runwayhub_test
+          DB_USERNAME: root
+          DB_PASSWORD: testing
+      
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage.xml
+          flags: tests
+          name: PHPUnit Coverage
+      
+      - name: Run security scan
+        uses: codeql/codeql-action@v2
+        with:
+          initialize: |
+            args: --format=json --output=results.json
+      
+      - name: Check documentation
+        run: |
+          echo "=== Documentation Check ==="
+          ls -la docs/
+          echo "Docs count: $(ls docs/*.md | wc -l)"
+        if: success()
+      
+      - name: Upload documentation stats
+        uses: actions/upload-artifact@v3
+        with:
+          name: documentation-stats
+          path: docs/
+        if: success()

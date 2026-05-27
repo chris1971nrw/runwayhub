@@ -1,0 +1,6 @@
+Contact: mailto:security@runwayhub.github.io
+Acknowledgments: https://github.com/chris1971nrw/runwayhub/security
+Canonical: https://runwayhub.github.io/security.md
+Encryption: https://keybase.io/runwayhub
+Preferred-Languages: en, de
+Policy: https://runwayhub.github.io/docs/security.md

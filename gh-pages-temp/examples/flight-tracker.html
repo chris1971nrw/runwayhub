@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Tracking Widget - RunwayHub | Real-time Flight Status API</title>
+    <meta name="description" content="Interaktiver Flight Tracking Widget für RunwayHub. Verfolgen Sie Flugstatus in Echtzeit mit FlightAware API Integration. Echtzeit-Tracking, Airline-Fluglisten und Live-Status-Updates.</meta>
+    <meta name="keywords" content="Flight Tracking, FlightAware, Live Flight Status, Flight Widget, RunwayHub, Flight API, Flight Monitor, Aviation API</meta>
+    <meta property="og:title" content="Flight Tracking Widget - RunwayHub">
+    <meta property="og:description" content="Real-time flight tracking with FlightAware API integration. Track flights, airlines, and flight status in real-time.</meta>
+    <meta property="og:image" content="https://runwayhub.github.io/examples/flight-tracker.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Flight Tracking Widget - RunwayHub">
+    <meta name="twitter:description" content="Real-time flight tracking with FlightAware API integration.</meta>
+    <meta name="twitter:image" content="https://runwayhub.github.io/examples/flight-tracker.png">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:60">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPageElement",
+        "name": "Flight Tracking Widget",
+        "description": "Real-time flight tracking widget powered by FlightAware API",
+        "applicationCategory": "BusinessApplication",
+        "softwareVersion": "2.0.0",
+        "operatingSystem": "Web Browser"
+    }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            min-height: 100vh;
+            padding: 2rem;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .flight-display {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .flight-display:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(33, 150, 243, 0.3);
+        }
+        
+        /* Loading animation */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            font-size: 1.2rem;
+            opacity: 0.8;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        .airline-badge {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .airline-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .airline-badge:hover::before {
+            left: 100%;
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        button {
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .btn-primary {
+            background: #2196f3;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #42a5f5;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .flight-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .flight-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .flight-item .value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .flight-item .label {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .flight-status {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+
+        .status-scheduled {
+            background: #4caf50;
+        }
+
+        .status-enroute {
+            background: #2196f3;
+        }
+
+        .status-landed {
+            background: #9c27b0;
+        }
+
+        .status-delayed {
+            background: #ff9800;
+        }
+
+        .status-cancelled {
+            background: #f44336;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .error {
+            background: rgba(244, 67, 54, 0.9);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .airlines {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .airline-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .airline-badge:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .airline-badge:hover::before {
+            content: '↗ ';
+        }
+
+        @media (max-width: 768px) {
+            .input-group {
+                grid-template-columns: 1fr;
+            }
+            .flight-info {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✈️ Flight Tracking Widget</h1>
+        
+        <div class="flight-display">
+            <div class="input-group">
+                <input 
+                    type="text" 
+                    id="flight"
+                    placeholder="Flight number (e.g., AA123, DL456)"
+                />
+                <input 
+                    type="text" 
+                    id="airline"
+                    placeholder="Airline (e.g., AA, DL, UA) - optional"
+                />
+            </div>
+            
+            <button id="getFlight" class="btn-primary" onclick="getFlight()">
+                Track Flight
+            </button>
+            <button id="getAirline" class="btn-secondary" onclick="getAirlineFlights()">
+                Get Airline Flights
+            </button>
+            
+            <div id="loading" class="loading" style="display: none;">
+                Loading flight data...
+            </div>
+            
+            <div id="flight-info" class="flight-info" style="display: none;">
+                <!-- Flight data will be inserted here -->
+            </div>
+            
+            <div id="airline-info" class="flight-info" style="display: none;">
+                <!-- Airline flights will be inserted here -->
+            </div>
+            
+            <div id="error" class="error" style="display: none;"></div>
+        </div>
+        
+        <div class="flight-display">
+            <h2>ℹ️ About This Widget</h2>
+            <p style="margin-top: 1rem; opacity: 0.9;">
+                Track flights in real-time with this interactive widget.
+                Supports major airlines worldwide.
+            </p>
+            <ul style="margin-top: 1rem; opacity: 0.9;">
+                <li>✅ Real-time flight tracking</li>
+                <li>✅ Airline flight lists</li>
+                <li>✅ Responsive design</li>
+                <li>✅ Status indicators</li>
+            </ul>
+        </div>
+        
+        <div class="flight-display">
+            <h2>🔍 Popular Airlines</h2>
+            <div class="airlines" id="popular-airlines">
+                <!-- Airlines will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Popular airlines list
+        const popularAirlines = ['AA', 'DL', 'UA', 'BA', 'LH', 'AF', 'KL', 'IB', 'SQ', 'EK'];
+        
+        // Load popular airlines
+        document.getElementById('popular-airlines').innerHTML = popularAirlines.map(airline => 
+            `<span class="airline-badge" onclick="getAirlineFlights('${airline}')">${airline}</span>`
+        ).join('');
+        
+        async function getFlight() {
+            const flight = document.getElementById('flight').value.trim();
+            const loading = document.getElementById('loading');
+            const info = document.getElementById('flight-info');
+            const error = document.getElementById('error');
+            const button = document.getElementById('getFlight');
+            
+            if (!flight) {
+                showError('Please enter a flight number');
+                return;
+            }
+            
+            loading.style.display = 'block';
+            info.style.display = 'none';
+            error.style.display = 'none';
+            button.disabled = true;
+            
+            try {
+                const response = await fetch(`http://localhost/api/flightaware.php?flight=${flight}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayFlight(data.flight);
+                } else {
+                    showError(data.error || 'Flight not found');
+                }
+            } catch (error) {
+                showError('Unable to connect to the flight tracking API');
+            } finally {
+                loading.style.display = 'none';
+                button.disabled = false;
+            }
+        }
+        
+        async function getAirlineFlights(airline) {
+            if (!airline) {
+                showError('Please enter an airline code');
+                return;
+            }
+            
+            const loading = document.getElementById('loading');
+            const info = document.getElementById('airline-info');
+            const error = document.getElementById('error');
+            const button = document.getElementById('getAirline');
+            
+            loading.style.display = 'block';
+            document.getElementById('flight-info').style.display = 'none';
+            info.style.display = 'none';
+            error.style.display = 'none';
+            button.disabled = true;
+            
+            try {
+                const response = await fetch(`http://localhost/api/flightaware.php?airline=${airline}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayAirlineFlights(data);
+                } else {
+                    showError(data.error || 'Unable to retrieve airline flights');
+                }
+            } catch (error) {
+                showError('Unable to connect to the flight tracking API');
+            } finally {
+                loading.style.display = 'none';
+                button.disabled = false;
+            }
+        }
+        
+        function displayFlight(flight) {
+            const info = document.getElementById('flight-info');
+            const statusClass = `status-${flight.status.toLowerCase()}`;
+            
+            info.innerHTML = `
+                <div class="flight-item">
+                    <div class="value">${flight.origin} → ${flight.destination}</div>
+                    <div class="label">Route</div>
+                </div>
+                <div class="flight-item">
+                    <div class="value">${flight.airline}</div>
+                    <div class="label">Airline</div>
+                </div>
+                <div class="flight-item">
+                    <div class="value">${formatTime(flight.scheduled.departure)}</div>
+                    <div class="label">Scheduled</div>
+                </div>
+            `;
+            
+            const statusEl = document.createElement('div');
+            statusEl.className = `flight-status ${statusClass}`;
+            statusEl.textContent = flight.status;
+            info.prepend(statusEl);
+            
+            info.style.display = 'grid';
+        }
+        
+        function displayAirlineFlights(data) {
+            const info = document.getElementById('airline-info');
+            
+            if (!data.flights || data.flights.length === 0) {
+                showError('No flights available for this airline');
+                return;
+            }
+            
+            info.innerHTML = data.flights.map(flight => `
+                <div class="flight-item">
+                    <div class="value">${flight.flightNumber}</div>
+                    <div class="label">${flight.origin} → ${flight.destination}</div>
+                </div>
+            `).join('');
+            
+            info.style.display = 'grid';
+        }
+        
+        function formatTime(time) {
+            if (!time) return 'TBA';
+            return new Date(time).toLocaleTimeString();
+        }
+        
+        function showError(message) {
+            const error = document.getElementById('error');
+            error.textContent = message;
+            error.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
