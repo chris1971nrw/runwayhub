@@ -63,7 +63,7 @@ Besuchen Sie das Live-Demo: <a href="https://runwayhub.github.io">https://runway
 
 ## 🎯 Kernfunktionen
 
-### Flugmanagement
+### Flight Management
 
 - **Multi-Airline-Unterstützung**
   - Kompatibel mit mehreren Airlines
@@ -79,14 +79,17 @@ Besuchen Sie das Live-Demo: <a href="https://runwayhub.github.io">https://runway
   - TAF-Prognosen
   - Wetterwarnungen und Alerts
 
-### Virtual Air Traffic Controller (VA) Management
+### Virtual Airline Management (VA)
 
-- **VA-Erstellung** - Neue Virtual Air Traffic Controller erstellen
-- **Verbindungs-Management** - Verbinden Ihrer VAs mit dem System
-- **Admin-Panel** - Volle Verwaltungsinterface
-- **Sichere Sitzungen** - HttpOnly, Secure, SameSite-Cookies
+- **Airline-Management** - Verwaltung Ihrer Fluggesellschaften
+- **Flugmanagement** - Flugplanung und Buchung
+- **Flottenmanagement** - Flugzeugflotte verwalten
+- **Passagiermanagement** - Reservationen und Check-in
+- **Statistik & Reports** - Umfassende Analysen
+- **Wetterintegration** - METAR/TAF-Daten
+- **ACARS-Integration** - Eigene ACARS-Technologie
 
-### API und Integration
+### API & Integration
 
 - **40+ RESTful Endpoints** - Vollständige API mit JSON-Antworten
 - **32 Controller** - CRUD-Operationen für alle Entitäten
