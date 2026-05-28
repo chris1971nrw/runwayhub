@@ -1,33 +1,33 @@
-# RunwayHub - Free Visual Air Traffic Controller Software
+# RunwayHub - Kostenloser Visualer Fluglotsen-Software
 
-**Modern, Open Source, Multi-Airline Flight Management System**
+**Modernes, Open Source, Multi-Airline Fluggesellschaft-Management-System**
 
 ![Version](https://img.shields.io/badge/version-2.0.3-blue.svg)
 ![PHP](https://img.shields.io/badge/PHP-8.3+-green.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Security](https://img.shields.io/badge/security-hardened-brightgreen.svg)
+![Sicherheit](https://img.shields.io/badge/sicherheit-gehärtet-brightgreen.svg)
 ![SEO](https://img.shields.io/badge/SEO-97.5%25-green.svg)
 
 ---
 
-## 📋 Overview
+## 📋 Überblick
 
-RunwayHub is a **free, open-source** Visual Air Traffic Controller hub designed for FBOs, airports, and aviation professionals. Built with modern PHP 8.3+, it provides comprehensive flight management, weather integration, and visual air traffic controller (VA) management.
+RunwayHub ist eine **kostenlose, Open Source**-Fluglotsen-Station für FBOs, Flughäfen und Luftfahrtprofessionals. Entwickelt mit modernem PHP 8.3+, bietet es umfassende Flugmanagement, Wetterintegration und Visual Air Traffic Controller (VA)-Verwaltung.
 
-### Key Features
+### Hauptmerkmale
 
-- ✅ **Multi-Airline Support** - Compatible with multiple airlines and systems
-- ✅ **Live Flight Tracking** - Real-time flight status via FlightAware API
-- ✅ **Weather API** - METAR/TAF weather data with caching
-- ✅ **VA Management** - Create, manage, and connect Visual Air Traffic Controllers
-- ✅ **Statistics & Reports** - Comprehensive flight analytics
-- ✅ **PIREP System** - Pilot weather reports integration
-- ✅ **Leaderboards** - Track top performers
-- ✅ **Secure** - Industry-standard security (bcrypt, CSRF, XSS prevention)
+- ✅ **Multi-Airline-Unterstützung** - Kompatibel mit mehreren Airlines und Systemen
+- ✅ **Live-Flugüberwachung** - Echtzeitflugstatus via FlightAware API
+- ✅ **Wetter-API** - METAR/TAF-Wetterdaten mit Caching
+- ✅ **VA-Management** - Erstellen, verwalten und Verbinden von Fluglotsen
+- ✅ **Statistik & Berichte** - Umfassende Fluganalysen
+- ✅ **PIREP-System** - Integration von Pilotenwetterberichten
+- ✅ **Leaderboards** - Verfolgen der Top-Performer
+- ✅ **Sicher** - Branchensicherheitsstandards (bcrypt, CSRF, XSS-Prävention)
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Schnellstart
 
 ### Installation
 
@@ -36,7 +36,7 @@ cd runwayhub
 php -S localhost:8000 -t public
 ```
 
-### Demo Access
+### Demo-Zugriff
 
 ```
 Admin:    demo_admin     / admin123
@@ -44,97 +44,97 @@ Pilot:    demo_pilot     / pilot123
 Guest:    demo_guest     / guest123
 ```
 
-Visit <a href="https://runwayhub.github.io">https://runwayhub.github.io</a>
+Besuchen Sie <a href="https://runwayhub.github.io">https://runwayhub.github.io</a>
 
 ---
 
-## 📖 Documentation
+## 📖 Dokumentation
 
-- [**Architecture**](runwayhub/docs/architecture.md) - System design
-- [**Features**](runwayhub/docs/features.md) - Complete feature list
-- [**Database**](runwayhub/docs/database.md) - Schema documentation
-- [**Deployment**](runwayhub/docs/deployment.md) - Production setup
-- [**Weather API**](runwayhub/docs/weather-api.md) - METAR/TAF integration
-- [**FlightAware**](runwayhub/docs/flightaware.md) - Flight tracking
-- [**Security**](runwayhub/docs/security.md) - Security hardening
-- [**Performance**](runwayhub/docs/performance-guide.md) - Optimization
+- [**Architektur**](runwayhub/docs/architecture.md) - Systemdesign
+- [**Funktionen**](runwayhub/docs/features.md) - vollständige Feature-Liste
+- [**Datenbank**](runwayhub/docs/database.md) - Schema-Dokumentation
+- [**Deployment**](runwayhub/docs/deployment.md) - Produktionsaufbau
+- [**Wetter-API**](runwayhub/docs/weather-api.md) - METAR/TAF-Integration
+- [**FlightAware**](runwayhub/docs/flightaware.md) - Flugüberwachung
+- [**Sicherheit**](runwayhub/docs/security.md) - Sicherheits-Härtung
+- [**Performance**](runwayhub/docs/performance-guide.md) - Optimierung
 
 ---
 
-## 🎯 Features
+## 🎯 Funktionen
 
-### Core
+### Kern
 
-- **Multi-Airline Support**
-  - Compatible with multiple airlines
-  - Unified data interface
+- **Multi-Airline-Unterstützung**
+  - Kompatibel mit mehreren Airlines
+  - Vereinheitlichte Schnittstelle
   
-- **Live Flight Tracking**
-  - Real-time flight status
-  - Flight history tracking
-  - Arrival/departure boards
+- **Live-Flugüberwachung**
+  - Echtzeitflugstatus
+  - Flugverlauf
+  - Ankunfts- und Abflugbretter
   
-- **Weather Integration**
-  - METAR weather reports
-  - TAF forecasts
-  - Weather alerts
+- **Wetterintegration**
+  - METAR-Wetterberichte
+  - TAF-Prognosen
+  - Wetterwarnungen
 
-### VA Management
+### VA-Management
 
-- **VA Creation** - Create new controllers
-- **Connection Management** - Connect VAs to your system
-- **Admin Panel** - Full administration interface
-- **Secure Sessions** - HttpOnly, Secure cookies
+- **VA-Erstellung** - Neue Fluglotsen erstellen
+- **Verbindungs-Management** - Verbinden Ihrer VAs mit dem System
+- **Admin-Panel** - Volle Verwaltungsinterface
+- **Sichere Sitzungen** - HttpOnly, Sicher, SameSite-Cookies
 
 ### API
 
 - **40+ Endpoints** - RESTful API
-- **32 Controllers** - Full CRUD operations
-- **Rate Limiting** - Protect against abuse
-- **Documentation** - Complete API docs
+- **32 Controller** - Volle CRUD-Operationen
+- **Ratenbegrenzung** - Schutz vor Missbrauch
+- **Dokumentation** - Vollständige API-Docs
 
 ---
 
-## 🔧 Technical Stack
+## 🔧 Technische Stack
 
 - **PHP:** 8.3.6+
-- **Database:** SQLite (15 tables)
-- **Security:** bcrypt (cost=12), CSRF, XSS prevention
-- **Caching:** TTL-based caching (5-300s)
-- **API:** RESTful architecture
-- **Static HTML:** Fast load times, SEO-optimized
+- **Datenbank:** SQLite (15 Tabellen)
+- **Sicherheit:** bcrypt (Kosten=12), CSRF, XSS-Prävention
+- **Caching:** TTL-basiertes Caching (5-300s)
+- **API:** RESTful-Architektur
+- **Statische HTML:** Schnelle Ladezeiten, SEO-optimiert
 
 ---
 
-## 🛡️ Security
+## 🛡️ Sicherheit
 
-RunwayHub includes enterprise-grade security:
+RunwayHub beinhaltet enterprise-grade Sicherheit:
 
-- **Password Hashing:** bcrypt (cost=12)
-- **CSRF Protection:** Token-based
-- **XSS Prevention:** Output escaping
-- **SQL Injection:** Prepared statements
-- **Session Security:** HttpOnly, Secure, SameSite cookies
-- **Rate Limiting:** DDoS protection
-- **CSP:** Content Security Policy headers
+- **Passwort-Hashing:** bcrypt (Kosten=12)
+- **CSRF-Schutz:** Token-basiert
+- **XSS-Prävention:** Ausgabe-escaping
+- **SQL-Injection:** Préparierte Statements
+- **Sitzungssicherheit:** HttpOnly, Secure, SameSite-Cookies
+- **Ratenbegrenzung:** DDoS-Schutz
+- **CSP:** Content Security Policy Header
 
-See [Security Documentation](runwayhub/docs/security.md) for details.
-
----
-
-## 📊 Statistics
-
-- **PHP Files:** 144 (all syntax-valid)
-- **API Endpoints:** 40+
-- **Database Tables:** 15
-- **Documentation:** 54 files
-- **Lines of Code:** ~65,000
+Siehe [Sicherheitsdokumentation](runwayhub/docs/security.md) für Details.
 
 ---
 
-## 🎓 License
+## 📊 Statistik
 
-MIT License - Free and open source.
+- **PHP-Dateien:** 144 (alle syntaktisch gültig)
+- **API-Endpoints:** 40+
+- **Datenbanktabellen:** 15
+- **Dokumentation:** 54 Dateien
+- **Zeilen Code:** ~65.000
+
+---
+
+## 🎓 Lizenz
+
+MIT License - Kostenlos und Open Source.
 
 ```
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -149,31 +149,31 @@ copies of the Software.
 ## 👥 Community
 
 - **GitHub:** [@chris1971nrw](https://github.com/chris1971nrw)
-- **Issues:** [Report Issues](https://github.com/chris1971nrw/runwayhub/issues)
-- **Discussions:** [Start a Discussion](https://github.com/chris1971nrw/runwayhub/discussions)
+- **Issues:** [Meldung von Fehlern](https://github.com/chris1971nrw/runwayhub/issues)
+- **Diskussionen:** [Starten einer Diskussion](https://github.com/chris1971nrw/runwayhub/discussions)
 - **Email:** demo@airline.com
 
 ---
 
 ## 📞 Support
 
-Need help?
+Benötigen Sie Hilfe?
 
 - **Email:** demo@airline.com
-- **GitHub Issues:** [Open an Issue](https://github.com/chris1971nrw/runwayhub/issues)
-- **Discussions:** [Join Discussions](https://github.com/chris1971nrw/runwayhub/discussions)
+- **GitHub Issues:** [Fehler melden](https://github.com/chris1971nrw/runwayhub/issues)
+- **Diskussionen:** [Diskussionen beitreten](https://github.com/chris1971nrw/runwayhub/discussions)
 
 ---
 
-## 🚀 Why RunwayHub?
+## 🚀 Warum RunwayHub?
 
-- **Free:** No licensing fees
-- **Open Source:** Full source code available
-- **Self-Hosted:** Complete control over your data
-- **Privacy:** Data stays on your server
-- **Multi-Airline:** Works with multiple airlines
-- **Live Data:** Real-time flight tracking
-- **Secure:** Enterprise-grade security
+- **Kostenlos:** Keine Lizenzgebühren
+- **Open Source:** Vollständiger Quellcode verfügbar
+- **Selbstgehostet:** Vollständige Kontrolle über Ihre Daten
+- **Datenschutz:** Daten bleiben auf Ihrem Server
+- **Multi-Airline:** Funktioniert mit mehreren Airlines
+- **Live-Daten:** Echtzeitflugüberwachung
+- **Sicher:** Enterprise-grade Sicherheit
 
 ---
 
