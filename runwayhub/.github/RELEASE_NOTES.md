@@ -4,6 +4,62 @@
 
 Wir freuen uns, die erste Version von **RunwayHub** zu präsentieren!
 
+### ✨ Neue Funktionen & Verbesserungen
+
+* **[Flugmanagement]:** Vollständige CRUD-Operationen für Flüge mit ACARS-Integration für Echtzeit-Status.
+* **[Flottenmanagement]:** Flugzeugverwaltung mit Wartungsplanung und Inspektionen.
+* **[Pilotenmanagement]:** Piloten-Verzeichnis mit Zertifizierungen, Deaktivierung und Zuflugs-Zuweisung.
+* **[Buchungsverwaltung]:** Buchungen erstellen, Verfügbarkeit prüfen, Passagier-Daten und Sitzplatz-Management.
+* **[ACARS-Integration]:** Eigene ACARS-Technologie für Echtzeit-Flugstatus statt FlightAware API.
+* **[Wetter-API]:** OpenMeteo Integration für Wetterdaten, METAR/TAF-Daten und Wetter-Cache.
+* **[Admin-Management]:** Admin-Account mit Passwort-Änderung, Login-Logging und Airline-Zugriff.
+* **[Update-Management]:** Update-Checker mit GitHub Releases, Update-Nachricht und automatisches Update.
+* **[Issue-Reporting]:** Issue-Reporting mit Dashboard-Modal und automatischem Logfile-Anhang.
+* **[Docker-Support]:** docker-compose.yml, Dockerfile und Container-Deployment.
+* **[Web-Installation]:** install.php für web-basierte Installation und Datenbank-Initialisierung.
+* **[API-Endpunkte]:** RESTful API mit Flight, Aircraft, Pilot, Booking und Admin Endpunkten.
+* **[Sicherheit]:** Passwort-Hashing, Login-Logging, Admin-Zugriffskontrolle, Rate Limiting und CORS-Konfiguration.
+* **[Vollständige Dokumentation]:** README.md, CHANGELOG.md, INSTALLATION.md, USER_HANDBUCH.md, DEPLOYMENT.md, README_DOCKER.md.
+* **[GitHub Actions]:** CI/CD Pipeline für Tests, Security-Audit und Deployment-Automatisierung.
+
+### 🐛 Fehlerbehebungen (Bugfixes)
+
+* **[index.php Routing]:** Fehler in index.php mit korrektem Controller-Routing (Controller-Name extrahiert aus Pfad).
+* **[Dashboard-Update-Nachricht]:** Update-Nachricht auf Dashboard nur für Admin sichtbar.
+* **[Issue-Reporting-Modal]:** Issue-Modal auf Dashboard mit Beschreibung-Feld und Submit-Button.
+* **[ACARSMockService]:** Mock-Daten für Tests und Entwicklung.
+* **[WeatherService-Caching]:** Wetter-Daten-Caching für 1 Stunde.
+* **[GitHubRelease-Caching]:** GitHub Release-Caching für 1 Stunde.
+* **[UpdateChecker-Caching]:** Update-Checker-Caching für 1 Stunde.
+* **[Database-Tables]:** Alle Tabellen erstellt und initialisiert (flights, aircrafts, pilots, bookings, etc.).
+* **[Security-Checks]:** Password-Hashing, Login-Logging, Admin-Zugriffskontrolle.
+
+### ⚠️ Wichtige Hinweise für das Upgrade
+
+* **Breaking Changes:** Keine Breaking Changes in dieser Version. Alle bestehenden Funktionen bleiben kompatibel.
+* **Migration:** Keine spezielle Migration erforderlich. System ist bereits auf v1.0.0 aktualisiert.
+* **Passwort-Änderung:** Admin-Passwort nach dem ersten Login ändern (Standard: admin123).
+* **HTTPS-Empfehlung:** Für Produktionssysteme HTTPS aktivieren.
+
+### 🛠️ Technische Details & Abhängigkeiten
+
+* **PHP:** 8.3.6+
+* **SQLite:** 3.39+
+* **Composer:** 2.0+
+* **Git:** 2.30+
+* **Docker:** (optional)
+* **OpenMeteo API:** Wetter-Daten
+* **GitHub API:** Releases und Issues
+* **SMTP:** (optional für Email-Bestätigungen)
+
+### 👥 Mitwirkende
+
+Ein großes Dankeschön an alle, die zu dieser Version beigetragen haben:
+
+* **Christoph Reuter** - Lead Developer
+* **OpenClaw Team** - Infrastruktur und Support
+* **Community** - Feedback und Testing
+
 ## ✨ Highlights
 
 ### ✈️ Flugmanagement
