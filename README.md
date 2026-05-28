@@ -1,12 +1,14 @@
-# 🤖 VA Manager - Virtual Assistant Manager System
+# 📊 RunwayHub Manager
 
-**Intelligentes Virtual Assistant Management-System für Automatisierung und Prozessoptimierung**
+**Professionelles Management-System für Betriebsabläufe und Prozesssteuerung**
+
+Einhaltiges Web-Management-System für die zentrale Steuerung von Betriebsprozessen, Reports und administrativen Aufgaben.
 
 ---
 
 ## 🎯 Über das Projekt
 
-VA Manager ist ein professionelles System zur Verwaltung und Automatisierung von Virtual Assistants. Es ermöglicht die zentrale Steuerung von KI-Assistenten, Workflow-Automatisierung und intelligente Prozessoptimierung.
+RunwayHub Manager ist ein umfassendes Management-System zur Verwaltung von Betriebsprozessen, Berichten und administrativen Aufgaben. Es bietet eine zentrale Schnittstelle für das Monitoring, die Reporting-Funktionen und die Prozessoptimierung ohne KI-Integration.
 
 ---
 
@@ -96,13 +98,14 @@ docker-compose up -d
 
 ## 🎯 Features
 
-- 🤖 **Virtual Assistant Management** - Zentrale Steuerung von KI-Assistenten
-- ⚙️ **Workflow-Automatisierung** - Intelligente Prozessabläufe
-- 📊 **Monitoring & Analytics** - Echtzeit-Einblicke in System-Metriken
-- 🔐 **Sicherheitsmodule** - Authentifizierung und Autorisierung
-- 🌐 **Multi-Language Support** - Vollständige Internationalisierung
-- 📈 **Performance-Optimierung** - Hohe Durchsatzraten
-- 🔄 **Auto-Updates** - Automatisierte Release-Deployments
+- 📊 **Dashboard** - Zentrale Übersicht über Betriebsstatus
+- 📈 **Reports** - Generierung von Berichten und Statistiken
+- ⚙️ **Konfiguration** - Zentrale System-Konfiguration
+- 📋 **Admin-Tools** - Verwaltungstools für Administratoren
+- 🔍 **Monitoring** - System-Monitoring und Health-Checks
+- 🔐 **Sicherheit** - Authentifizierung und Autorisierung
+- 🌐 **Multi-Language** - Vollständige Internationalisierung
+- 📧 **E-Mail** - E-Mail-Verwaltung und Versand
 
 ---
 
@@ -185,4 +188,4 @@ Für Fragen oder Issues bitte einen Issue im GitHub Repository erstellen.
 
 ## ⚠️ WICHTIG
 
-Dies ist ein **Virtual Assistant Management System** für Prozessautomatisierung und KI-Assistenten-Verwaltung. Es ist NICHT ein Flugverfolgungs- oder Buchungs-System.
+Dies ist ein **reines Management-System** für Betriebsabläufe, Reports und administrative Aufgaben. Es enthält **KEINE Virtual Assistant**, **KEINE KI-Funktionen** und **KEINE Flugverfolgung**. Es dient ausschließlich der zentralen Steuerung und Überwachung von Betriebsprozessen.
