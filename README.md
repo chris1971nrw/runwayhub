@@ -17,13 +17,13 @@ RunwayHub ist eine **kostenlose, Open Source**-Virtual Airline Manager Software,
 ### Hauptmerkmale
 
 - ✅ **Multi-Airline-Unterstützung** - Kompatibel mit mehreren Airlines und Systemen
-- ✅ **Live-Flugüberwachung** - Echtzeitflugstatus via FlightAware API
 - ✅ **Wetter-API** - METAR/TAF-Wetterdaten mit Caching
 - ✅ **VA-Management** - Erstellen, verwalten und Verbinden von Virtual Air Traffic Controllern
 - ✅ **Statistik & Berichte** - Umfassende Fluganalysen und Reporting
 - ✅ **PIREP-System** - Integration von Pilotenwetterberichten
 - ✅ **Leaderboards** - Verfolgen der Top-Performer
 - ✅ **Sicherheit** - Branchensicherheitsstandards (bcrypt, CSRF, XSS-Prävention)
+- ✅ **ACARS-Entwicklung** - Eigene ACARS-Technologie für Echtzeitflugstatus
 
 ---
 
@@ -55,7 +55,7 @@ Besuchen Sie das Live-Demo: <a href="https://runwayhub.github.io">https://runway
 - [**Datenbank**](runwayhub/docs/database.md) - SQLite-Schema-Dokumentation
 - [**Deployment**](runwayhub/docs/deployment.md) - Produktionsaufbau und Deployment
 - [**Wetter-API**](runwayhub/docs/weather-api.md) - METAR/TAF-Integration
-- [**FlightAware**](runwayhub/docs/flightaware.md) - Echtzeitflugüberwachung
+- [**ACARS**](runwayhub/docs/acars.md) - Eigene ACARS-Entwicklung für Echtzeitflugstatus
 - [**Sicherheit**](runwayhub/docs/security.md) - Sicherheits-Härtung und Best Practices
 - [**Performance**](runwayhub/docs/performance-guide.md) - Optimierung und Caching
 
@@ -69,8 +69,8 @@ Besuchen Sie das Live-Demo: <a href="https://runwayhub.github.io">https://runway
   - Kompatibel mit mehreren Airlines
   - Vereinheitlichte Dateninterface
   
-- **Live-Flugüberwachung**
-  - Echtzeitflugstatus
+- **Flugüberwachung**
+  - Eigene ACARS-Integration für Echtzeitflugstatus
   - Flugverlauf und Historie
   - Ankunfts- und Abflugbretter
   
@@ -178,7 +178,7 @@ Benötigen Sie Unterstützung?
 - **Selbstgehostet:** Vollständige Kontrolle über Ihre Daten
 - **Datenschutz:** Alle Daten bleiben auf Ihrem Server
 - **Multi-Airline:** Funktioniert mit mehreren Airlines gleichzeitig
-- **Live-Daten:** Echtzeitflugüberwachung via FlightAware API
+- **Eigene ACARS-Technologie** - Proprietäre Echtzeitflugstatus-Integration
 - **Sicher:** Enterprise-grade Sicherheitsstandards
 - **Flexibel:** Vollständige Anpassungsmöglichkeiten
 
@@ -190,6 +190,7 @@ Verfolgen Sie die neuesten Entwicklungen:
 
 - **Flugüberwachungs-Leitfaden**
 - **Wetterwarnungen**
+- **ACARS-Entwicklungs-Updates**
 - **Buchungstutorials**
 - **Luftfahrt-News**
 - **Nutzer-Tipps**
