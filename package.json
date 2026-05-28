@@ -1,0 +1,22 @@
+{
+  "name": "runwayhub",
+  "version": "2.0.3",
+  "description": "Virtual Airline Manager - RunwayHub",
+  "main": "index.js",
+  "scripts": {
+    "build": "cp -r public/* ./gh-pages/ 2>/dev/null || echo 'No gh-pages directory'",
+    "deploy": "npm run build && git push origin gh-pages",
+    "preview": "npx serve gh-pages -l 8080",
+    "clean": "rm -rf gh-pages && mkdir gh-pages"
+  },
+  "keywords": ["aviation", "flight", "airline", "management"],
+  "author": "RunwayHub Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chris1971nrw/runwayhub.git"
+  },
+  "devDependencies": {
+    "serve": "^14.2.0"
+  }
+}
