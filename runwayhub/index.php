@@ -33,11 +33,15 @@ if ($route = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
             $request = new RunwayHub\Core\Request($_SERVER['REQUEST_METHOD'], $_SERVER, $_GET, $_POST, $_FILES);
             $response = new RunwayHub\Core\Response();
             
-            // Create controller instance
-            if (class_exists($controllerClass)) {
-                $controller = new $controllerClass($request, $response, $db);
+            // Controller-Name extrahieren
+            $controllerName = str_replace('Controller', '', $controllerPath);
+            $controllerName = substr($controllerName, -8); // Nur den Klassen-Namen
+            
+            // Controller instanziiieren
+            if (class_exists($controllerName)) {
+                $controller = new $controllerName($request, $response, $db);
                 
-                // Route action
+                // Route action (Standard: index)
                 if (method_exists($controller, 'index')) {
                     $controller->index();
                 } elseif (method_exists($controller, 'create')) {
@@ -62,7 +66,7 @@ if ($route = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
                     $controller->getStats();
                 }
             }
-            }
+            
             exit;
         }
     }
@@ -70,8 +74,14 @@ if ($route = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
 
 // Frontend Routing (Router)
 if (strpos($_SERVER['REQUEST_URI'], '/router/') === 0) {
-    require_once __DIR__ . '/src/modules/Home/Views/dashboard.php';
-    exit;
+    $routerPath = __DIR__ . '/src/modules/Home/Views/' . $_SERVER['REQUEST_URI'];
+    $routerPath = substr($routerPath, strlen('/router/'));
+    
+    if (file_exists($routerPath)) {
+        header('Content-Type: text/html; charset=utf-8');
+        readfile($routerPath);
+        exit;
+    }
 }
 
 // Default: Dashboard
