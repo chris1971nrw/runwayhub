@@ -25,10 +25,15 @@
         .status.landed { background: #e6f4ea; color: #1e8e3e; }
         .status.delayed { background: #fce8e6; color: #c5221f; }
         .actions { margin-top: 20px; padding: 20px; text-align: center; }
-        .btn { display: inline-block; padding: 10px 20px; background: #1a73e8; color: white; text-decoration: none; border-radius: 4px; margin: 5px; }
+        .btn { display: inline-block; padding: 10px 20px; background: #1a73e8; color: white; text-decoration: none; border-radius: 4px; margin: 5px; cursor: pointer; border: none; font-size: 14px; }
         .btn:hover { background: #1557b0; }
         .btn-secondary { background: #5f6368; }
         .btn-danger { background: #da4453; }
+        .btn-success { background: #1e8e3e; }
+        .notification { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+        .notification h4 { margin-bottom: 5px; }
+        .notification .version { font-size: 1.5em; font-weight: bold; margin-bottom: 10px; }
+        .notification .timestamp { font-size: 0.8em; opacity: 0.9; }
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th, td { padding: 10px; text-align: left; border-bottom: 1px solid #eee; }
         th { background: #f5f5f5; }
@@ -41,28 +46,45 @@
     </div>
 
     <div class="container">
+        <!-- Update Notification (nur Admin) -->
+        <?php if (isset($update['isAdmin']) && $update['isAdmin'] && isset($update['updateAvailable']) && $update['updateAvailable']): ?>
+        <?php 
+            $latestVersion = $update['updateInfo']['latest_version'] ?? 'unknown';
+        ?>
+        <div class="notification">
+            <h4>📦 Version-Update verfügbar</h4>
+            <div class="version">Aktuell: APP_VERSION → Neu: <?php echo $latestVersion; ?></div>
+            <p>Ein Update ist verfügbar. Klicken Sie auf "Jetzt Update durchführen", um das System zu aktualisieren.</p>
+            <div style="margin-top: 10px;">
+                <a href="update-release.php" class="btn">Jetzt Update durchführen</a>
+                <a href="dashboard.php?clear_cache=1" class="btn btn-success">Cache leeren</a>
+            </div>
+            <div class="timestamp">Letzter Check: <?php echo $update['updateInfo']['last_check'] ?? 'unknown'; ?></div>
+        </div>
+        <?php endif; ?>
+
         <div class="dashboard">
             <div class="card">
                 <h3>📊 Aktive Flüge</h3>
-                <div class="value">5</div>
+                <div class="value"><?php echo isset($stats['flights']['total']) ? $stats['flights']['total'] : 0; ?></div>
                 <div class="label">Geplante Flüge heute</div>
             </div>
 
             <div class="card">
                 <h3>✈️ Flotte</h3>
-                <div class="value">4</div>
+                <div class="value"><?php echo isset($stats['fleet']['total']) ? $stats['fleet']['total'] : 0; ?></div>
                 <div class="label">Flugzeuge</div>
             </div>
 
             <div class="card">
                 <h3>👨‍✈️ Piloten</h3>
-                <div class="value">4</div>
+                <div class="value"><?php echo isset($stats['pilots']['total']) ? $stats['pilots']['total'] : 0; ?></div>
                 <div class="label">Aktive Piloten</div>
             </div>
 
             <div class="card">
                 <h3>🎫 Buchungen</h3>
-                <div class="value">0</div>
+                <div class="value"><?php echo isset($stats['bookings']['today']) ? $stats['bookings']['today'] : 0; ?></div>
                 <div class="label">Aktuelle Buchungen</div>
             </div>
         </div>

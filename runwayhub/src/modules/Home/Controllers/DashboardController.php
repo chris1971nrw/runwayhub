@@ -6,6 +6,7 @@ namespace RunwayHub\Modules\Home\Controllers;
 
 use RunwayHub\Core\Controller;
 use RunwayHub\Core\Database;
+use RunwayHub\Core\UpdateChecker;
 use RunwayHub\Core\Response;
 
 class DashboardController extends Controller
@@ -20,7 +21,23 @@ class DashboardController extends Controller
      */
     public function index(): Response
     {
-        // Flugstatistiken
+        // Admin-Update-Check (nur Admin)
+        $isAdmin = isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'];
+        
+        $updateInfo = [];
+        $updateAvailable = false;
+        
+        if ($isAdmin) {
+            $checker = new UpdateChecker();
+            $updateAvailable = $checker->check();
+            $updateInfo = $checker->getUpdateInfo();
+            
+            // Clear cache if requested
+            if (isset($_GET['clear_cache'])) {
+                $checker->clearCache();
+                $updateInfo = $checker->getUpdateInfo();
+            }
+        }
         $flightStats = [
             'total' => 0,
             'today' => 0,
@@ -97,6 +114,11 @@ class DashboardController extends Controller
                 'pilots' => $pilotStats,
                 'bookings' => $bookingStats,
                 'airlines' => $airlines,
+            ],
+            'update' => [
+                'isAdmin' => $isAdmin,
+                'updateAvailable' => $updateAvailable,
+                'updateInfo' => $updateInfo,
             ],
         ]), 200);
     }
