@@ -1,0 +1,65 @@
+#!/bin/bash
+
+# RunwayHub Release Build Script
+
+set -e
+
+VERSION="${1:-1.0.0}"
+DATE=$(date +%Y-%m-%d)
+
+echo "=== RunwayHub Release Build ==="
+echo "Version: $VERSION"
+echo "Date: $DATE"
+echo ""
+
+# Create release directory
+RELEASE_DIR="releases/v$VERSION"
+mkdir -p "$RELEASE_DIR"
+
+echo "📦 Creating release package..."
+
+# Package files
+for file in \
+    README.md \
+    SETUP.md \
+    release-notes.md \
+    .env.example \
+    docker-compose.yml \
+    LICENSE \
+    CONTRIBUTING.md \
+    CHANGELOG.md \
+    public/index.php \
+    login.php \
+    dashboard.php \
+    va-gruenden.php \
+    va-connect.php \
+    public/landing.php \
+    public/login.php \
+    public/va-gruenden.php \
+    public/va-connect.php \
+    public/va-admin.php \
+    config/database.php \
+    config/mqtt.php \
+    database/*.sqlite.schema \
+    api/Controller/*.php \
+    src/services/AcarsClient.php \
+    docs/*.md; do
+    
+    if [ -f "$file" ]; then
+        cp "$file" "$RELEASE_DIR/" 2>/dev/null || true
+    fi
+done
+
+# Exclude SQLite database (will be regenerated)
+echo "⚠️  Skipping database files (will be regenerated)"
+
+echo ""
+echo "✅ Release package created: $RELEASE_DIR/"
+echo ""
+echo "📋 Next steps:"
+echo "  1. Review release package"
+echo "  2. Tag git release: git tag -a v$VERSION -m 'Release $VERSION'"
+echo "  3. Create release on GitHub"
+echo "  4. Deploy to production"
+echo ""
+echo "=== Release Ready ==="

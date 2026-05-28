@@ -1,0 +1,100 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+env:
+  PHP_VERSION: '8.3'
+  MYSQL_VERSION: '8.0'
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: dom, curl, mbstring, pdo_mysql
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --no-dev --no-interaction
+
+      - name: Run PHP Linter
+        run: vendor/bin/phpcbf --standard=PSR12 --report-summary src/
+
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: runwayhub
+          MYSQL_USER: runwayhub
+          MYSQL_PASSWORD: runwayhub
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: dom, curl, mbstring, pdo_mysql
+          tools: phpunit
+
+      - name: Install dependencies
+        run: composer install --no-interaction
+
+      - name: Run tests
+        run: ./vendor/bin/phpunit
+
+  phpstan:
+    name: Static Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: pdo_mysql
+
+      - name: Install dependencies
+        run: composer install --no-interaction
+
+      - name: Run PHPStan
+        run: php vendor/bin/phpstan analyse src/ --level=7
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+
+      - name: Install dependencies
+        run: composer install --no-interaction
+
+      - name: Run Security Scan
+        run: composer require --dev --no-update symfony/security-core && composer update

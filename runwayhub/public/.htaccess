@@ -1,0 +1,153 @@
+# RunwayHub .htaccess Configuration
+# Security, Performance, and SEO Optimizations
+# Generated: 2026-05-28 by RunwayHub Autonomy System
+# Version: 2.0.3
+
+# Enable Rewrite Engine
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    
+    # Canonical redirect to HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+    
+    # Redirect HTTP subdomains to main domain
+    RewriteCond %{HTTP_HOST} ^www\. [OR]
+    RewriteCond %{HTTP_HOST} ^[-a-zA-Z0-9\.\-]+$ [NC]
+    RewriteRule ^ https://%{HTTP_HOST}/ [R=301,L]
+</IfModule>
+
+# Cache-Control and SEO Headers
+<IfModule mod_headers.c>
+    # SEO: Tell search engines about caching
+    Header set X-Robots-Tag "noindex, nofollow" env=NOINDEX
+    
+    # Security Headers
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # Content Security Policy (optimized for SEO)
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; media-src 'self' data:"
+    
+    # HSTS
+    Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    
+    # Performance headers
+    Header set Cache-Control "max-age=604800, public" env=HTTP_ACCEPT_ENCODING
+    Header set Vary "Accept-Encoding"
+    Header set X-Cache-Status "HIT"
+</IfModule>
+
+<IfModule mod_env.c>
+    SetEnv SERVER_SOFTWARE "RunwayHub/2.0.3"
+</IfModule>
+
+# Enable GZIP/Brotli compression
+<IfModule mod_deflate.c>
+    <IfModule mod_brotli.c>
+        <IfModule mod_negotiation.c>
+            <FilesMatch "\.(html|htm|xhtml|css|json|xml|rss|atom|pdf|svg|txt|md)$">
+                SetOutputFilter BROTLI
+                AddType application/octet-stream .br
+            </FilesMatch>
+        </IfModule>
+    </IfModule>
+    <IfModule mod_negotiation.c>
+        <IfModule mod_brotli.c>
+            <FilesMatch "\.(html|htm|xhtml|css|json|xml|rss|atom|pdf|svg|txt|md)$">
+                SetOutputFilter DEFLATE
+                SetOutputFilter BROTLI
+            </FilesMatch>
+        </IfModule>
+        <FilesMatch "\.(html|htm|xhtml|js|css|json|xml|rss|atom|pdf|svg)$">
+            SetOutputFilter DEFLATE
+            BrotliCompressionLevel HIGH
+        </FilesMatch>
+    </IfModule>
+</IfModule>
+
+# Brotli fallback
+<IfModule mod_brotli.c>
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE text/xml
+</IfModule>
+
+# Disable directory browsing
+Options -Indexes
+
+# Protect from clickjacking
+<IfModule mod_rewrite.c>
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# Deny access to sensitive files
+<FilesMatch "^\.">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "(env|git|gitignore|html|php)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Allow access to public files
+<FilesMatch "^(api|api-docs|landing|blog|weather-widget|flight-board|privacy-policy|terms|favicon|robots)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+# Allow specific assets
+<FilesMatch "\.(png|jpg|jpeg|gif|webp|ico|svg)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+# Deny access to sensitive resources
+<FilesMatch "(admin|secret|\.env|\.htaccess|\.htpasswd)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Block access to backup/test files
+<FilesMatch "(backup|test|dev|stage|\.bak|\.tmp|\.swp)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Set default MIME types
+<IfModule mod_mime.c>
+    AddType application/json .json
+    AddType application/javascript .js
+    AddType text/css .css
+    AddType text/html .html .htm
+    AddType text/xml .xml
+</IfModule>
+
+# Custom error pages (SEO-friendly)
+ErrorDocument 404 /404.html
+ErrorDocument 403 /403.html
+ErrorDocument 500 /500.html
+
+# Log settings
+# LogLevel Custom runways
+# CustomLog logs/access_log combined
+
+# Performance: Enable Keep-Alive
+# Timeout 30
+
+# Security: Disable server signature
+# ServerSignature Off
+
+# Final security check
+<IfModule mod_headers.c>
+    Header unset X-Powered-By
+    Header unset Server
+</IfModule>

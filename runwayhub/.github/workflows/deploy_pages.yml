@@ -1,0 +1,100 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [main, dev]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment'
+        required: false
+        default: 'production'
+
+env:
+  PHP_VERSION: '8.3'
+
+jobs:
+  build:
+    name: Build Pages
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Optimize Images
+        run: |
+          # Compress and optimize images
+          # Use tools like imgcoz, sharp, or imagemagick
+          echo "Optimizing images..."
+          
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: dom, curl, mbstring, openssl, xml, zip
+          tools: phpunit
+      
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+      
+      - name: Cache node modules
+        id: cache-node-modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      
+      - name: Install dependencies
+        run: npm ci || npm install
+      
+      - name: Build for Production
+        run: npm run build || echo "No build script found"
+        env:
+          CI: true
+      
+      - name: Minify CSS/JS
+        run: |
+          # Minify CSS and JavaScript files
+          # Use tools like cssnano, terser, or terser
+          echo "Minifying CSS/JS..."
+      
+      - name: Add Performance Headers
+        run: |
+          # Add performance headers for GitHub Pages
+          # HTTP/2 push hints
+          echo "Adding performance headers..."
+      
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+          retention-days: 30
+      
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+      
+      - name: Notify Deployment
+        run: |
+          echo "GitHub Pages deployed successfully!"
+          echo "URL: \${{ steps.deployment.outputs.page_url }}"

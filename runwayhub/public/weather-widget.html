@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wetter & Flugverlauf Widget - RunwayHub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; }
+        .widget-container { max-width: 800px; margin: 0 auto; background: rgba(255,255,255,0.1); border-radius: 10px; padding: 30px; }
+        h1 { text-align: center; margin-bottom: 30px; font-size: 2em; }
+        .section { margin-bottom: 30px; }
+        .section h3 { font-size: 1.5em; margin-bottom: 15px; }
+        .data-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .data-table th, .data-table td { padding: 10px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.2); }
+        .data-table th { background: rgba(255,255,255,0.2); }
+        .status-ok { color: #27ae60; }
+        .status-warning { color: #f39c12; }
+        .status-error { color: #c0392b; }
+    </style>
+</head>
+<body>
+    <div class="widget-container">
+        <h1>🌤️ Wetter & Flugverlauf</h1>
+        
+        <!-- ACARS Flightverlauf -->
+        <div class="section">
+            <h3>🛫 Flugverlauf (ACARS)</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Funkname</th>
+                        <th>Flugnummer</th>
+                        <th>Position</th>
+                        <th>Höhe</th>
+                        <th>Route</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>SW001</td>
+                        <td>DL-001</td>
+                        <td>Edinburgh (EGPH) → Frankfurt (EDDF)</td>
+                        <td>35000ft</td>
+                        <td>EGPH → EDDB → EDDF</td>
+                        <td class="status-ok">En route</td>
+                    </tr>
+                    <tr>
+                        <td>SW002</td>
+                        <td>DL-002</td>
+                        <td>London (EGLL) → Frankfurt (EDDF)</td>
+                        <td>41000ft</td>
+                        <td>EGLL → EDDF</td>
+                        <td class="status-ok">Landet in 20 Min</td>
+                    </tr>
+                    <tr>
+                        <td>SW003</td>
+                        <td>DL-003</td>
+                        <td>Frankfurt (EDDF) → Berlin (EDDB)</td>
+                        <td>28000ft</td>
+                        <td>EDDF → EDDB</td>
+                        <td class="status-ok">Abflug</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Wetter METAR/TAF -->
+        <div class="section">
+            <h3>🌤️ Wetter-Infos (METAR/TAF)</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Flughafen</th>
+                        <th>METAR</th>
+                        <th>TAF</th>
+                        <th>Alerts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>EDDF</strong> Frankfurt</td>
+                        <td>EDDF 270715Z 07215MGT25M35Q0088 BKN020</td>
+                        <td>TAF EDDF 270609 TEMPO FM0600 BKN004 SCT010</td>
+                        <td class="status-ok">✅ Normal</td>
+                    </tr>
+                    <tr>
+                        <td><strong>EGLL</strong> London</td>
+                        <td>EGLL 270715Z 18008KT 9999 BKN025 OVC040</td>
+                        <td>TAF EGLL 270609 BECMG FM1200 18010KT</td>
+                        <td class="status-warning">⚠️ Wind 10-15kt</td>
+                    </tr>
+                    <tr>
+                        <td><strong>EDDB</strong> Berlin</td>
+                        <td>EDDB 270715Z 08235MGT20M25Q0095</td>
+                        <td>TAF EDDB 270609 TEMPO FM0900 BKN004</td>
+                        <td class="status-error">❌ Visibility 500m</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Top 4 Airlines Widget -->
+        <div class="section">
+            <h3>🏆 Top 4 Airlines</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Rang</th>
+                        <th>Airline</th>
+                        <th>Flüge</th>
+                        <th>Piloten</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>#1</strong></td>
+                        <td>Deutsche Airline</td>
+                        <td>142</td>
+                        <td>28</td>
+                        <td class="status-ok">Aktiv</td>
+                    </tr>
+                    <tr>
+                        <td><strong>#2</strong></td>
+                        <td>Swedish Airline</td>
+                        <td>128</td>
+                        <td>24</td>
+                        <td class="status-ok">Aktiv</td>
+                    </tr>
+                    <tr>
+                        <td><strong>#3</strong></td>
+                        <td>British Airline</td>
+                        <td>116</td>
+                        <td>22</td>
+                        <td class="status-ok">Aktiv</td>
+                    </tr>
+                    <tr>
+                        <td><strong>#4</strong></td>
+                        <td>Französische Airline</td>
+                        <td>104</td>
+                        <td>20</td>
+                        <td class="status-ok">Aktiv</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

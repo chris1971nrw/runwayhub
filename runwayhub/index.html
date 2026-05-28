@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RunwayHub - Virtual Airline Management System</title>
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>🛫 RunwayHub</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/login.php">Login</a>
+                <a href="/va-connect.php">VA verbinden</a>
+                <a href="/va-gruenden.php">VA gründen</a>
+            </nav>
+        </header>
+        
+        <main>
+            <section class="hero">
+                <h1>Virtual Airline Management System</h1>
+                <p>Das führende System für Virtual Airlines und Piloten</p>
+                
+                <div class="actions">
+                    <a href="/login.php" class="btn btn-primary">👤 Anmelden</a>
+                    <a href="/va-gruenden.php" class="btn btn-secondary">🚀 VA gründen</a>
+                    <a href="/va-admin.php" class="btn btn-outline">⚙️ VA verwalten</a>
+                </div>
+            </section>
+            
+            <section class="features">
+                <div class="feature">
+                    <h3>🎯 Für Piloten</h3>
+                    <p>Verwalten Sie Ihre Flüge, sehen Sie Wetterdaten und Statistiken.</p>
+                </div>
+                <div class="feature">
+                    <h3>🏢 Für VA-Inhaber</h3>
+                    <p>Verwalten Sie Piloten, Airplanes und Statistiken.</p>
+                </div>
+                <div class="feature">
+                    <h3>🛫 Eigenes ACARS</h3>
+                    <p>Kommendes Feature: Eigener ACARS-Client für Flugdaten-Tracking.</p>
+                </div>
+                <div class="feature">
+                    <h3>🌤️ Wetter-API</h3>
+                    <p>Live-METAR/TAF Daten, Alerts und Wettervorhersagen.</p>
+                </div>
+            </section>
+            
+            <section class="stats">
+                <div class="stat">
+                    <span class="stat-value">142</span>
+                    <span class="stat-label">Flüge</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">28</span>
+                    <span class="stat-label">Piloten</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">6</span>
+                    <span class="stat-label">Airlines</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">∞</span>
+                    <span class="stat-label">Kostenlos</span>
+                </div>
+            </section>
+            
+            <section class="airlines">
+                <h2>🏆 Aktuelle Airlines</h2>
+                <div class="airline-grid">
+                    <div class="airline" data-airline="DL">
+                        <h3>🇩🇪 Deutsche Airline</h3>
+                        <p>142 Flüge | 28 Piloten</p>
+                    </div>
+                    <div class="airline" data-airline="SA">
+                        <h3>🇸🇪 Swedish Airline</h3>
+                        <p>128 Flüge | 24 Piloten</p>
+                    </div>
+                    <div class="airline" data-airline="BA">
+                        <h3>🇬🇧 British Airline</h3>
+                        <p>116 Flüge | 22 Piloten</p>
+                    </div>
+                    <div class="airline" data-airline="AF">
+                        <h3>🇫🇷 Französische Airline</h3>
+                        <p>104 Flüge | 20 Piloten</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>Built with ❤️ by @chris1971nrw | Powered by OpenAIP API & Weather Services</p>
+            <p>Multi-Airline Support | Live Flight Tracking | PIREP Reports | Weather API</p>
+            <p>© 2026 RunwayHub - <a href="https://github.com/chris1971nrw/runwayhub">GitHub Repository</a></p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+# robots.txt for RunwayHub - Virtual Airline Manager
+# https://chris1971nrw.github.io/runwayhub/
+
+User-agent: *
+Allow: /
+
+# Index all public pages for better SEO
+Allow: /dashboard
+Allow: /flights
+Allow: /aircrafts
+Allow: /pilots
+Allow: /bookings
+Allow: /about
+Allow: /contact
+Allow: /weather
+Allow: /tracking
+Allow: /api
+Allow: /en/
+Allow: /dashboard-public
+Allow: /pilot-register
+Allow: /pilot-login
+
+# Disallow sensitive/admin areas
+Disallow: /admin
+Disallow: /api/internal/
+Disallow: /.env
+Disallow: /.git/
+Disallow: /composer.lock
+Disallow: /vendor/
+Disallow: /.well-known/
+Disallow: /assets/.gitkeep
+
+# Crawl-delay for politeness
+Crawl-delay: 15
+
+# Specific directives for search engines
+Allow: /public/
+Allow: /assets/css/
+Allow: /assets/js/
+Allow: /assets/images/
+
+# Sitemap location (GitHub Pages auto-generates)
+# Sitemap: https://chris1971nrw.github.io/runwayhub/sitemap.xml
+
+# Accept-language handling
+# Search engines should respect user preferences
+
+# Mobile-friendly
+# All pages use responsive design

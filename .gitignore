@@ -1,0 +1,70 @@
+# RunwayHub Git Ignore
+
+# OpenClaw - NEVER in RunwayHub repo
+.openclaw/
+.openclaw/*
+agents/
+completions/
+credentials/
+delivery-queue/
+device/
+flows/
+gateway-supervisor-restart-handoff.json
+identity/
+logs/
+mission-control/
+openclaw-mission-control/
+openclaw.json*
+plugin-skills/
+plugin-state/
+plugins/
+session-delivery-queue/
+subagents/
+tasks/
+workspace/
+workspace-*/
+memory/
+memories/
+memory/*.md
+*.jsonld
+*heartbeat-state.json
+*.jsonld/*
+
+# Environment
+.env
+.env.local
+
+# Database
+*.sqlite
+*.db
+
+# Logs
+*.log
+logs/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Uploads
+uploads/*
+!uploads/.gitkeep
+
+# Composer
+vendor/
+composer.lock
+
+# Cache
+cache/*
+!cache/.gitkeep
+storage/*
+!storage/.gitkeep
+
+# Testing
+phpunit*.xml.*
+
+# OS
+.DS_Store
+Thumbs.db

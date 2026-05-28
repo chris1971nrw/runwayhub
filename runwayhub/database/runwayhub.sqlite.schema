@@ -1,0 +1,162 @@
+-- RunwayHub Main Database Schema
+-- Virtual Airline Management System
+
+-- Airlines table
+CREATE TABLE IF NOT EXISTS airlines (
+    id TEXT PRIMARY KEY,
+    iata TEXT UNIQUE,
+    icao TEXT UNIQUE,
+    name TEXT NOT NULL,
+    country TEXT,
+    website TEXT,
+    created_at DATETIME NOT NULL,
+    updated_at DATETIME NOT NULL
+);
+
+-- Flights table
+CREATE TABLE IF NOT EXISTS flights (
+    id TEXT PRIMARY KEY,
+    flight_number TEXT,
+    airline_id TEXT,
+    origin TEXT NOT NULL,
+    destination TEXT NOT NULL,
+    departure_time TEXT NOT NULL,
+    arrival_time TEXT,
+    status TEXT DEFAULT 'scheduled',
+    actual_departure TEXT,
+    actual_arrival TEXT,
+    aircraft_type TEXT,
+    created_at DATETIME NOT NULL,
+    updated_at DATETIME NOT NULL,
+    FOREIGN KEY (airline_id) REFERENCES airlines(id)
+);
+
+-- PIREP table (Pilot Weather Reports)
+CREATE TABLE IF NOT EXISTS pireps (
+    id TEXT PRIMARY KEY,
+    flight_id TEXT,
+    pilot_callsign TEXT,
+    airport TEXT NOT NULL,
+    weather_type TEXT,
+    data TEXT,
+    created_at DATETIME NOT NULL,
+    FOREIGN KEY (flight_id) REFERENCES flights(id)
+);
+
+-- Maintenance reports
+CREATE TABLE IF NOT EXISTS maintenance (
+    id TEXT PRIMARY KEY,
+    airline_id TEXT,
+    aircraft_type TEXT,
+    issue TEXT NOT NULL,
+    severity TEXT,
+    status TEXT DEFAULT 'open',
+    created_at DATETIME NOT NULL,
+    resolved_at TEXT,
+    resolved_by TEXT,
+    FOREIGN KEY (airline_id) REFERENCES airlines(id)
+);
+
+-- Security alerts
+CREATE TABLE IF NOT EXISTS security (
+    id TEXT PRIMARY KEY,
+    airline_id TEXT,
+    airport TEXT,
+    alert_type TEXT,
+    data TEXT,
+    severity TEXT,
+    status TEXT DEFAULT 'active',
+    created_at DATETIME NOT NULL,
+    resolved_at TEXT,
+    FOREIGN KEY (airline_id) REFERENCES airlines(id)
+);
+
+-- Statistics
+CREATE TABLE IF NOT EXISTS statistics (
+    id TEXT PRIMARY KEY,
+    metric TEXT NOT NULL,
+    value INTEGER NOT NULL,
+    airline_id TEXT,
+    period TEXT,
+    created_at DATETIME NOT NULL
+);
+
+-- Leaderboard entries
+CREATE TABLE IF NOT EXISTS leaderboard (
+    id TEXT PRIMARY KEY,
+    pilot_callsign TEXT NOT NULL,
+    airline_id TEXT,
+    points INTEGER NOT NULL,
+    rank INTEGER,
+    last_activity TEXT,
+    created_at DATETIME NOT NULL,
+    FOREIGN KEY (airline_id) REFERENCES airlines(id)
+);
+
+-- User profiles
+CREATE TABLE IF NOT EXISTS profiles (
+    id TEXT PRIMARY KEY,
+    callsign TEXT UNIQUE NOT NULL,
+    airline_id TEXT,
+    display_name TEXT,
+    email TEXT,
+    avatar TEXT,
+    preferences TEXT,
+    created_at DATETIME NOT NULL,
+    FOREIGN KEY (airline_id) REFERENCES airlines(id)
+);
+
+-- Airline groups for management
+CREATE TABLE IF NOT EXISTS groups (
+    id TEXT PRIMARY KEY,
+    name TEXT UNIQUE NOT NULL,
+    airline_id TEXT NOT NULL,
+    permissions TEXT DEFAULT '[]',
+    FOREIGN KEY (airline_id) REFERENCES airlines(id)
+);
+
+-- Group membership
+CREATE TABLE IF NOT EXISTS group_members (
+    id TEXT PRIMARY KEY,
+    user_id TEXT NOT NULL,
+    group_id TEXT NOT NULL,
+    UNIQUE(user_id, group_id),
+    FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE
+);
+
+-- VA (Virtual Airline) management table
+CREATE TABLE IF NOT EXISTS va (
+    id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    airline_name TEXT NOT NULL,
+    airline_website TEXT,
+    logo TEXT,
+    colors TEXT DEFAULT '[]',
+    owner_credentials TEXT,
+    created_at DATETIME NOT NULL,
+    updated_at DATETIME NOT NULL
+);
+
+-- Bookings
+CREATE TABLE IF NOT EXISTS bookings (
+    id TEXT PRIMARY KEY,
+    flight_id TEXT,
+    user_id TEXT,
+    passenger_name TEXT,
+    seat TEXT,
+    fare_class TEXT,
+    status TEXT DEFAULT 'confirmed',
+    created_at DATETIME NOT NULL,
+    FOREIGN KEY (flight_id) REFERENCES flights(id)
+);
+
+-- Indexes for performance
+CREATE INDEX IF NOT EXISTS idx_flights_airline ON flights(airline_id);
+CREATE INDEX IF NOT EXISTS idx_flights_origin ON flights(origin);
+CREATE INDEX IF NOT EXISTS idx_flights_destination ON flights(destination);
+CREATE INDEX IF NOT EXISTS idx_flights_status ON flights(status);
+CREATE INDEX IF NOT EXISTS idx_pireps_airport ON pireps(airport);
+CREATE INDEX IF NOT EXISTS idx_maintenance_airline ON maintenance(airline_id);
+CREATE INDEX IF NOT EXISTS idx_security_airline ON security(airline_id);
+CREATE INDEX IF NOT EXISTS idx_leaderboard_rank ON leaderboard(rank);
+CREATE INDEX IF NOT EXISTS idx_leaderboard_airline ON leaderboard(airline_id);
