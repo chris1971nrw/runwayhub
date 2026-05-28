@@ -6,171 +6,177 @@ namespace RunwayHub\Core\Middleware;
 
 use RunwayHub\Core\Request;
 use RunwayHub\Core\Response;
-use RunwayHub\Core\Database;
 
+/**
+ * Authentication Middleware
+ * 
+ * Provides admin authentication and authorization.
+ */
 class Auth
 {
-    /** @var Request */
-    private Request $request;
-
-    /** @var Response */
-    private Response $response;
-
-    /** @var Database */
-    private Database $database;
+    protected ?string $username = null;
+    protected ?string $passwordHash = null;
+    protected bool $isAdmin = false;
+    protected ?Request $request = null;
 
     /**
-     * Auth constructor
+     * Constructor
      */
-    public function __construct(
-        Request $request,
-        Response $response,
-        Database $database
-    ) {
+    public function __construct(Request $request = null)
+    {
         $this->request = $request;
-        $this->response = $response;
-        $this->database = $database;
     }
 
     /**
-     * Run middleware
-     *
+     * Authenticate user
+     * 
+     * @param string $username
+     * @param string $password
      * @return bool
      */
-    public function run(): bool
+    public function login(string $username, string $password): bool
     {
-        // Check if authenticated
-        if (!$this->isAuthenticated()) {
-            // Redirect to login
-            $this->response->redirect('/login', 302);
+        $this->username = $username;
+        
+        // Check admin credentials (hardcoded for now)
+        if ($username === 'admin' && password_verify($password, $this->getAdminHash())) {
+            $this->isAdmin = true;
+            $this->passwordHash = $this->getAdminHash();
+            
+            // Log successful login
+            $this->logLogin($username, 'success');
+            
             return true;
         }
 
+        $this->logLogin($username, 'failed');
         return false;
     }
 
     /**
-     * Check if user is authenticated
-     *
-     * @return bool
-     */
-    private function isAuthenticated(): bool
-    {
-        // Simple check for session
-        return isset($_SESSION['user_id']);
-    }
-
-    /**
-     * Check if session exists
-     *
-     * @return bool
-     */
-    private function hasSession(): bool
-    {
-        return session_status() === PHP_SESSION_ACTIVE;
-    }
-
-    /**
-     * Start session if not started
-     */
-    public function ensureSession(): void
-    {
-        if ($this->hasSession()) {
-            return;
-        }
-
-        session_start();
-
-        // Regenerate session ID for security
-        if ($this->request->ip('REMOTE_ADDR')) {
-            session_regenerate_id(true);
-        }
-    }
-
-    /**
-     * Get user ID
-     *
-     * @return int|null
-     */
-    public function getUserId(): ?int
-    {
-        if (!$this->isAuthenticated()) {
-            return null;
-        }
-
-        return $_SESSION['user_id'] ?? null;
-    }
-
-    /**
-     * Get user role
-     *
-     * @return string|null
-     */
-    public function getRole(): ?string
-    {
-        if (!$this->isAuthenticated()) {
-            return null;
-        }
-
-        return $_SESSION['user_role'] ?? null;
-    }
-
-    /**
-     * Get user name
-     *
-     * @return string|null
-     */
-    public function getName(): ?string
-    {
-        if (!$this->isAuthenticated()) {
-            return null;
-        }
-
-        return $_SESSION['user_name'] ?? null;
-    }
-
-    /**
-     * Check if user has role
-     *
-     * @param string $role
-     * @return bool
-     */
-    public function hasRole(string $role): bool
-    {
-        if (!$this->isAuthenticated()) {
-            return false;
-        }
-
-        return $_SESSION['user_role'] === $role;
-    }
-
-    /**
      * Check if user is admin
-     *
+     * 
      * @return bool
      */
     public function isAdmin(): bool
     {
-        return $this->hasRole('admin');
+        return $this->isAdmin;
     }
 
     /**
-     * Check if user is staff
-     *
-     * @return bool
+     * Get username
+     * 
+     * @return string|null
      */
-    public function isStaff(): bool
+    public function getUsername(): ?string
     {
-        return $this->hasRole('staff');
+        return $this->username;
     }
 
     /**
-     * Check if user is pilot
-     *
+     * Log out
+     * 
+     * @return void
+     */
+    public function logout(): void
+    {
+        $this->username = null;
+        $this->isAdmin = false;
+        $this->passwordHash = null;
+        
+        $this->logLogin($this->getUsername() ?? 'unknown', 'logout');
+    }
+
+    /**
+     * Check permissions for action
+     * 
+     * @param string $action Action to check
      * @return bool
      */
-    public function isPilot(): bool
+    public function can(string $action): bool
     {
-        return $this->hasRole('pilot');
+        // Admins can do everything
+        if ($this->isAdmin) {
+            return true;
+        }
+
+        // Non-admins have limited access
+        $allowedActions = ['read', 'search'];
+        
+        return in_array($action, $allowedActions);
+    }
+
+    /**
+     * Get admin password hash
+     * 
+     * @return string
+     */
+    private function getAdminHash(): string
+    {
+        // Default admin password hash (change this in production!)
+        // Password: "admin123"
+        return password_hash('admin123', PASSWORD_DEFAULT);
+    }
+
+    /**
+     * Log login attempt
+     * 
+     * @param string $username
+     * @param string $status success/failed/logout
+     * @return void
+     */
+    private function logLogin(string $username, string $status): void
+    {
+        $logPath = __DIR__ . '/../../logs/login-activity.log';
+        
+        if (file_exists(__DIR__ . '/../../logs/login-activity.log')) {
+            $now = date('Y-m-d H:i:s');
+            $message = "{$now} User: {$username} Status: {$status}\n";
+            file_put_contents($logPath, $message, FILE_APPEND);
+        }
+    }
+
+    /**
+     * Get admin user info
+     * 
+     * @return array|null
+     */
+    public function getAdminInfo(): ?array
+    {
+        return [
+            'username' => $this->username,
+            'isAdmin' => $this->isAdmin,
+            'email' => 'admin@example.com',
+            'name' => 'Administrator',
+        ];
+    }
+
+    /**
+     * Get permissions
+     * 
+     * @return array
+     */
+    public function getPermissions(): array
+    {
+        if ($this->isAdmin) {
+            return [
+                'airlines' => ['create', 'read', 'update', 'delete'],
+                'flights' => ['create', 'read', 'update', 'delete'],
+                'aircrafts' => ['create', 'read', 'update', 'delete'],
+                'pilots' => ['create', 'read', 'update', 'delete'],
+                'bookings' => ['create', 'read', 'update', 'delete'],
+                'bookings' => ['create', 'read', 'update', 'delete'],
+                'users' => ['create', 'read', 'update', 'delete'],
+                'settings' => ['read', 'update'],
+            ];
+        }
+
+        return [
+            'airlines' => ['read'],
+            'flights' => ['read'],
+            'aircrafts' => ['read'],
+            'pilots' => ['read'],
+            'bookings' => ['read'],
+        ];
     }
 }

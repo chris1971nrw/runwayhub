@@ -8,6 +8,7 @@ use RunwayHub\Core\Database;
 use RunwayHub\Core\Request;
 use RunwayHub\Core\Response;
 use RunwayHub\Core\Router;
+use RunwayHub\Core\Middleware\Auth;
 
 class Bootstrap
 {
