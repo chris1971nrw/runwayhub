@@ -12,33 +12,18 @@
 
 ## 📋 Überblick
 
-RunwayHub ist eine **kostenlose, Open Source**-Virtual Airline Manager Software, entwickelt mit modernem PHP 8.3+. Das System bietet umfassende Flugmanagement-Funktionalitäten, Wetterintegration und Virtual Air Traffic Controller (VA)-Verwaltung für FBOs, Flughäfen und Luftfahrtunternehmen.
+RunwayHub ist eine **kostenlose, Open Source**-Virtual Airline Manager Software, entwickelt mit modernem PHP 8.3+. Das System bietet umfassende Flugmanagement-Funktionalitäten, Wetterintegration und Virtual Airline Management (VA) für FBOs, Flughäfen und Luftfahrtunternehmen.
 
 ### Hauptmerkmale
 
 - ✅ **Multi-Airline-Unterstützung** - Kompatibel mit mehreren Airlines und Systemen
 - ✅ **Wetter-API** - METAR/TAF-Wetterdaten mit Caching
-- ✅ **VA-Management** - Erstellen, verwalten und Verbinden von Virtual Air Traffic Controllern
+- ✅ **VA-Management** - Virtual Airline Management
 - ✅ **Statistik & Berichte** - Umfassende Fluganalysen und Reporting
 - ✅ **PIREP-System** - Integration von Pilotenwetterberichten
 - ✅ **Leaderboards** - Verfolgen der Top-Performer
 - ✅ **Sicherheit** - Branchensicherheitsstandards (bcrypt, CSRF, XSS-Prävention)
 - ✅ **ACARS-Entwicklung** - Eigene ACARS-Technologie für Echtzeitflugstatus
-
----
-
-## 📖 Dokumentation
-
-Siehe die vollständige Dokumentation im `runwayhub/docs/` Verzeichnis:
-
-- [**Architektur**](runwayhub/docs/architecture.md) - Systemdesign und Struktur
-- [**Funktionen**](runwayhub/docs/features.md) - vollständige Feature-Liste
-- [**Datenbank**](runwayhub/docs/database.md) - SQLite-Schema-Dokumentation
-- [**Deployment**](runwayhub/docs/deployment.md) - Produktionsaufbau
-- [**Wetter-API**](runwayhub/docs/weather-api.md) - METAR/TAF-Integration
-- [**ACARS**](runwayhub/docs/acars.md) - Eigene ACARS-Entwicklung
-- [**Sicherheit**](runwayhub/docs/security.md) - Sicherheits-Härtung
-- [**Performance**](runwayhub/docs/performance-guide.md) - Optimierung
 
 ---
 
@@ -63,6 +48,19 @@ Besuchen Sie das Live-Demo: <a href="https://runwayhub.github.io">https://runway
 
 ---
 
+## 📖 Dokumentation
+
+- [**Architektur**](runwayhub/docs/architecture.md) - Systemdesign und Struktur
+- [**Funktionen**](runwayhub/docs/features.md) - vollständige Feature-Liste
+- [**Datenbank**](runwayhub/docs/database.md) - SQLite-Schema-Dokumentation
+- [**Deployment**](runwayhub/docs/deployment.md) - Produktionsaufbau
+- [**Wetter-API**](runwayhub/docs/weather-api.md) - METAR/TAF-Integration
+- [**ACARS**](runwayhub/docs/acars.md) - Eigene ACARS-Entwicklung
+- [**Sicherheit**](runwayhub/docs/security.md) - Sicherheits-Härtung
+- [**Performance**](runwayhub/docs/performance-guide.md) - Optimierung
+
+---
+
 ## 🎯 Kernfunktionen
 
 ### Flugmanagement
@@ -77,21 +75,30 @@ Besuchen Sie das Live-Demo: <a href="https://runwayhub.github.io">https://runway
   - Ankunfts- und Abflugbretter
   
 - **Wetterintegration**
-  - METAR-Wetterberichte
-  - TAF-Prognosen
-  - Wetterwarnungen und Alerts
+  - **METAR-Wetterdaten** - METAR-Wetterberichte
+  - **TAF-Prognosen** - TAF-Forecasts
+  - **Wetterwarnungen** - Wetteralerts und notifications
 
-### Virtual Air Traffic Controller (VA) Management
+### Wetter-Datenquellen
 
-- **VA-Erstellung** - Neue Virtual Air Traffic Controller erstellen
-- **Verbindungs-Management** - Verbinden Ihrer VAs mit dem System
-- **Admin-Panel** - Volle Verwaltungsinterface
-- **Sichere Sitzungen** - HttpOnly, Secure, SameSite-Cookies
+- **OpenMeteo** - METAR/TAF-Daten
+- **Wetter-APIs** - Integration von Wetter-Diensten
+- **ACARS-Integration** - Eigene Wetter-Datenintegration
 
-### API und Integration
+### Virtual Airline Management (VA)
+
+- **Airline-Management** - Verwaltung Ihrer Fluggesellschaften
+- **Flugmanagement** - Flugplanung und Buchung
+- **Flottenmanagement** - Flugzeugflotte verwalten
+- **Passagiermanagement** - Reservationen und Check-in
+- **Statistik & Reports** - Umfassende Analysen
+- **Wetterintegration** - METAR/TAF-Daten
+- **ACARS-Integration** - Eigene ACARS-Technologie
+
+### API & Integration
 
 - **40+ RESTful Endpoints** - Vollständige API mit JSON-Antworten
-- **32 Controller** - CRUD-Operationen für alle Entitäten
+- **RESTful Services** - Vollständige CRUD-Operationen
 - **Ratenbegrenzung** - Schutz vor Missbrauch und DDoS
 - **Dokumentation** - Vollständige API-Dokumentation
 
@@ -121,15 +128,6 @@ RunwayHub beinhaltet branchenübliche Sicherheitsmaßnahmen:
 - **Ratenbegrenzung:** DDoS-Schutz
 
 Siehe [Sicherheitsdokumentation](runwayhub/docs/security.md) für detaillierte Informationen.
-
----
-
-## 📊 Technische Daten
-
-- **PHP-Dateien:** 144 (alle syntaktisch gültig)
-- **API-Endpoints:** 40+
-- **Datenbanktabellen:** 15
-- **Zeilen Code:** ~65.000
 
 ---
 

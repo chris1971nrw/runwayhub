@@ -12,13 +12,13 @@
 
 ## 📋 Überblick
 
-RunwayHub ist eine **kostenlose, Open Source**-Virtual Airline Manager Software, entwickelt mit modernem PHP 8.3+. Das System bietet umfassende Flugmanagement-Funktionalitäten, Wetterintegration und Virtual Air Traffic Controller (VA)-Verwaltung für FBOs, Flughäfen und Luftfahrtunternehmen.
+RunwayHub ist eine **kostenlose, Open Source**-Virtual Airline Manager Software, entwickelt mit modernem PHP 8.3+. Das System bietet umfassende Flugmanagement-Funktionalitäten, Wetterintegration und Virtual Airline Management (VA) für FBOs, Flughäfen und Luftfahrtunternehmen.
 
 ### Hauptmerkmale
 
 - ✅ **Multi-Airline-Unterstützung** - Kompatibel mit mehreren Airlines und Systemen
 - ✅ **Wetter-API** - METAR/TAF-Wetterdaten mit Caching
-- ✅ **VA-Management** - Erstellen, verwalten und Verbinden von Virtual Air Traffic Controllern
+- ✅ **VA-Management** - Virtual Airline Management
 - ✅ **Statistik & Berichte** - Umfassende Fluganalysen und Reporting
 - ✅ **PIREP-System** - Integration von Pilotenwetterberichten
 - ✅ **Leaderboards** - Verfolgen der Top-Performer
@@ -75,9 +75,15 @@ Besuchen Sie das Live-Demo: <a href="https://runwayhub.github.io">https://runway
   - Ankunfts- und Abflugbretter
   
 - **Wetterintegration**
-  - METAR-Wetterberichte
-  - TAF-Prognosen
-  - Wetterwarnungen und Alerts
+  - **METAR-Wetterdaten** - METAR-Wetterberichte
+  - **TAF-Prognosen** - TAF-Forecasts
+  - **Wetterwarnungen** - Wetteralerts und notifications
+
+### Wetter-Datenquellen
+
+- **OpenMeteo** - METAR/TAF-Daten
+- **Wetter-APIs** - Integration von Wetter-Diensten
+- **ACARS-Integration** - Eigene Wetter-Datenintegration
 
 ### Virtual Airline Management (VA)
 
@@ -92,7 +98,7 @@ Besuchen Sie das Live-Demo: <a href="https://runwayhub.github.io">https://runway
 ### API & Integration
 
 - **40+ RESTful Endpoints** - Vollständige API mit JSON-Antworten
-- **32 Controller** - CRUD-Operationen für alle Entitäten
+- **RESTful Services** - Vollständige CRUD-Operationen
 - **Ratenbegrenzung** - Schutz vor Missbrauch und DDoS
 - **CORS-Unterstützung** - Cross-Origin Resource Sharing
 - **Dokumentation** - Vollständige API-Dokumentation
