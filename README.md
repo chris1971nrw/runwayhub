@@ -1,4 +1,4 @@
-# RunwayHub - Kostenloser Visualer Fluglotsen-Software
+# RunwayHub - Virtual Airline Manager
 
 **Modernes, Open Source, Multi-Airline Fluggesellschaft-Management-System**
 
