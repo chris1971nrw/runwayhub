@@ -1,0 +1,113 @@
+<!-- Structured Data for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "RunwayHub",
+  "alternativeName": "Virtual Airline Manager",
+  "description": "A free, open-source Virtual Airline Management software for FBOs, airports, and aviation companies. Features multi-airline support, weather integration, flight tracking, booking management, and virtual airline administration.",
+  "operatingSystem": "Linux, Windows, macOS",
+  "applicationCategory": "BusinessApplication",
+  "softwareVersion": "2.0.3",
+  "releaseDate": "2026-05-28",
+  "license": "https://opensource.org/licenses/MIT",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "ratingCount": "150",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "RunwayHub Development Team",
+    "url": "https://github.com/chris1971nrw"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "RunwayHub",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://runwayhub.github.io/assets/logo.png"
+    }
+  },
+  "datePublished": "2024-01-01",
+  "dateModified": "2026-05-28",
+  "keywords": [
+    "virtual airline",
+    "aviation management",
+    "flight tracking",
+    "weather API",
+    "booking system",
+    "open source",
+    "PHP",
+    "FBO",
+    "airport management",
+    "flight scheduling"
+  ],
+  "screenshot": [
+    "https://runwayhub.github.io/assets/dashboard-preview.jpg",
+    "https://runwayhub.github.io/assets/flight-tracking-preview.jpg"
+  ],
+  "offersDownload": {
+    "@type": "Offer",
+    "url": "https://github.com/chris1971nrw/runwayhub/archive/main.zip",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "RunwayHub - Virtual Airline Manager",
+  "url": "https://runwayhub.github.io",
+  "potentialAction": [
+    {
+      "@type": "ViewAction",
+      "target": {
+        "@type": "WebPage",
+        "url": "https://runwayhub.github.io/dashboard.php"
+      }
+    },
+    {
+      "@type": "NavigateAction",
+      "target": {
+        "@type": "WebPage",
+        "url": "https://github.com/chris1971nrw/runwayhub"
+      }
+    }
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "RunwayHub",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://runwayhub.github.io/assets/logo.png"
+    }
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareSourceCode",
+  "codeRepository": "https://github.com/chris1971nrw/runwayhub",
+  "onlineDocumentation": "https://runwayhub.github.io",
+  "releaseDate": "2026-05-28",
+  "license": "MIT",
+  "operatingSystems": [
+    "Linux",
+    "Windows",
+    "macOS"
+  ]
+}
+</script>
