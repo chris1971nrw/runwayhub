@@ -1,0 +1,43 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "url": "https://chris1971nrw.github.io/runwayhub/dashboard",
+  "name": "RunwayHub Dashboard",
+  "description": "Der zentrale Dashboard-Bereich von RunwayHub mit Übersicht aller Flugoperationen, Statistiken und Live-Tracking.",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "RunwayHub",
+    "url": "https://chris1971nrw.github.io/runwayhub/"
+  },
+  "potentialAction": {
+    "@type": "ViewAction",
+    "name": "View Active Flights",
+    "target": {
+      "@type": "WebPage",
+      "url": "https://chris1971nrw.github.io/runwayhub/flights"
+    }
+  },
+  "potentialAction": {
+    "@type": "ViewAction",
+    "name": "View Fleet",
+    "target": {
+      "@type": "WebPage",
+      "url": "https://chris1971nrw.github.io/runwayhub/aircrafts"
+    }
+  },
+  "potentialAction": {
+    "@type": "ViewAction",
+    "name": "View Pilots",
+    "target": {
+      "@type": "WebPage",
+      "url": "https://chris1971nrw.github.io/runwayhub/pilots"
+    }
+  },
+  "mainEntity": {
+    "@type": "SoftwareApplication",
+    "name": "RunwayHub Dashboard",
+    "applicationCategory": "BusinessApplication"
+  },
+  "datePublished": "2026-05-26T00:00:00+02:00",
+  "dateModified": "2026-05-27T14:09:00+02:00"
+}

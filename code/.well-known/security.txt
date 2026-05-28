@@ -1,0 +1,9 @@
+Contact: mailto:security@runwayhub.de
+Contact: https://github.com/chris1971nrw/runwayhub/issues
+Expires: 2027-05-27T00:00:00Z
+Preferred-Languages: de, en
+Policy: https://runwayhub.de/policy
+Key: 256-bit (future)
+Encryption: https://runwayhub.de/.well-known/keys.json
+Canonical: https://runwayhub.de/.well-known/security.txt
+Acknowledgments: https://runwayhub.de/acknowledgments

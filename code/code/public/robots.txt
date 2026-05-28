@@ -1,0 +1,117 @@
+# Robots.txt für RunwayHub
+# SEO-optimiert für Suchmaschinen-Crawling
+# Generated: 2026-05-28 by RunwayHub Autonomy System
+
+# Allow all search engines
+User-agent: *
+Allow: /
+
+# Disallow sensitive/admin areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /assets/js/admin.js
+Disallow: /assets/js/protected.js
+Disallow: /.git/
+Disallow: /composer.json
+Disallow: /runwayhub/
+
+# Disallow private content
+Disallow: /login*
+Disallow: /register*
+Disallow: /profile*
+
+# Sitemap
+Sitemap: https://chris1971nrw.github.io/runwayhub/sitemap.xml
+
+# Crawl-delay for smaller servers (Googlebot recommended)
+Crawl-delay: 5
+
+# Googlebot - No delay for main crawler
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Googlebot-Image
+User-agent: Googlebot-Image
+Allow: /
+Crawl-delay: 1
+
+# Bingbot
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 5
+
+# DuckDuckBot
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 5
+
+# Yandex
+User-agent: Yandex
+Allow: /
+Crawl-delay: 5
+
+# Baidu spider
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 10
+
+# Yisou
+User-agent: Yisou
+Allow: /
+Crawl-delay: 10
+
+# Sogou web spider
+User-agent: Sogou
+Allow: /
+Crawl-delay: 10
+
+# SEMrush Bot
+User-agent: SEMrushBot
+Allow: /
+Crawl-delay: 10
+
+# AhrefsBot
+User-agent: AhrefsBot
+Allow: /
+Crawl-delay: 10
+
+# DotBot
+User-agent: DotBot
+Allow: /
+Crawl-delay: 10
+
+# TurnBot
+User-agent: Turnbot
+Allow: /
+Crawl-delay: 10
+
+# Semantic Scholar Bot
+User-agent: SemanticScholar
+Allow: /
+Crawl-delay: 10
+
+# Disallow development/test paths
+Disallow: /tests/
+Disallow: /runwayhub/tests/
+
+# Block crawl during low-traffic periods (optional)
+# Rule: Crawl between 22:00-06:00 local time with 20 delay
+# User-agent: *
+# Allow: /
+# Schedule: Mon-Fri, 22:00-06:00 Berlin time
+# Crawl-delay: 20
+
+# Block specific file types (if needed)
+# Disallow: *.log
+# Disallow: *.tmp
+
+# Custom rules for your setup
+# Add specific allow/deny rules here as needed
+
+# Contact
+Contact: admin@runwayhub.example
+
+# Host information
+Host: https://chris1971nrw.github.io/runwayhub/
+Canonical: https://chris1971nrw.github.io/runwayhub/

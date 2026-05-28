@@ -1,0 +1,40 @@
+{
+  "@context": "https://schema.org",
+  "@type": "APISpecification",
+  "url": "https://chris1971nrw.github.io/runwayhub/api/",
+  "name": "RunwayHub API",
+  "description": "RESTful API für RunwayHub - Virtual Airline Management System. Zugriff auf Flughäfen, Wetter, Flüge, PIREPs und mehr.",
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "PHP",
+    "url": "https://www.php.net/"
+  },
+  "license": {
+    "@type": "CreativeWork",
+    "name": "MIT License",
+    "url": "https://opensource.org/licenses/MIT"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "RunwayHub",
+    "url": "https://github.com/chris1971nrw"
+  },
+  "documentation": {
+    "@type": "CreativeWork",
+    "name": "API Documentation",
+    "url": "https://chris1971nrw.github.io/runwayhub/api/endpoints.md",
+    "description": "Umfassende API-Dokumentation mit Beispielen"
+  },
+  "version": "1.0.0",
+  "softwareHelpDesk": {
+    "@type": "WebPage",
+    "url": "https://github.com/chris1971nrw/runwayhub/issues",
+    "name": "API Support via Issues"
+  },
+  "supportedBy": {
+    "@type": "Organization",
+    "name": "RunwayHub Team"
+  },
+  "datePublished": "2026-05-26T00:00:00+02:00",
+  "dateModified": "2026-05-27T14:09:00+02:00"
+}

@@ -1,0 +1,2 @@
+-- Migration 007: create_pilots.sql (already exists)
+-- This is fine, already handled

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Board - RunwayHub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Arial, sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 20px; min-height: 100vh; }
+        .board-container { max-width: 1400px; margin: 0 auto; background: rgba(255,255,255,0.05); border-radius: 10px; padding: 30px; }
+        h1 { text-align: center; margin-bottom: 30px; font-size: 2.5em; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .board-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .airline-board { background: rgba(0,0,0,0.3); border-radius: 10px; padding: 20px; border: 2px solid rgba(255,255,255,0.1); }
+        .airline-board h2 { color: #fff; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid rgba(255,255,255,0.2); }
+        .flight-list { display: flex; flex-direction: column; gap: 10px; }
+        .flight-item { background: rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; display: flex; justify-content: space-between; align-items: center; transition: transform 0.3s; }
+        .flight-item:hover { transform: translateX(5px); background: rgba(255,255,255,0.15); }
+        .flight-item.terminal { background: rgba(40,167,69,0.2); border-left: 4px solid #27ae60; }
+        .flight-item.arrival { background: rgba(39,174,96,0.2); border-left: 4px solid #27ae60; }
+        .flight-item.departure { background: rgba(155,89,182,0.2); border-left: 4px solid #9b59b6; }
+        .flight-info { display: flex; flex-direction: column; gap: 4px; }
+        .flight-route { font-size: 1.2em; font-weight: bold; color: #fff; }
+        .flight-status { font-size: 0.9em; color: rgba(255,255,255,0.8); }
+        .flight-time { font-size: 0.9em; color: rgba(255,255,255,0.6); }
+        .live-indicator { display: inline-block; width: 8px; height: 8px; background: #27ae60; border-radius: 50%; margin-right: 5px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        .board-footer { text-align: center; margin-top: 20px; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 10px; color: rgba(255,255,255,0.6); font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="board-container">
+        <h1>🛫 Live Flight Board - RunwayHub</h1>
+        
+        <div class="board-grid">
+            <!-- Deutsche Airline -->
+            <div class="airline-board">
+                <h2>🏆 Deutsche Airline</h2>
+                <div class="flight-list" id="deutsche-flights"></div>
+            </div>
+            
+            <!-- Swedish Airline -->
+            <div class="airline-board">
+                <h2>🏆 Swedish Airline</h2>
+                <div class="flight-list" id="swedish-flights"></div>
+            </div>
+            
+            <!-- British Airline -->
+            <div class="airline-board">
+                <h2>🏆 British Airline</h2>
+                <div class="flight-list" id="british-flights"></div>
+            </div>
+            
+            <!-- Französische Airline -->
+            <div class="airline-board">
+                <h2>🏆 Französische Airline</h2>
+                <div class="flight-list" id="francoise-flights"></div>
+            </div>
+        </div>
+        
+        <div class="board-footer">
+            <span class="live-indicator"></span> Live-Status | Letzte Aktualisierung: <span id="last-update">-</span> | ACARS-Tracking aktiv
+        </div>
+    </div>
+    
+    <script>
+        // Simuliere Live-Flugdaten
+        const flights = {
+            'deutsche': [
+                { route: 'EDDM → EDDF', time: '14:25', status: 'Landet in 15 Min', type: 'arrival' },
+                { route: 'EDDF → EDDM', time: '16:45', status: 'Abflug in 20 Min', type: 'departure' },
+                { route: 'EDDF → EDDB', time: '17:30', status: 'En route', type: 'departure' }
+            ],
+            'swedish': [
+                { route: 'EGLL → EDDB', time: '14:10', status: 'Landet in 10 Min', type: 'arrival' },
+                { route: 'EDDB → EGLL', time: '16:20', status: 'En route', type: 'departure' }
+            ],
+            'british': [
+                { route: 'EGLL → EDDF', time: '14:00', status: 'Landet in 5 Min', type: 'arrival' },
+                { route: 'EDDF → EGLL', time: '18:00', status: 'En route', type: 'departure' }
+            ],
+            'francoise': [
+                { route: 'LFPG → EDDF', time: '14:35', status: 'Landet in 25 Min', type: 'arrival' },
+                { route: 'EDDF → LFPG', time: '17:00', status: 'En route', type: 'departure' }
+            ]
+        };
+        
+        // Flugdaten rendern
+        Object.keys(flights).forEach(airline => {
+            const flightList = document.getElementById(`${airline}-flights`);
+            flights[airline].forEach(flight => {
+                const flightItem = document.createElement('div');
+                flightItem.className = `flight-item ${flight.type} terminal`;
+                flightItem.innerHTML = `
+                    <div class="flight-info">
+                        <div class="flight-route">${flight.route}</div>
+                        <div class="flight-status">${flight.status}</div>
+                    </div>
+                    <div class="flight-time">${flight.time}</div>
+                `;
+                flightList.appendChild(flightItem);
+            });
+        });
+        
+        // Live Update Simulation
+        setInterval(function() {
+            const now = new Date();
+            document.getElementById('last-update').textContent = now.toLocaleTimeString('de-DE');
+        }, 30000);
+    </script>
+</body>
+</html>

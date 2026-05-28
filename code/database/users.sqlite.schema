@@ -1,0 +1,35 @@
+-- Users table for pilot authentication
+CREATE TABLE IF NOT EXISTS users (
+    id TEXT PRIMARY KEY,
+    callsign TEXT UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL,
+    airline TEXT,
+    airline_url TEXT,
+    group_id TEXT,
+    created_at DATETIME NOT NULL,
+    updated_at DATETIME NOT NULL,
+    active INTEGER DEFAULT 1
+);
+
+-- Users groups for pilot management
+CREATE TABLE IF NOT EXISTS groups (
+    id TEXT PRIMARY KEY,
+    name TEXT UNIQUE NOT NULL,
+    airline TEXT NOT NULL,
+    permissions TEXT DEFAULT '[]'
+);
+
+-- Group membership
+CREATE TABLE IF NOT EXISTS group_members (
+    id TEXT PRIMARY KEY,
+    user_id TEXT NOT NULL,
+    group_id TEXT NOT NULL,
+    UNIQUE(user_id, group_id),
+    FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE
+);
+
+-- Indexes for performance
+CREATE INDEX IF NOT EXISTS idx_users_airline ON users(airline);
+CREATE INDEX IF NOT EXISTS idx_users_active ON users(active);
+CREATE INDEX IF NOT EXISTS idx_group_members_user ON group_members(user_id);
+CREATE INDEX IF NOT EXISTS idx_group_members_group ON group_members(group_id);

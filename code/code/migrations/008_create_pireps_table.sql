@@ -1,0 +1,35 @@
+-- Migration: 008_pireps_table
+-- Erstellt: 2026-05-27
+
+CREATE TABLE IF NOT EXISTS `pireps` (
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `pilot_id` INT UNSIGNED NOT NULL,
+    `flight_id` INT UNSIGNED DEFAULT NULL,
+    `flight_leg` INT DEFAULT NULL,
+    `airport_id` INT UNSIGNED NOT NULL,
+    `type` ENUM('weather', 'maintenance', 'incident', 'general', 'recommendation') NOT NULL DEFAULT 'weather',
+    `priority` ENUM('low', 'medium', 'high', 'critical') NOT NULL DEFAULT 'low',
+    `location` VARCHAR(255) NOT NULL,
+    `altitude` INT UNSIGNED DEFAULT NULL,
+    `temperature` DECIMAL(5,2) DEFAULT NULL,
+    `wind_direction` INT UNSIGNED DEFAULT NULL,
+    `wind_speed` INT UNSIGNED DEFAULT NULL,
+    `visibility` DECIMAL(10,2) DEFAULT NULL,
+    `clouds` TEXT DEFAULT NULL,
+    `message` TEXT NOT NULL,
+    `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `status` ENUM('pending', 'reviewed', 'approved', 'rejected') NOT NULL DEFAULT 'pending',
+    `reviewer_id` INT UNSIGNED DEFAULT NULL,
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    KEY `pilot_id` (`pilot_id`),
+    KEY `flight_id` (`flight_id`),
+    KEY `airport_id` (`airport_id`),
+    KEY `type` (`type`),
+    KEY `status` (`status`),
+    FOREIGN KEY (`pilot_id`) REFERENCES `pilots`(`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`flight_id`) REFERENCES `flights`(`id`) ON DELETE SET NULL,
+    FOREIGN KEY (`airport_id`) REFERENCES `airports`(`id`) ON DELETE RESTRICT,
+    FOREIGN KEY (`reviewer_id`) REFERENCES `users`(`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

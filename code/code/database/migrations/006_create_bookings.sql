@@ -1,0 +1,2 @@
+-- Migration 006: create_bookings.sql (already exists)
+-- This is fine, already handled

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Favicon - RunwayHub</title>
+  <style>
+    body { 
+      margin: 0; 
+      padding: 0; 
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+      min-height: 100vh; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+    }
+    a { 
+      color: white; 
+      text-decoration: none; 
+      font-size: 12px; 
+      opacity: 0.8;
+    }
+  </style>
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAgY0hETQAAAoYAAAD...">
+</head>
+<body>
+  <!-- This page returns 404 when favicon.ico is requested -->
+</body>
+</html>

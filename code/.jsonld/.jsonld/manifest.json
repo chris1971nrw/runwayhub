@@ -1,0 +1,86 @@
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "RunwayHub",
+  "alternateName": ["RunwayHub - Virtual Airline Manager"],
+  "description": "RunwayHub ist eine umfassende Virtual Airline Management Software zur Verwaltung von Flotten, Routen, Büchungen, Piloten und Flugoperationen.",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web-based (any browser)",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "12"
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "RunwayHub Team",
+    "url": "https://github.com/chris1971nrw"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "RunwayHub",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://github.com/chris1971nrw/runwayhub/raw/main/assets/logo.png"
+    }
+  },
+  "softwareVersion": "2.0.0",
+  "softwareHelpDesk": {
+    "@type": "WebPage",
+    "url": "https://github.com/chris1971nrw/runwayhub/issues",
+    "name": "Issue Tracker"
+  },
+  "copyrightHolder": {
+    "@type": "Person",
+    "name": "Chris1971NRW",
+    "url": "https://github.com/chris1971nrw"
+  },
+  "license": "https://spdx.org/licenses/MIT",
+  "programmingLanguage": "PHP",
+  "softwareRequirements": {
+    "@type": "SoftwareRequirement",
+    "operatingSystem": "Linux, Windows, macOS",
+    "processor": "Any modern processor",
+    "network": "Required (API connections)"
+  },
+  "screenshot": [
+    "https://github.com/chris1971nrw/runwayhub/raw/main/assets/screenshot1.png",
+    "https://github.com/chris1971nrw/runwayhub/raw/main/assets/screenshot2.png"
+  ],
+  "featuredContent": [
+    "https://github.com/chris1971nrw/runwayhub/raw/main/assets/feature.png"
+  ],
+  "tutorial": [
+    {
+      "@type": "HowTo",
+      "name": "Installation Guide",
+      "step": [
+        "Clone repository: git clone https://github.com/chris1971nrw/runwayhub.git",
+        "Install PHP 8.2+",
+        "Run php artisan migrate",
+        "Start web server"
+      ]
+    }
+  ],
+  "interactWith": [
+    {
+      "@type": "WebPage",
+      "url": "https://github.com/chris1971nrw/runwayhub"
+    },
+    {
+      "@type": "WebPage",
+      "url": "https://github.com/chris1971nrw/runwayhub/issues"
+    }
+  ],
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "Virtual Airline Operators, Flight Sim Enthusiasts, Aviation Professionals"
+  },
+  "datePublished": "2026-05-01",
+  "dateModified": "2026-05-27"
+}
