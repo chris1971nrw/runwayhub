@@ -21,6 +21,7 @@ if ($route = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
     // API Controller
     if (strpos($route, '/Controller/') === 0) {
         require_once __DIR__ . '/src/core/Database.php';
+        require_once __DIR__ . '/src/core/Middleware/Auth.php';
         $db = new RunwayHub\Core\Database(__DIR__ . '/database.sqlite');
         
         // Route zu Controller
@@ -47,7 +48,20 @@ if ($route = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
                     $controller->update();
                 } elseif (method_exists($controller, 'delete')) {
                     $controller->delete();
+                } elseif (method_exists($controller, 'login')) {
+                    $controller->login();
+                } elseif (method_exists($controller, 'logout')) {
+                    $controller->logout();
+                } elseif (method_exists($controller, 'changePassword')) {
+                    $controller->changePassword();
+                } elseif (method_exists($controller, 'updateProfile')) {
+                    $controller->updateProfile();
+                } elseif (method_exists($controller, 'getProfile')) {
+                    $controller->getProfile();
+                } elseif (method_exists($controller, 'getStats')) {
+                    $controller->getStats();
                 }
+            }
             }
             exit;
         }
