@@ -37,6 +37,12 @@
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th, td { padding: 10px; text-align: left; border-bottom: 1px solid #eee; }
         th { background: #f5f5f5; }
+        .issue-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
+        .issue-modal.active { display: flex; }
+        .issue-modal-content { background: white; padding: 40px; border-radius: 10px; max-width: 600px; width: 90%; }
+        .issue-modal-content h3 { color: #da4453; margin-bottom: 20px; }
+        .issue-modal-content textarea { width: 100%; height: 150px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: monospace; margin-bottom: 10px; }
+        .issue-modal-content .btn-group { text-align: center; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -46,20 +52,24 @@
     </div>
 
     <div class="container">
-        <!-- Update Notification (nur Admin) -->
-        <?php if (isset($update['isAdmin']) && $update['isAdmin'] && isset($update['updateAvailable']) && $update['updateAvailable']): ?>
-        <?php 
-            $latestVersion = $update['updateInfo']['latest_version'] ?? 'unknown';
-        ?>
-        <div class="notification">
-            <h4>📦 Version-Update verfügbar</h4>
-            <div class="version">Aktuell: APP_VERSION → Neu: <?php echo $latestVersion; ?></div>
-            <p>Ein Update ist verfügbar. Klicken Sie auf "Jetzt Update durchführen", um das System zu aktualisieren.</p>
+        <!-- Issue-Reporting (nur Admin) -->
+        <?php if (isset($update['isAdmin']) && $update['isAdmin']): ?>
+        <?php $latestVersion = $update['updateInfo']['latest_version'] ?? 'unknown'; ?>
+        <div class="notification" style="background: linear-gradient(135deg, #da4453 0%, #c5221f 100%);">
+            <h4>🐛 Issue-Reporting</h4>
+            <p>Fehler gefunden? Klicken Sie auf "Issue erstellen", um ein Problem zu melden. Der Logfile wird automatisch angehängt.</p>
             <div style="margin-top: 10px;">
-                <a href="update-release.php" class="btn">Jetzt Update durchführen</a>
-                <a href="dashboard.php?clear_cache=1" class="btn btn-success">Cache leeren</a>
+                <button class="btn" style="background: #da4453;" onclick="openIssueReport()">🐛 Issue erstellen</button>
+                <?php if (isset($update['updateAvailable']) && $update['updateAvailable']): ?>
+                <div style="margin-left: 20px;">
+                    <a href="update-release.php" class="btn" style="background: #1e8e3e;">Jetzt Update</a>
+                    <a href="dashboard.php?clear_cache=1" class="btn btn-success" style="background: #28a745;">Cache leeren</a>
+                </div>
+                <div class="timestamp">Letzter Check: <?php echo $update['updateInfo']['last_check'] ?? 'unknown'; ?></div>
+                <?php else: ?>
+                <div class="timestamp">System auf dem neuesten Stand</div>
+                <?php endif; ?>
             </div>
-            <div class="timestamp">Letzter Check: <?php echo $update['updateInfo']['last_check'] ?? 'unknown'; ?></div>
         </div>
         <?php endif; ?>
 
@@ -160,5 +170,67 @@
             <a href="settings.php" class="btn btn-danger">⚙️ Einstellungen</a>
         </div>
     </div>
+
+    <!-- Issue Modal -->
+    <div class="issue-modal" id="issueModal">
+        <div class="issue-modal-content">
+            <h3>🐛 Issue erstellen</h3>
+            <p>Bitte beschreiben Sie das Problem in eigenen Worten:</p>
+            <form id="issueForm" onsubmit="submitIssue(event)">
+                <textarea id="issueDescription" placeholder="Beschreiben Sie das Problem... (z.B. 'Flug LH456 zeigt falschen Status')"></textarea>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-danger" onclick="closeIssueModal()">Abbrechen</button>
+                    <button type="submit" class="btn btn-success">Issue erstellen</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openIssueReport() {
+            document.getElementById('issueModal').classList.add('active');
+            document.getElementById('issueDescription').focus();
+        }
+
+        function closeIssueModal() {
+            document.getElementById('issueModal').classList.remove('active');
+        }
+
+        function submitIssue(event) {
+            event.preventDefault();
+            const description = document.getElementById('issueDescription').value;
+            
+            if (!description.trim()) {
+                alert('Bitte beschreiben Sie das Problem!');
+                return;
+            }
+
+            // API-Aufruf zum Erstellen des Issues
+            fetch('/api/admin/issues/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    description: description,
+                    admin_email: '<?php echo isset($_SESSION["admin_email"]) ? $_SESSION["admin_email"] : "admin@example.com"; ?>',
+                    admin_name: '<?php echo isset($_SESSION["admin_name"]) ? $_SESSION["admin_name"] : "Administrator"; ?>',
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('✅ Issue erstellt! URL: ' + data.issue_url);
+                    closeIssueModal();
+                    document.getElementById('issueDescription').value = '';
+                } else {
+                    alert('❌ Fehler: ' + (data.error || 'Unbekannter Fehler'));
+                }
+            })
+            .catch(error => {
+                alert('❌ Fehler: ' + error.message);
+            });
+        }
+    </script>
 </body>
 </html>
