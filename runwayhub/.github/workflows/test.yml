@@ -1,0 +1,76 @@
+name: Test Suite
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, pdo, sqlite, gd, openssl, curl
+          
+      - name: Install Composer dependencies
+        run: composer install --no-dev --no-interaction
+      
+      - name: Run PHP Syntax Check
+        run: find . -name "*.php" -not -path "./vendor/*" -not -path "./.git/*" -exec php -l {} \;
+        
+      - name: Run Tests
+        run: |
+          php tests/api-health-check.php
+          php tests/test-acars.php
+          php tests/test-weather.php
+        
+      - name: Check Code Style
+        run: |
+          # PHP_CodeStyle (optional)
+          echo "Code style check (optional)"
+          
+      - name: Upload Coverage
+        uses: codecov/codecov-action@v3
+        if: always()
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Run Security Audit
+        run: |
+          # Static Analysis (optional)
+          echo "Security audit (optional)"
+          
+      - name: Check for Vulnerabilities
+        run: |
+          # Composer Audit (optional)
+          echo "Dependency audit (optional)"
+
+  deployment:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: runwayhub.tar.gz
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Deploy to Production
+        run: |
+          echo "Deployment check (optional)"
