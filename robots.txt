@@ -1,0 +1,66 @@
+# Robots.txt for RunwayHub
+# Optimized for SEO and search engine crawling
+
+User-agent: *
+Allow: /
+Allow: /landing/
+Allow: /api/
+Allow: /connect/
+
+# Allow all major search engines
+Allow: /landing/landing.html
+Allow: /landing/de/index.html
+Allow: /api/
+Allow: /api/flight/
+Allow: /api/aircraft/
+Allow: /api/pilot/
+Allow: /api/booking/
+Allow: /admin/
+Allow: /connect/
+Allow: /about/
+Allow: /contact/
+
+# Sitemap location
+Sitemap: https://runwayhub.github.io/sitemap.xml
+Sitemap: https://runwayhub.github.io/sitemap-index.xml
+
+# Crawl-delay for slower bots
+Crawl-delay: 5
+
+# Disallow certain admin paths
+Disallow: /api/admin/
+Disallow: /admin/
+Disallow: /connect/
+
+# Block private/test paths
+Disallow: /test/
+Disallow: /debug/
+Disallow: /dev/
+
+# Allow analytics bots
+User-agent: Googlebot
+Allow: /
+Allow: /landing/
+Allow: /api/
+
+User-agent: Bingbot
+Allow: /
+Allow: /landing/
+Allow: /api/
+
+User-agent: DuckDuckBot
+Allow: /
+Allow: /landing/
+Allow: /api/
+
+User-agent: Baiduspider
+Allow: /
+Allow: /landing/
+Allow: /api/
+
+# Block crawlers (optional)
+User-agent: AhrefsBot
+Disallow: /api/
+
+User-agent: SemrushBot
+Disallow: /api/

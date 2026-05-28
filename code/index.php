@@ -1,6 +1,6 @@
 <?php
 /**
- * RunwayHub - Fluggesellschaft Management
+ * RunwayHub - Management System
  * 
  * Haupt-Entry-Point für die API und Frontend
  */
@@ -19,56 +19,34 @@ if ($route = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
     }
     
     // API Controller
-    if (strpos($route, '/Controller/') === 0) {
+    if (strpos($route, '/api/') === 0) {
         require_once __DIR__ . '/src/core/Database.php';
-        require_once __DIR__ . '/src/core/Middleware/Auth.php';
-        $db = new RunwayHub\Core\Database(__DIR__ . '/database.sqlite');
+        require_once __DIR__ . '/api/LoginController.php';
+        $db = new RunwayHub\Core\Database(
+            [
+                'driver' => getenv('DB_CONNECTION') === 'mysql' ? 'mysql' : 'sqlite',
+                'host' => getenv('DB_HOST'),
+                'port' => getenv('DB_PORT'),
+                'database' => getenv('DB_DATABASE'),
+                'username' => getenv('DB_USERNAME'),
+                'password' => getenv('DB_PASSWORD'),
+                'path' => __DIR__ . '/database.sqlite'
+            ]
+        );
         
-        // Route zu Controller
-        $controllerPath = __DIR__ . '/api' . str_replace('/', DIRECTORY_SEPARATOR, $route);
+        $request = new RunwayHub\Core\Request($_SERVER['REQUEST_METHOD'], $_SERVER, $_GET, $_POST, $_FILES);
+        $response = new RunwayHub\Core\Response();
         
-        if (file_exists($controllerPath)) {
-            require_once $controllerPath;
-            
-            $request = new RunwayHub\Core\Request($_SERVER['REQUEST_METHOD'], $_SERVER, $_GET, $_POST, $_FILES);
-            $response = new RunwayHub\Core\Response();
-            
-            // Controller-Name extrahieren
-            $controllerName = str_replace('Controller', '', $controllerPath);
-            $controllerName = substr($controllerName, -8); // Nur den Klassen-Namen
-            
-            // Controller instanziiieren
-            if (class_exists($controllerName)) {
-                $controller = new $controllerName($request, $response, $db);
-                
-                // Route action (Standard: index)
-                if (method_exists($controller, 'index')) {
-                    $controller->index();
-                } elseif (method_exists($controller, 'create')) {
-                    $controller->create();
-                } elseif (method_exists($controller, 'show')) {
-                    $controller->show();
-                } elseif (method_exists($controller, 'update')) {
-                    $controller->update();
-                } elseif (method_exists($controller, 'delete')) {
-                    $controller->delete();
-                } elseif (method_exists($controller, 'login')) {
-                    $controller->login();
-                } elseif (method_exists($controller, 'logout')) {
-                    $controller->logout();
-                } elseif (method_exists($controller, 'changePassword')) {
-                    $controller->changePassword();
-                } elseif (method_exists($controller, 'updateProfile')) {
-                    $controller->updateProfile();
-                } elseif (method_exists($controller, 'getProfile')) {
-                    $controller->getProfile();
-                } elseif (method_exists($controller, 'getStats')) {
-                    $controller->getStats();
-                }
-            }
-            
-            exit;
+        // LoginController instanziiieren
+        $controller = new RunwayHub\Api\LoginController($db, $request, $response);
+        
+        // Route action
+        if ($route === '/api/login' || $route === '/api/login-pilot.php' || strpos($route, '/api/login') === 0) {
+            $controller->login();
+        } elseif ($route === '/api/logout' || strpos($route, '/api/logout') === 0) {
+            $controller->logout();
         }
+        exit;
     }
 }
 

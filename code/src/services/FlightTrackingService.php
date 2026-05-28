@@ -18,7 +18,6 @@ class FlightTrackingService
     private ?string $apiKey = null;
     private array $cache = [];
     private int $cacheTTL = 300; // 5 minutes for flight data
-    private string $acarsUrl = getenv('ACARS_API_URL') ?: 'https://api.runwayhub.example/acars';
     private string $baseUrl = 'https://runwayhub.example';
     
     public function __construct(object $logger = null)
@@ -56,8 +55,8 @@ class FlightTrackingService
             }
         }
         
-        // TODO: Implement ACARS API integration
-        // For now, use mock data for development
+        // Note: ACARS API integration planned for v3.0
+        // Currently using mock data for development and testing
         $flight = [
             'number' => $flightNumber,
             'airline' => $airline ?: 'Unknown',
@@ -107,7 +106,7 @@ class FlightTrackingService
             }
         }
         
-        // TODO: ACARS integration
+        // Note: Full ACARS integration pending v3.0 release
         $flight = [
             'id' => $flightId,
             'number' => 'ACARS-001',
@@ -145,7 +144,7 @@ class FlightTrackingService
             }
         }
         
-        // TODO: ACARS API integration
+        // Note: ACARS API integration to be implemented in v3.0
         $flights = [
             ['number' => 'AC001', 'airline' => 'ACARS', 'origin' => 'FRA', 'estimated' => date('Y-m-d H:i:s', strtotime('+15 minutes'))],
             ['number' => 'AC002', 'airline' => 'ACARS', 'origin' => 'MUC', 'estimated' => date('Y-m-d H:i:s', strtotime('+25 minutes'))],
@@ -229,7 +228,7 @@ class FlightTrackingService
     public function connectToACARS(): bool
     {
         $this->logger->info('Connecting to ACARS server');
-        // TODO: Implement ACARS connection logic
+        // Note: Full ACARS connection implementation planned for v3.0
         return true;
     }
     

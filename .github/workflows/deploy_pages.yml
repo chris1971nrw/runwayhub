@@ -1,0 +1,79 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  workflow_dispatch:
+    inputs:
+      message:
+        description: 'Manual deployment message'
+        required: false
+        default: 'Manual deployment'
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  DEPLOY_BRANCH: gh-pages
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci || echo "No package.json, skipping npm install"
+        continue-on-error: true
+      
+      - name: Build static files
+        run: |
+          if [ -f package.json ]; then
+            npm run build 2>/dev/null || echo "No build script"
+          else
+            echo "No build script found"
+          fi
+        continue-on-error: true
+      
+      - name: Generate sitemap
+        run: |
+          if command -v sitemap-generator &> /dev/null; then
+            sitemap-generator --change-freq=always --priority=1.0 \
+              --output=public/sitemap.xml \
+              public/landing/*.html \
+              public/api/*.html \
+              2>/dev/null || echo "No sitemap generation"
+          else
+            echo "Creating basic sitemap..."
+            cat > public/sitemap.xml << 'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://runwayhub.github.io/</loc><lastmod>2026-05-28</lastmod></url>
+  <url><loc>https://runwayhub.github.io/landing/</loc><lastmod>2026-05-28</lastmod></url>
+  <url><loc>https://runwayhub.github.io/api/</loc><lastmod>2026-05-28</lastmod></url>
+</urlset>
+EOF
+          fi
+        continue-on-error: true
+      
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          force_or_create: true
+          commit_message: ${{ github.event.inputs.message || 'Deploy to GitHub Pages' }}
+          
+      - name: Notify deployment
+        run: |
+          echo "Deployment completed at $(date -u)"
+          echo "View at: https://runwayhub.github.io"

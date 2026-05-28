@@ -1,0 +1,95 @@
+name: Sitemap Generation
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours
+  workflow_dispatch:
+
+jobs:
+  generate-sitemap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Generate sitemap
+        run: |
+          cat > public/sitemap.xml << 'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://runwayhub.github.io/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://runwayhub.github.io/landing/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://runwayhub.github.io/landing/de/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://runwayhub.github.io/api/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://runwayhub.github.io/api/flight/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://runwayhub.github.io/api/aircraft/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://runwayhub.github.io/api/pilot/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://runwayhub.github.io/api/booking/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://runwayhub.github.io/admin/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://runwayhub.github.io/connect/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://runwayhub.github.io/about/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://runwayhub.github.io/contact/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.6</priority>
+  </url>
+</urlset>
+EOF
+          echo "Sitemap generated at public/sitemap.xml"
+      
+      - name: Commit sitemap
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: regenerate sitemap'
+          file_pattern: 'public/sitemap.xml'
+      
+      - name: Deploy sitemap
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages

@@ -1,0 +1,17 @@
+-- RunwayHub Manager - SQLite-Datenbank
+-- Diese Datei dient als lokale Datenbank für Entwicklung
+
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL DEFAULT 'user',
+    status VARCHAR(20) NOT NULL DEFAULT 'active',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Admin Benutzer erstellen
+INSERT INTO users (username, email, password, role, status)
+VALUES ('admin', 'admin@runwayhub.local', '$2y$10$92IXUNpkjO0rO05WMiM9L.wlO/KoenMQJ7SY.58zM72Yz5ovsP', 'admin', 'active');
