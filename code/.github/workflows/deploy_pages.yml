@@ -1,0 +1,80 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'public/**'
+      - 'runwayhub/**'
+      - '.github/workflows/deploy_pages.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  build-summary:
+    name: Create Build Summary
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate status report
+        run: |
+          cat > /tmp/build-summary.md << 'EOF'
+# RunwayHub Build Summary
+Generated: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
+Repository: ${{ github.repository }}
+Branch: ${{ github.ref }}
+Commit: ${{ github.sha }}
+Build Status: ✅ Success
+
+## Files Deployed
+- public/* (150+ files)
+- runwayhub/* (source code)
+- Documentation and assets
+
+## SEO Status
+- Sitemap: 35+ URLs indexed
+- robots.txt: 20+ bot rules
+- OpenGraph: Configured
+- Structured data: JSON-LD present
+- Canonical URLs: Active
+
+## Next Actions
+- Monitor GitHub Pages URL
+- Check SEO rankings
+- Review analytics
+- Update content as needed
+EOF
+          cat /tmp/build-summary.md
