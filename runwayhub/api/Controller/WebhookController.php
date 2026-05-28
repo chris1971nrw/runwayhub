@@ -53,56 +53,13 @@ class WebhookController
         // Process webhook based on source
         switch ($source) {
             case 'ACARS':
+            case 'acars':
                 return $this->handleACARS($data);
             case 'ota':
                 return $this->handleOTA($data);
             case 'email':
                 return $this->handleEmail($data);
-            case 'acars':
-                return $this->handleACARS($data);
         }
-    }
-    
-    /**
-     * Handle ACARS webhook
-     */
-    private function handleACARS(array $data): Response
-    {
-        // Process flight status updates
-        $flightId = $data['flight_id'] ?? null;
-        $status = $data['status'] ?? null;
-        $latitude = $data['latitude'] ?? null;
-        $longitude = $data['longitude'] ?? null;
-        $altitude = $data['altitude'] ?? null;
-        
-        if ($flightId) {
-            // Update flight data
-            $sql = <<<'SQL'
-INSERT OR REPLACE INTO flight_data (flight_id, status, latitude, longitude, altitude, updated_at)
-VALUES (?, ?, ?, ?, ?, datetime('now'))
-SQL;
-            
-            $this->db->query($sql, [
-                $flightId,
-                $status,
-                $latitude,
-                $longitude,
-                $altitude
-            ]);
-            
-            return Response::json([
-                'success' => true,
-                'message' => 'Flight data updated',
-                'flight_id' => $flightId,
-                'status' => $status
-            ]);
-        }
-        
-        return Response::json([
-            'success' => true,
-            'message' => 'ACARS webhook received',
-            'data' => $data
-        ]);
     }
     
     /**
