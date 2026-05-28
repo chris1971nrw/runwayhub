@@ -48,7 +48,7 @@
 - VA management functional
 - Database integrity confirmed
 - OpenAIP connection working
-- FlightAware integration active
+- ACARS integration active
 
 ### ✅ Blog Content Creation
 - Blog index page created

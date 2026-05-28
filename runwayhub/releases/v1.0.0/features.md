@@ -42,7 +42,7 @@ Real-time flight status monitoring:
   - Max 5 flights per section
 
 - **Tracking Sources:**
-  - FlightAware API
+  - ACARS API
   - ACARS client (built-in)
   - Custom flight data feeds
 
@@ -159,7 +159,7 @@ GET /openaip/airport/{airport}/runways  # Runways
 GET /openaip/airport/{airport}/navaids  # Navaids
 ```
 
-### FlightAware Integration
+### ACARS Integration
 
 ```
 GET /tracking/{flownumber}         # Flight status
@@ -297,7 +297,7 @@ DELETE /va/{vaId}                  # Delete VA
 ### Planned
 
 - [ ] OAuth2 integration
-- [ ] FlightAware webhook setup
+- [ ] ACARS webhook setup
 - [ ] Mobile app development
 - [ ] Advanced analytics
 - [ ] OTA (AeroTools) integration

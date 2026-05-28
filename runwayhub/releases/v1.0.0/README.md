@@ -13,7 +13,7 @@ RunwayHub v1.0.0 ist das erste vollständige Release des Virtual Airline Managem
 ### ✨ Features
 
 - ✅ Multi-Airline Support
-- ✅ Live-Flugverfolgung (FlightAware)
+- ✅ Live-Flugverfolgung (ACARS)
 - ✅ Wetter-API Integration
 - ✅ VA Management System
 - ✅ Login System
@@ -227,7 +227,7 @@ SOFTWARE.
 ### 🙏 Acknowledgments
 
 - **OpenAIP API** für Wetter-Daten
-- **FlightAware** für Flugverfolgung
+- **ACARS** für Flugverfolgung
 - **php-amqplib** für MQTT
 - **Monolog** für Logging
 - **Ramsey UUID** für IDs

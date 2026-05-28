@@ -9,7 +9,7 @@ use Monolog\Logger;
 /**
  * Flight Tracking Service
  * 
- * Handles flight status tracking via FlightAware API.
+ * Handles flight status tracking via proprietary ACARS API.
  * Supports multiple airlines and flight numbers.
  */
 class FlightTrackingService
@@ -17,8 +17,9 @@ class FlightTrackingService
     private object $logger;
     private ?string $apiKey = null;
     private array $cache = [];
-    private int $cacheTTL = 60; // 1 minute for flight data
-    private string $baseUrl = 'https://flightaware.com';
+    private int $cacheTTL = 300; // 5 minutes for flight data
+    private string $acarsUrl = getenv('ACARS_API_URL') ?: 'https://api.runwayhub.example/acars';
+    private string $baseUrl = 'https://runwayhub.example';
     
     public function __construct(object $logger = null)
     {
@@ -29,7 +30,7 @@ class FlightTrackingService
             public function error(string $msg): void {}
             public function critical(string $msg): void {}
         };
-        $this->apiKey = getenv('FLIGHT_AWARE_API_KEY') ?: null;
+        $this->apiKey = getenv('ACARS_API_KEY') ?: null;
     }
     
     /**
@@ -45,7 +46,7 @@ class FlightTrackingService
         $airline = strtoupper($airline);
         
         // Cache key
-        $cacheKey = "flight/{$flightNumber}/{$airline}";
+        $cacheKey = "acars/{$flightNumber}/{$airline}";
         
         // Check cache
         if (isset($this->cache[$cacheKey])) {
@@ -55,25 +56,31 @@ class FlightTrackingService
             }
         }
         
-        // Simulate flight status (demo)
+        // TODO: Implement ACARS API integration
+        // For now, use mock data for development
         $flight = [
             'number' => $flightNumber,
             'airline' => $airline ?: 'Unknown',
-            'callsign' => $airline ?: 'FLIGHT',
-            'status' => 'En Route',
-            'estimatedArrival' => date('Y-m-d H:i:s', strtotime('+2 hours')),
-            'estimatedDeparture' => date('Y-m-d H:i:s', strtotime('-2 hours')),
+            'callsign' => $airline ?: 'ACARS',
+            'status' => 'On Ground',
+            'estimatedArrival' => null,
+            'estimatedDeparture' => null,
             'origin' => 'EDDF',
-            'destination' => 'KJFK',
-            'latitude' => 51.0,
-            'longitude' => 8.0,
-            'altitude' => 35000,
-            'groundSpeed' => 480,
-            'track' => 45,
-            'aircraftType' => 'B738',
+            'destination' => 'EDDM',
+            'latitude' => 51.3,
+            'longitude' => 10.0,
+            'altitude' => 0,
+            'groundSpeed' => 0,
+            'track' => 0,
+            'aircraftType' => 'Unknown',
+            'acarsData' => [
+                'lastHeartbeat' => date('Y-m-d H:i:s'),
+                'status' => 'connected',
+                'timestamp' => time(),
+            ],
             'flightHistory' => [
-                ['airport' => 'EDDM', 'time' => date('Y-m-d H:i:s', strtotime('-3 hours'))],
                 ['airport' => 'EDDF', 'time' => date('Y-m-d H:i:s', strtotime('-2 hours'))],
+                ['airport' => 'EDDM', 'time' => date('Y-m-d H:i:s', strtotime('-1 hour'))],
             ],
         ];
         
@@ -91,7 +98,7 @@ class FlightTrackingService
      */
     public function getFlightByFlightID(string $flightId): array|false
     {
-        $cacheKey = "flight/{$flightId}";
+        $cacheKey = "acars/{$flightId}";
         
         if (isset($this->cache[$cacheKey])) {
             $data = $this->cache[$cacheKey];
@@ -100,19 +107,19 @@ class FlightTrackingService
             }
         }
         
-        // Simulate
+        // TODO: ACARS integration
         $flight = [
             'id' => $flightId,
-            'number' => 'HA921',
-            'airline' => 'HA',
-            'status' => 'En Route',
-            'origin' => 'KBOS',
-            'destination' => 'KIAH',
-            'estimatedArrival' => date('Y-m-d H:i:s', strtotime('+4 hours')),
-            'latitude' => 40.0,
-            'longitude' => -75.0,
-            'altitude' => 31000,
-            'groundSpeed' => 460,
+            'number' => 'ACARS-001',
+            'airline' => 'Internal',
+            'status' => 'Scheduled',
+            'origin' => 'EDDF',
+            'destination' => 'EDDM',
+            'estimatedArrival' => date('Y-m-d H:i:s', strtotime('+2 hours')),
+            'latitude' => 51.2,
+            'longitude' => 10.5,
+            'altitude' => 0,
+            'groundSpeed' => 0,
         ];
         
         $this->cache[$cacheKey] = [
@@ -129,7 +136,7 @@ class FlightTrackingService
     public function getArrivingFlights(string $airport, int $limit = 20): array
     {
         $airport = strtoupper($airport);
-        $cacheKey = "arrivals/{$airport}";
+        $cacheKey = "acars/arrivals/{$airport}";
         
         if (isset($this->cache[$cacheKey])) {
             $data = $this->cache[$cacheKey];
@@ -138,12 +145,11 @@ class FlightTrackingService
             }
         }
         
-        // Simulate arrival flights
+        // TODO: ACARS API integration
         $flights = [
-            ['number' => 'DL1234', 'airline' => 'DL', 'origin' => 'KATL', 'estimated' => date('Y-m-d H:i:s', strtotime('+15 minutes'))],
-            ['number' => 'BA117', 'airline' => 'BA', 'origin' => 'EGLL', 'estimated' => date('Y-m-d H:i:s', strtotime('+25 minutes'))],
-            ['number' => 'LH456', 'airline' => 'LH', 'origin' => 'EDDF', 'estimated' => date('Y-m-d H:i:s', strtotime('+35 minutes'))],
-            ['number' => 'UA200', 'airline' => 'UA', 'origin' => 'KORD', 'estimated' => date('Y-m-d H:i:s', strtotime('+45 minutes'))],
+            ['number' => 'AC001', 'airline' => 'ACARS', 'origin' => 'FRA', 'estimated' => date('Y-m-d H:i:s', strtotime('+15 minutes'))],
+            ['number' => 'AC002', 'airline' => 'ACARS', 'origin' => 'MUC', 'estimated' => date('Y-m-d H:i:s', strtotime('+25 minutes'))],
+            ['number' => 'AC003', 'airline' => 'ACARS', 'origin' => 'HAJ', 'estimated' => date('Y-m-d H:i:s', strtotime('+35 minutes'))],
         ];
         
         $this->cache[$cacheKey] = [
@@ -160,7 +166,7 @@ class FlightTrackingService
     public function getDepartingFlights(string $airport, int $limit = 20): array
     {
         $airport = strtoupper($airport);
-        $cacheKey = "departures/{$airport}";
+        $cacheKey = "acars/departures/{$airport}";
         
         if (isset($this->cache[$cacheKey])) {
             $data = $this->cache[$cacheKey];
@@ -169,11 +175,11 @@ class FlightTrackingService
             }
         }
         
-        // Simulate departing flights
+        // TODO: ACARS API integration
         $flights = [
-            ['number' => 'LH457', 'airline' => 'LH', 'destination' => 'EDDF', 'estimated' => date('Y-m-d H:i:s', strtotime('-5 minutes'))],
-            ['number' => 'DL1235', 'airline' => 'DL', 'destination' => 'KATL', 'estimated' => date('Y-m-d H:i:s', strtotime('+1 hour'))],
-            ['number' => 'BA118', 'airline' => 'BA', 'destination' => 'EGLL', 'estimated' => date('Y-m-d H:i:s', strtotime('+1 hour 30 min'))],
+            ['number' => 'AC004', 'airline' => 'ACARS', 'destination' => 'FRA', 'estimated' => date('Y-m-d H:i:s', strtotime('-5 minutes'))],
+            ['number' => 'AC005', 'airline' => 'ACARS', 'destination' => 'MUC', 'estimated' => date('Y-m-d H:i:s', strtotime('+1 hour'))],
+            ['number' => 'AC006', 'airline' => 'ACARS', 'destination' => 'HAJ', 'estimated' => date('Y-m-d H:i:s', strtotime('+1 hour 30 min'))],
         ];
         
         $this->cache[$cacheKey] = [
@@ -190,21 +196,21 @@ class FlightTrackingService
     public function getFlightHistory(string $flightNumber, string $airline = '', int $days = 7): array
     {
         $flightNumber = strtoupper($flightNumber);
-        $cacheKey = "history/{$flightNumber}/{$airline}/{$days}days";
+        $cacheKey = "acars/history/{$flightNumber}/{$airline}/{$days}days";
         
         if (isset($this->cache[$cacheKey])) {
             return $this->cache[$cacheKey]['data'] ?? [];
         }
         
-        // Simulate flight history
+        // TODO: ACARS API integration
         $history = [];
         for ($i = 0; $i < 10; $i++) {
             $history[] = [
                 'date' => date('Y-m-d', strtotime("-{$i} days")),
                 'number' => $flightNumber,
-                'airline' => $airline,
+                'airline' => $airline ?: 'ACARS',
                 'origin' => 'EDDF',
-                'destination' => $i % 2 ? 'KJFK' : 'EGLL',
+                'destination' => 'EDDM',
                 'status' => 'On Time',
             ];
         }
@@ -218,16 +224,26 @@ class FlightTrackingService
     }
     
     /**
-     * Clear flight cache
+     * Connect to ACARS server
+     */
+    public function connectToACARS(): bool
+    {
+        $this->logger->info('Connecting to ACARS server');
+        // TODO: Implement ACARS connection logic
+        return true;
+    }
+    
+    /**
+     * Clear ACARS cache
      */
     public function clearCache(): void
     {
         $this->cache = [];
-        $this->logger->info('Flight tracking cache cleared');
+        $this->logger->info('ACARS cache cleared');
     }
     
     /**
-     * Check cache status
+     * Check ACARS cache status
      */
     public function getCacheStatus(): array
     {
@@ -236,6 +252,19 @@ class FlightTrackingService
             'cacheMisses' => count(array_diff_key($this->cache, array_filter($this->cache, fn($d) => time() - $d['timestamp'] < $this->cacheTTL))),
             'cacheSize' => count($this->cache),
             'ttl' => $this->cacheTTL,
+        ];
+    }
+    
+    /**
+     * Get ACARS configuration
+     */
+    public function getACARSConfig(): array
+    {
+        return [
+            'url' => $this->acarsUrl,
+            'apiKey' => $this->apiKey ?: 'Not configured',
+            'cacheTTL' => $this->cacheTTL,
+            'status' => 'Development mode',
         ];
     }
 }

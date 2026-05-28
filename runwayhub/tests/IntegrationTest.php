@@ -13,7 +13,7 @@
 namespace RunwayHub\Tests\Integration;
 
 use RunwayHub\Services\WeatherService;
-use RunwayHub\Services\FlightAwareService;
+use RunwayHub\Services\ACARSService;
 use RunwayHub\Repositories\FlightRepository;
 use RunwayHub\Repositories\WeatherRepository;
 use RunwayHub\Cache\CacheManager;
@@ -23,7 +23,7 @@ use PHPUnit\Framework\TestCase;
 class IntegrationTest extends TestCase
 {
     private WeatherService $weatherService;
-    private FlightAwareService $flightService;
+    private ACARSService $flightService;
     private FlightRepository $flightRepo;
     private WeatherRepository $weatherRepo;
     private CacheManager $cache;
@@ -45,7 +45,7 @@ class IntegrationTest extends TestCase
         
         // Initialize services
         $this->weatherService = new WeatherService($this->getMockHttpClient());
-        $this->flightService = new FlightAwareService($this->getMockHttpClient());
+        $this->flightService = new ACARSService($this->getMockHttpClient());
     }
 
     protected function tearDown(): void

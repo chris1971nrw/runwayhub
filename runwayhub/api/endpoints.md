@@ -160,21 +160,21 @@ Sichtbarkeitsdaten.
 
 ---
 
-## FlightAware Endpoints
+## ACARS Endpoints
 
-### GET /flightaware/flights
+### GET /ACARS/flights
 
-Flugverfolgung via FlightAware API.
+Flugverfolgung via ACARS API.
 
-### GET /flightaware/{flight}
+### GET /ACARS/{flight}
 
 Details für spezifischen Flug.
 
-### GET /flightaware/airports
+### GET /ACARS/airports
 
 Liste aller Flughäfen.
 
-### GET /flightaware/delays
+### GET /ACARS/delays
 
 Verspätungsstatistiken.
 
@@ -457,7 +457,7 @@ Ausloggen.
 |----------|-------|--------|
 | OpenAIP | 100 requests | 60s |
 | Wetter-API | 60 requests | 60s |
-| FlightAware | 10 requests | 60s |
+| ACARS | 10 requests | 60s |
 | Status | Unlimited | - |
 | Admin | 10 requests | 60s |
 

@@ -39,7 +39,7 @@
 - [x] Flight tracking
 - [x] Airport data
 - [x] OpenAIP connection
-- [x] FlightAware connection
+- [x] ACARS connection
 - [x] Booking management
 - [x] API health monitoring
 - [x] Admin panel

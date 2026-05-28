@@ -44,7 +44,7 @@ All RunwayHub PHP files have passed syntax validation. The codebase is productio
 - ✅ `api/Controller/ObstaclesController.php`
 - ✅ `api/Controller/NotamsController.php`
 - ✅ `api/Controller/WeatherService.php`
-- ✅ `api/Controller/FlightAwareService.php`
+- ✅ `api/Controller/ACARSService.php`
 - ✅ `api/Controller/OpenAIPService.php`
 - ✅ `api/Controller/LoginController.php`
 - ✅ `api/Controller/VAController.php`
@@ -85,12 +85,12 @@ All RunwayHub PHP files have passed syntax validation. The codebase is productio
 - ✅ `tests/Core/ControllerTest.php`
 - ✅ `tests/Core/RouterTest.php`
 - ✅ `tests/run-tests.php`
-- ✅ `tests/FlightAwareServiceTest.php`
+- ✅ `tests/ACARSServiceTest.php`
 
 ### Services (10)
 - ✅ `src/services/AcarsClient.php`
 - ✅ `src/services/WeatherService.php`
-- ✅ `src/services/FlightAwareService.php`
+- ✅ `src/services/ACARSService.php`
 - ✅ `src/services/OpenAIPService.php`
 
 ### Utilities (6)
@@ -115,7 +115,7 @@ All RunwayHub PHP files have passed syntax validation. The codebase is productio
 - [x] CSRF protection (prepared statements)
 - [x] SQL injection prevention
 - [x] XSS protection
-- [x] Rate limiting (100/min for OpenAIP, 60/min for Weather, 10/min for FlightAware)
+- [x] Rate limiting (100/min for OpenAIP, 60/min for Weather, 10/min for ACARS)
 - [x] Request sanitization
 - [x] Error message obfuscation
 
@@ -178,7 +178,7 @@ All RunwayHub PHP files have passed syntax validation. The codebase is productio
 ### External Services
 - OpenAIP API (Flight data)
 - Open-Meteo (Weather data)
-- FlightAware API (Flight tracking)
+- ACARS API (Flight tracking)
 - MQTT brokers (ACARS)
 
 ---
@@ -213,7 +213,7 @@ All RunwayHub PHP files have passed syntax validation. The codebase is productio
 - [x] Request throttling
 - [x] Error recovery
 
-### FlightAware
+### ACARS
 - [x] API rate limits respected
 - [x] Webhook setup ready
 - [x] Error handling implemented

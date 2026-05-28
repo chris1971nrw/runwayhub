@@ -26,7 +26,7 @@ RunwayHub ist ein modernes Virtual Airline Management System für Flugsimulation
 ### 🌟 Features
 
 - **Multi-Airline Support** - Verwalten Sie mehrere Virtual Airlines
-- **Live-Flugverfolgung** - Integration mit FlightAware API
+- **Live-Flugverfolgung** - Integration mit ACARS API
 - **Wetter-API** - METAR/TAF, Alerts, PIREP
 - **VA Management** - Erstellen & Verbinden von Virtual Airlines
 - **Login System** - Callsign/Passwort Authentifizierung

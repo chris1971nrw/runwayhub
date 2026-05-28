@@ -24,7 +24,7 @@
 ### API Endpoints
 - [ ] OpenAIP endpoints functional
 - [ ] Weather API endpoints operational
-- [ ] FlightAware integration configured
+- [ ] ACARS integration configured
 - [ ] Login authentication working
 - [ ] VA management API ready
 - [ ] Rate limiting enforced

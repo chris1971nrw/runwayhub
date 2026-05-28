@@ -19,7 +19,7 @@ require_once __DIR__ . '/../src/core/Database.php';
 require_once __DIR__ . '/../src/core/Response.php';
 require_once __DIR__ . '/../src/services/AcarsClient.php';
 require_once __DIR__ . '/../src/services/WeatherClient.php';
-require_once __DIR__ . '/../src/services/FlightAwareClient.php';
+require_once __DIR__ . '/../src/services/ACARSClient.php';
 
 // Handle OPTIONS
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -71,11 +71,11 @@ $routes = [
     '/weather/turbulence' => 'WeatherController',
     '/weather/visibility' => 'WeatherController',
     
-    // FlightAware
-    '/flightaware/flights' => 'FlightAwareController',
-    '/flightaware/{flight}' => 'FlightAwareController',
-    '/flightaware/airports' => 'FlightAwareController',
-    '/flightaware/delays' => 'FlightAwareController',
+    // ACARS
+    '/ACARS/flights' => 'ACARSController',
+    '/ACARS/{flight}' => 'ACARSController',
+    '/ACARS/airports' => 'ACARSController',
+    '/ACARS/delays' => 'ACARSController',
 ];
 
 // Get request data
@@ -83,7 +83,7 @@ $requestData = file_get_contents('php://input');
 $params = $_GET;
 
 // Extract named parameters
-if (preg_match('#/flightaware/(\S+)#', $endpoint, $matches)) {
+if (preg_match('#/ACARS/(\S+)#', $endpoint, $matches)) {
     $params['flight'] = $matches[1];
 } else if (preg_match('#/openaip/airport/(\S+)#', $endpoint, $matches)) {
     $params['airport'] = $matches[1];

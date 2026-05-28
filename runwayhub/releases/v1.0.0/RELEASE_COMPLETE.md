@@ -70,7 +70,7 @@ RunwayHub v2.0.3 marks a **milestone achievement** for this free, open-source vi
 
 #### Short-term (1-2 Weeks)
 1. **OAuth2** - Implement for ACARS authentication
-2. **Webhooks** - FlightAware webhook integration
+2. **Webhooks** - ACARS webhook integration
 3. **Monitoring** - Set up uptime/alerting
 4. **Profiling** - Performance optimization
 
@@ -121,7 +121,7 @@ runwayhub/ (193 files total)
 │   ├── humans.txt         # Team credits
 │   └── assets/            # Static resources
 ├── src/ (21 files)
-│   ├── services/          # ACARS, Weather, FlightAware
+│   ├── services/          # ACARS, Weather, ACARS
 │   ├── controllers/       # API controllers
 │   └── core/             # Database, Response, Router
 ├── database/ (133KB)

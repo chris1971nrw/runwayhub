@@ -95,7 +95,7 @@
 - ✅ Flight tracking (real-time)
 - ✅ Weather widget (live)
 - ✅ Airport data (OpenAIP)
-- ✅ FlightAware integration
+- ✅ ACARS integration
 - ✅ Booking management
 - ✅ VA administration
 - ✅ Multi-airline support

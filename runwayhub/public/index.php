@@ -254,7 +254,7 @@ echo '<!DOCTYPE html>
     
     <footer>
         <p>Built with ❤️ by @chris1971nrw | Powered by OpenAIP API & Weather Services</p>
-        <p style="font-size: 0.85em; margin-top: 10px;">Multi-Airline Support | Live Flight Tracking | PIREP Reports | Weather API | ACARS Integration | FlightAware Tracking</p>
+        <p style="font-size: 0.85em; margin-top: 10px;">Multi-Airline Support | Live Flight Tracking | PIREP Reports | Weather API | ACARS Integration | ACARS Tracking</p>
         <p style="font-size: 0.8em; margin-top: 5px;">© 2026 RunwayHub - <a href="https://github.com/chris1971nrw/runwayhub" style="color: #a0cfff;">GitHub Repository</a> | <a href="/en/" style="color: #a0cfff;">English</a></p>
     </footer>
     

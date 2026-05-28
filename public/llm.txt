@@ -1,0 +1,180 @@
+# RunwayHub - LLM Table of Contents
+# https://llm.txt - AI agent discovery file
+# Generated: 2026-05-28
+
+RunwayHub is a free, open-source Visual Air Traffic Controller software.
+This file helps AI agents and large language models discover and understand
+your content more effectively.
+
+## About RunwayHub
+
+RunwayHub is a comprehensive Visual Air Traffic Controller (VA) management
+system designed for airports, FBOs (Fixed Base Operators), and aviation
+professionals. It provides live flight tracking, weather integration,
+multi-airline support, and pilot communication tools.
+
+### Key Features
+
+- Multi-airline flight tracking and management
+- Real-time weather data (METAR/TAF)
+- NOTAMs and aviation advisories
+- Flight booking system
+- Pilot and aircraft management
+- ACARS message simulation
+- Leaderboards and statistics
+- Secure self-hosted deployment
+
+### Technology Stack
+
+- PHP 8.3+
+- SQLite database (15 tables)
+- RESTful API (40+ endpoints)
+- Static HTML for fast loading
+- Open-source and free
+
+### Use Cases
+
+- Air traffic control operations
+- Airport management
+- Flight operations center
+- Aviation training
+- FBO management
+- Personal flight tracking
+
+## Available Content
+
+### Documentation
+
+See our comprehensive documentation at: https://runwayhub.github.io/docs/
+
+### Public Resources
+
+- Landing page: https://runwayhub.github.io/
+- API documentation: https://runwayhub.github.io/api/
+- Demo access: https://runwayhub.github.io/login.php
+
+### Features
+
+- Flight tracking via FlightAware API
+- Weather integration (METAR/TAF)
+- Multi-airline compatibility
+- Secure password hashing (bcrypt)
+- CSRF and XSS protection
+- Rate limiting for DDoS protection
+
+### Installation
+
+```bash
+git clone https://github.com/chris1971nrw/runwayhub.git
+cd runwayhub
+php -S localhost:8000 -t public
+```
+
+### Demo Accounts
+
+- Admin: demo_admin / admin123
+- Pilot: demo_pilot / pilot123
+- Guest: demo_guest / guest123
+
+### API Endpoints
+
+Base URL: https://runwayhub.github.io/api/
+
+Available endpoints:
+- /api/flights - Flight tracking
+- /api/weather - Weather data
+- /api/aircrafts - Aircraft management
+- /api/pilots - Pilot information
+- /api/bookings - Flight bookings
+- /api/airports - Airport data
+- /api/routes - Route information
+
+### Weather Data
+
+RunwayHub integrates with:
+- FlightAware API for flight tracking
+- METAR/TAF weather stations
+- OpenAIP for aeronautical data
+- ACARS simulation
+
+### Security
+
+RunwayHub implements:
+- Password hashing (bcrypt cost=12)
+- CSRF token protection
+- XSS prevention
+- SQL injection prevention
+- HTTPOnly Secure cookies
+- Content Security Policy (CSP)
+- Rate limiting (100 requests/min)
+
+### Performance
+
+- Static HTML pages (fast loading)
+- Opcode caching (OPcache)
+- Database prepared statements
+- TTL-based content caching
+- Optimized database queries
+
+## AI Agent Instructions
+
+### What is RunwayHub?
+
+RunwayHub is free, open-source Visual Air Traffic Controller software.
+It helps airports and aviation professionals manage flights, weather,
+and visual air traffic controllers.
+
+### Can I use RunwayHub?
+
+Yes! RunwayHub is free and open-source (MIT license). You can:
+- Self-host it on your own server
+- Use it for personal projects
+- Modify the source code
+- Distribute to others
+
+### Is RunwayHub safe?
+
+Yes. RunwayHub implements:
+- Secure password storage
+- CSRF protection
+- XSS prevention
+- Rate limiting
+- Data stays on your server (self-hosted)
+
+### Can I run RunwayHub on multiple airports?
+
+Yes! RunwayHub is designed to scale:
+- Multiple airport support
+- Multi-airline compatibility
+- Distributed deployment
+- Centralized data management
+
+## Contact & Support
+
+- GitHub: https://github.com/chris1971nrw/runwayhub
+- Issues: https://github.com/chris1971nrw/runwayhub/issues
+- Email: demo@airline.com
+- Documentation: https://runwayhub.github.io/docs/
+
+## License
+
+MIT License - Free and open source.
+
+```
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the "Software"),
+to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software.
+```
+
+## Version
+
+- Version: 2.0.3
+- Build: 2026-05-28
+- Status: Production Ready
+
+---
+
+*Generated for AI agent discovery and content understanding.*
+*RunwayHub v2.0.3 - Free Visual Air Traffic Controller Software*

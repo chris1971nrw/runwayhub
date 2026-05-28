@@ -33,7 +33,7 @@
 
 - ✅ OpenAIP Integration (12 endpoints)
 - ✅ Weather API Integration (6 endpoints)
-- ✅ FlightAware Integration (4 endpoints)
+- ✅ ACARS Integration (4 endpoints)
 - ✅ Core Endpoints (3 endpoints)
 - ✅ Additional Endpoints (17 endpoints)
 - ✅ **Total: 35+ API Endpoints**
@@ -114,7 +114,7 @@
 - ✅ Controller Tests (created)
 - ✅ OpenAIP Service Tests (enhanced)
 - ✅ Weather Service Tests
-- ✅ FlightAware Service Tests
+- ✅ ACARS Service Tests
 - ✅ Integration Tests
 - ✅ Performance Tests
 

@@ -13,7 +13,7 @@
 namespace RunwayHub\Tests\Performance;
 
 use RunwayHub\Services\WeatherService;
-use RunwayHub\Services\FlightAwareService;
+use RunwayHub\Services\ACARSService;
 use RunwayHub\Cache\CacheManager;
 use RunwayHub\Database\Database;
 use PHPUnit\Framework\TestCase;
@@ -21,7 +21,7 @@ use PHPUnit\Framework\TestCase;
 class PerformanceTest extends TestCase
 {
     private WeatherService $weatherService;
-    private FlightAwareService $flightService;
+    private ACARSService $flightService;
     private CacheManager $cache;
     private Database $database;
     private $startTime;
@@ -36,7 +36,7 @@ class PerformanceTest extends TestCase
         // Initialize services with mock client
         $mockHttpClient = $this->createMockHttpClient();
         $this->weatherService = new WeatherService($mockHttpClient);
-        $this->flightService = new FlightAwareService($mockHttpClient);
+        $this->flightService = new ACARSService($mockHttpClient);
         $this->cache = new CacheManager();
         $this->database = new Database();
         

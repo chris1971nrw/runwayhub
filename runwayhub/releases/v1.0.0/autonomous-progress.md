@@ -89,7 +89,7 @@
 - ✅ **35+ API Endpoints Implemented:**
   - 12 OpenAIP endpoints
   - 6 Weather API endpoints
-  - 4 FlightAware endpoints
+  - 4 ACARS endpoints
   - 3 Core endpoints
   - 16+ Additional endpoints
 
@@ -102,7 +102,7 @@
 - ✅ security.md
 - ✅ openaip.md
 - ✅ weather-api.md
-- ✅ flightaware.md
+- ✅ ACARS.md
 - ✅ deployment.md
 - ✅ i18n.md
 - ✅ api.md
@@ -126,7 +126,7 @@
 - ✅ ControllerTest.php (created)
 - ✅ OpenAIPServiceTest.php (enhanced)
 - ✅ WeatherServiceTest.php
-- ✅ FlightAwareServiceTest.php
+- ✅ ACARSServiceTest.php
 - ✅ IntegrationTest.php
 - ✅ PerformanceTest.php
 

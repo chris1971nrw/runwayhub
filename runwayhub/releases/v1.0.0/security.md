@@ -75,7 +75,7 @@ Endpoint                  Limit          Window
 ------------------------- -------------- ----------------
 OpenAIP                   100 requests   1 minute
 Weather API               60 requests    1 minute  
-FlightAware               10 requests    1 minute
+ACARS               10 requests    1 minute
 VA Management             60 requests    1 minute
 Login/Registration        10 requests    1 minute
 ```

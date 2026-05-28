@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Leaderboards** - Pilot rankings and statistics
 - **Maintenance Tracking** - Aircraft maintenance reports
 - **Security Alerts** - Threat monitoring
-- **FlightAware Integration** - Live flight status tracking
+- **ACARS Integration** - Live flight status tracking
 - **Self-Hosted** - Full control and data ownership
 - **Open Source** - MIT License
 
@@ -32,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CSRF protection with prepared statements
 - SQL injection prevention
 - XSS protection headers
-- Rate limiting (100/min OpenAIP, 60/min Weather, 10/min FlightAware)
+- Rate limiting (100/min OpenAIP, 60/min Weather, 10/min ACARS)
 - .env file protection
 - .gitignore configuration
 - Request sanitization
@@ -104,7 +104,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Planned
 - OAuth2 integration
-- FlightAware webhook setup
+- ACARS webhook setup
 - Performance profiling
 - Monitoring/alerting
 - OTA (AeroTools) integration

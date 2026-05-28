@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ✅ Deployment-Guide (gh-pages/deployment.md)
 - ✅ OpenAIP API Docs (gh-pages/docs/openaip.md)
 - ✅ Wetter-API Docs (gh-pages/docs/weather-api.md)
-- ✅ FlightAware API Docs (gh-pages/flightaware.md)
+- ✅ ACARS API Docs (gh-pages/ACARS.md)
 - ✅ Datenbank-Schema (gh-pages/docs/database.md)
 - ✅ robots.txt optimiert
 - ✅ JSON-LD Structured Data erweitert
@@ -51,7 +51,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ✅ Datenbank-Schema dokumentiert
 - ✅ OpenAIP API integriert
 - ✅ Wetter-API dokumentiert
-- ✅ FlightAware API dokumentiert
+- ✅ ACARS API dokumentiert
 - ✅ Security Guide aktualisiert
 
 ---
@@ -65,7 +65,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ✅ JSON-LD Structured Data
 - ✅ API Dokumentation
 - ✅ Wetter-API Integration
-- ✅ FlightAware Integration
+- ✅ ACARS Integration
 - ✅ OpenAIP Integration
 - ✅ Dockerfile + docker-compose.yml
 - ✅ GitHub Actions CI/CD

@@ -219,7 +219,7 @@ Created comprehensive report:
 
 ### Short-term (1-2 weeks)
 - [ ] OAuth2 integration
-- [ ] FlightAware webhook setup
+- [ ] ACARS webhook setup
 - [ ] Performance profiling
 - [ ] Monitoring/alerting setup
 - [ ] User documentation

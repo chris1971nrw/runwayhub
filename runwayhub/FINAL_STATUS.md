@@ -131,7 +131,7 @@ RunwayHub is a complete Virtual Airline Management System with:
 
 ### Core Features
 - ✅ Multi-Airline Support
-- ✅ Live Flight Tracking (FlightAware)
+- ✅ Live Flight Tracking (ACARS)
 - ✅ Weather API (METAR/TAF)
 - ✅ Statistics & Reports
 - ✅ ACARS Integration (Simulation)
@@ -147,7 +147,7 @@ RunwayHub is a complete Virtual Airline Management System with:
 - ✅ Weather endpoints
 - ✅ Flight tracking endpoints
 - ✅ Airport data endpoints
-- ✅ FlightAware endpoints
+- ✅ ACARS endpoints
 - ✅ OpenAIP endpoints
 
 ### Security

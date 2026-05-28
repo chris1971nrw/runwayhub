@@ -54,7 +54,7 @@
 
 ### Core
 - ✅ Multi-Airline Support
-- ✅ Live Flight Tracking (FlightAware API)
+- ✅ Live Flight Tracking (ACARS API)
 - ✅ Weather API (METAR/TAF, Alerts)
 - ✅ Statistics & Reports
 - ✅ ACARS Integration (Simulation)
@@ -68,7 +68,7 @@
 - ✅ Flight tracking endpoints
 - ✅ Weather endpoints
 - ✅ Airport data endpoints
-- ✅ FlightAware integration
+- ✅ ACARS integration
 
 ### Security
 - ✅ bcrypt password hashing

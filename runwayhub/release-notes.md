@@ -35,7 +35,7 @@
 - ✅ 40+ RESTful endpoints
 - ✅ 32 controllers fully implemented
 - ✅ Weather Service (METAR/TAF)
-- ✅ Flight Tracking Service (FlightAware)
+- ✅ Flight Tracking Service (ACARS)
 - ✅ OpenAIP Service (NOTAMs)
 - ✅ ACARS Client (Simulation)
 - ✅ Login system (SQLite auth)
@@ -299,7 +299,7 @@ copies of the Software.
 
 ## 🙏 Acknowledgments
 
-- FlightAware API
+- ACARS API
 - OpenMeteo API
 - wttrin weather data
 - PHP community

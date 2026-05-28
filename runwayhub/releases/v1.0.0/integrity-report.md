@@ -50,7 +50,7 @@ Deprecated PHP Features: 0
 | API | 4 | 80 | ✅ PASS |
 | Database | 5 | 100 | ✅ PASS |
 | Weather | 1 | 60 | ✅ PASS |
-| FlightAware | 1 | 50 | ✅ PASS |
+| ACARS | 1 | 50 | ✅ PASS |
 | **Total** | **19** | **410** | **✅ PASS** |
 
 ### Test Results

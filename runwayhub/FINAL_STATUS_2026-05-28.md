@@ -116,7 +116,7 @@ RunwayHub v2.0.3 has been successfully deployed to GitHub Pages with comprehensi
 - [x] Weather widget (live)
 - [x] Flight tracking (real-time)
 - [x] Airport data (OpenAIP)
-- [x] FlightAware integration
+- [x] ACARS integration
 - [x] Booking management
 - [x] VA administration
 - [x] Multi-airline support

@@ -82,7 +82,7 @@ echo '<!DOCTYPE html>
             </div>
             <div class="feature">
                 <h3>🛩️ Flight Tracking</h3>
-                <p>Live-Flugverfolgung via FlightAware API</p>
+                <p>Live-Flugverfolgung via ACARS API</p>
             </div>
             <div class="feature">
                 <h3>📈 Reports</h3>

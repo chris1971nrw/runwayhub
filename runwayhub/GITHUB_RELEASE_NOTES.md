@@ -14,7 +14,7 @@ RunwayHub ist ein **komplettes Virtual Airline Management System** für Flugsimu
 
 #### Core Features
 - ✅ **Multi-Airline Support** - Verwalten Sie mehrere Virtual Airlines
-- ✅ **Live-Flugverfolgung** - Integration mit FlightAware API
+- ✅ **Live-Flugverfolgung** - Integration mit ACARS API
 - ✅ **Wetter-API** - METAR/TAF, Alerts, PIREP, Turbulenz
 - ✅ **VA Management** - Virtual Airlines gründen und anschließen
 - ✅ **Login System** - Callsign/Passwort Authentifizierung
@@ -33,7 +33,7 @@ RunwayHub ist ein **komplettes Virtual Airline Management System** für Flugsimu
 - ✅ **VA List** - `/api/va/list`
 - ✅ **OpenAIP API** - 10+ Endpunkte
 - ✅ **Weather API** - 6+ Endpunkte
-- ✅ **FlightAware API** - 4+ Endpunkte
+- ✅ **ACARS API** - 4+ Endpunkte
 
 ### 📚 Dokumentation
 
@@ -46,7 +46,7 @@ RunwayHub ist ein **komplettes Virtual Airline Management System** für Flugsimu
 - [Database](runwayhub/docs/database.md) - Datenbank Guide
 - [Deployment](runwayhub/docs/deployment.md) - Deployment Guide
 - [Weather API](runwayhub/docs/weather-api.md) - Wetter API
-- [FlightAware](runwayhub/docs/flightaware.md) - FlightAware
+- [ACARS](runwayhub/docs/ACARS.md) - ACARS
 - [API Endpoints](runwayhub/api/endpoints.md) - API Referenz
 - [Security](runwayhub/security.md) - Sicherheit
 - [Performance](runwayhub/docs/performance-guide.md) - Performance
@@ -206,7 +206,7 @@ SOFTWARE.
 ### 🙏 Acknowledgments
 
 - **OpenAIP API** für Wetter-Daten
-- **FlightAware** für Flugverfolgung
+- **ACARS** für Flugverfolgung
 - **php-amqplib** für MQTT
 - **Monolog** für Logging
 - **Ramsey UUID** für IDs

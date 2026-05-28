@@ -57,7 +57,7 @@ RunwayHub v2.0.3 has reached **production readiness** after Session 5 autonomous
 #### Source Files (21)
 - `services/AcarsClient.php` - ACARS MQTT
 - `services/WeatherClient.php` - Weather API
-- `services/FlightAwareClient.php` - Flight tracking
+- `services/ACARSClient.php` - Flight tracking
 - `controllers/` - 32 controllers
 - `core/` - Database, Response, Router
 
@@ -73,7 +73,7 @@ RunwayHub v2.0.3 has reached **production readiness** after Session 5 autonomous
 - `Core/DatabaseTest.php`
 - `Core/ControllerTest.php`
 - `Core/RouterTest.php`
-- `FlightAwareServiceTest.php`
+- `ACARSServiceTest.php`
 - `api-health-check.php` (health check)
 
 ### Database Architecture
@@ -236,7 +236,7 @@ RunwayHub v2.0.3 has reached **production readiness** after Session 5 autonomous
 
 #### Short-term (1-2 weeks)
 - [ ] OAuth2 implementation
-- [ ] FlightAware webhook setup
+- [ ] ACARS webhook setup
 - [ ] Performance profiling
 - [ ] Monitoring/alerting
 - [ ] User documentation

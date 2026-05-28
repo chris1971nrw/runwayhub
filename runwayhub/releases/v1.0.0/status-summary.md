@@ -32,7 +32,7 @@
 - ✅ **API Endpoints:** 35+ implemented
 - ✅ **OpenAIP Integration:** 12 endpoints
 - ✅ **Weather API:** 6 endpoints
-- ✅ **FlightAware:** 4 endpoints
+- ✅ **ACARS:** 4 endpoints
 - ✅ **Core Endpoints:** 3 endpoints
 - ✅ **Additional Endpoints:** 17+ endpoints
 
@@ -135,7 +135,7 @@
 
 - ✅ OpenAIP Integration
 - ✅ Weather API Integration
-- ✅ FlightAware Integration
+- ✅ ACARS Integration
 - ✅ Core Endpoints
 - ✅ Rate Limiting
 - ✅ Authentication

@@ -66,7 +66,7 @@
 ```
 OpenAIP: 100 requests / 60s
 Wetter-API: 60 requests / 60s
-FlightAware: 10 requests / 60s
+ACARS: 10 requests / 60s
 Admin: 10 requests / 60s
 ```
 

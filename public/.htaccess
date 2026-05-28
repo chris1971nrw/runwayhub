@@ -1,0 +1,128 @@
+# .htaccess for RunwayHub
+# Apache configuration for security and optimization
+
+# Enable rewrite engine
+RewriteEngine On
+RewriteBase /
+
+# Security Headers
+<IfModule mod_headers.c>
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>
+
+# Disable directory browsing
+Options -Indexes
+
+# Protect sensitive files
+<FilesMatch "^\.">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "^\.ht">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "^\.git">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "^composer\.json$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Enable GZIP compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE font/woff
+    AddOutputFilterByType DEFLATE font/woff2
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# Browser caching
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType application/x-javascript "access plus 1 month"
+    ExpiresByType application/json "access plus 1 week"
+</IfModule>
+
+# Cache control for static assets
+<IfModule mod_headers.c>
+    Header set Cache-Control "public, max-age=31536000, immutable" env=HIT
+    Header unset Cache-Control
+</IfModule>
+
+# Deny access to PHP files in specific directories
+<IfModule mod_rewrite.c>
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^(.+)\.php$ - [F,L]
+</IfModule>
+
+# Set default charset
+AddDefaultCharset UTF-8
+
+# Prevent server signature leakage
+ServerTokens Prod
+ServerSignature Off
+
+# Custom error pages
+ErrorDocument 404 /index.php
+ErrorDocument 403 /index.php
+ErrorDocument 500 /index.php
+
+# API rate limiting (basic)
+<IfModule mod_limit.c>
+    LimitRequestBody 10485760
+    LimitRequestBody 5242880 /api.php
+</IfModule>
+
+# Health check endpoint (accessible)
+<Files "api-status.php">
+    Order Allow,Deny
+    Allow from all
+</Files>
+
+# Disable access to test files
+<FilesMatch "^test[-_]">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Enable HSTS (only if SSL is configured)
+# <IfModule mod_headers.c>
+#     Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+# </IfModule>
+
+# Prevent clickjacking
+<IfModule mod_headers.c>
+    Header always set X-Download-Options "noopen"
+    Header always set X-Permitted-Cross-Domain "*none*"
+</IfModule>
+
+# Deny access to .htaccess
+<Files ".htaccess">
+    Order Allow,Deny
+    Deny from all
+</Files>

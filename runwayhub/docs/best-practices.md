@@ -163,7 +163,7 @@ Header always set Strict-Transport-Security "max-age=31536000"
 ## 🎯 RunwayHub Specific Tips
 
 ### Flight Tracking
-- ✅ Use FlightAware API responsibly
+- ✅ Use ACARS API responsibly
 - ✅ Cache flight data
 - ✅ Handle rate limits
 - ✅ Provide fallback data

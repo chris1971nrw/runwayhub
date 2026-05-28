@@ -10,7 +10,7 @@ use Monolog\Logger;
  * Weather Service
  * 
  * Handles METAR/TAF weather data retrieval and caching.
- * Integrates with weather APIs (FlightAware, OpenWeather, etc.)
+ * Uses OpenMeteo as primary weather provider.
  */
 class WeatherService
 {
@@ -18,7 +18,6 @@ class WeatherService
     private array $cache = [];
     private int $cacheTTL = 300; // 5 minutes for weather
     private array $weatherProviders = [
-        'flightaware' => 'https://data.flightradar24.com',
         'openmeteo' => 'https://open-meteo.com',
         'wttrin' => 'http://wttr.in',
     ];

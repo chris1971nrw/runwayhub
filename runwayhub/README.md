@@ -10,7 +10,7 @@ Das komplette System zum Verwalten von Virtual Airlines, Piloten und Flugdaten.
 ## 🚀 Features
 
 - **Multi-Airline Support** - Verwalten Sie mehrere Airlines
-- **Live-Flugverfolgung** - Via FlightAware API
+- **Live-Flugverfolgung** - Via ACARS API
 - **Wetter-API** - METAR/TAF, Alerts, PIREP
 - **Statistiken & Reports** - Leaderboards, Flugstatistiken
 - **ACARS Integration** - Flugdaten-Erfassung (Simulation)
@@ -91,7 +91,7 @@ POST /api/va-connect.php
 - **PHP 8.3+**
 - **SQLite / MySQL**
 - **OpenAIP API**
-- **FlightAware API**
+- **ACARS API**
 - **Weather Services**
 - **ACARS (Simulation)**
 
@@ -102,7 +102,7 @@ POST /api/va-connect.php
 - [Database](docs/database.md)
 - [Deployment](docs/deployment.md)
 - [Weather API](docs/weather-api.md)
-- [FlightAware](docs/flightaware.md)
+- [ACARS](docs/ACARS.md)
 
 ## 🔧 Development
 

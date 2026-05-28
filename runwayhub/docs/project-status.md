@@ -33,7 +33,7 @@
 - [x] View.php
 - [x] Controller.php
 - [x] CRUD-Controller (40+ Endpoints)
-- [x] API Controller (Weather, FlightAware, OpenAIP)
+- [x] API Controller (Weather, ACARS, OpenAIP)
 - [x] Login System (bcrypt + SQLite Auth)
 - [x] VA Management System
 - [x] PHPUnit Tests (60% Coverage)
@@ -56,7 +56,7 @@
 - [ ] WebSocket Real-time Updates (Mosquitto)
 - [ ] Production Deployment
 - [ ] OAuth2 Integration
-- [ ] FlightAware Webhooks
+- [ ] ACARS Webhooks
 - [ ] Monitoring/Alerting
 
 ### Phase 4: Autonomy Watchdog ✅ Active
@@ -171,7 +171,7 @@
 - **ACARS Tracking:** ✅ Simulated data
 - **Leaderboard:** ✅ Top 4 airlines
 - **Open-Meteo:** ✅ Integrated
-- **FlightAware:** ✅ API calls ready
+- **ACARS:** ✅ API calls ready
 
 ---
 

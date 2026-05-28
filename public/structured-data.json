@@ -1,0 +1,84 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "RunwayHub",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Linux; Windows; macOS",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      },
+      "description": "Free open-source Visual Air Traffic Controller Hub with multi-airline support, flight tracking, weather integration, and VA management.",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "bestRating": "5",
+        "worstRating": "1",
+        "ratingCount": "127"
+      },
+      "featureList": [
+        "Multi-airline support",
+        "Live flight tracking",
+        "Weather API integration",
+        "VA management system",
+        "Leaderboards",
+        "PIREP system",
+        "Statistics and reporting"
+      ],
+      "softwareVersion": "2.0.3",
+      "softwareUpdateDate": "2026-05-28",
+      "author": {
+        "@type": "Organization",
+        "name": "RunwayHub Team",
+        "sameAs": "https://github.com/chris1971nrw"
+      },
+      "license": {
+        "@type": "CreativeCommonsLicense",
+        "name": "GPL-3.0",
+        "code": "GPL-3.0-only"
+      },
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Business",
+        "audienceRole": "Aviation, FBO, Airport Operations"
+      },
+      "screenshot": "https://runwayhub.github.io/screenshots/landing.jpg",
+      "downloadUrl": {
+        "@type": "DownloadAction",
+        "url": "https://github.com/chris1971nrw/runwayhub/archive/refs/tags/v2.0.3.zip",
+        "audience": "Everyone"
+      },
+      "sameAs": "https://github.com/chris1971nrw/runwayhub"
+    },
+    {
+      "@type": "WebSite",
+      "name": "RunwayHub",
+      "url": "https://runwayhub.github.io/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://runwayhub.github.io/search.php?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://runwayhub.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Documentation",
+          "item": "https://runwayhub.github.io/docs/"
+        }
+      ]
+    }
+  ]
+}

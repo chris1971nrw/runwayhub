@@ -46,7 +46,7 @@ RunwayHub is a **free, open-source virtual airline management platform** built w
 - [x] Weather API
 - [x] Flight tracking
 - [x] Airport data
-- [x] FlightAware integration
+- [x] ACARS integration
 - [x] OpenAIP endpoints
 
 ### Security
@@ -85,7 +85,7 @@ RunwayHub is a **free, open-source virtual airline management platform** built w
 
 ### Short-term (1-2 weeks)
 - [ ] OAuth2 integration
-- [ ] FlightAware webhook setup
+- [ ] ACARS webhook setup
 - [ ] Performance profiling
 - [ ] Monitoring/alerting setup
 - [ ] User documentation

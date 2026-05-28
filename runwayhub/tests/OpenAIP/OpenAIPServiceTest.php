@@ -21,7 +21,7 @@ class OpenAIPServiceTest extends TestCase
         $this->assertStringContainsString('weather', strtolower($airport));
     }
 
-    public function testGetFlightAware(): void
+    public function testGetACARS(): void
     {
         $flightNumber = 'DL123';
         $this->assertStringContainsString('DL123', $flightNumber);

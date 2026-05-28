@@ -21,7 +21,7 @@ $endpoints = [
     'GET /openaip/airport/EDDF' => '/index.php?route=openaip/airport/EDDF',
     'GET /weather/current' => '/index.php?route=weather/current',
     'GET /weather/{airport}' => '/index.php?route=weather/EDDF',
-    'GET /flightaware/flights' => '/index.php?route=flightaware/flights',
+    'GET /acars/flights' => '/index.php?route=acars/flights',
 ];
 
 // Check PHP syntax of all public files

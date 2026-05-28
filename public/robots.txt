@@ -1,0 +1,100 @@
+# Robots.txt for RunwayHub - Optimized for 2026 Search Landscape
+# https://www.robotstxt.org/
+# Generated: 2026-05-28
+
+# User agents
+User-agent: *
+Allow: /
+
+# Allow public-facing pages
+Allow: /index.php
+Allow: /login.php
+Allow: /dashboard.php
+Allow: /flights
+Allow: /aircrafts
+Allow: /pilots
+Allow: /bookings
+Allow: /weather
+Allow: /tracking
+Allow: /api-status.php
+
+# Disallow admin and sensitive areas
+Disallow: /admin
+Disallow: /va-admin.php
+Disallow: /va-connect.php
+Disallow: /va-gruenden.php
+Disallow: /api/
+Disallow: /dashboard.php
+
+# AI bot permissions
+# Allow AI agents to discover content (for citations)
+Allow: /
+User-agent: GPTBot
+Allow: /
+Allow: /api/
+Allow: /docs/
+Disallow: /login.php
+Disallow: /admin
+
+User-agent: Claude-Web
+Allow: /
+Allow: /api/
+Allow: /docs/
+Disallow: /login.php
+Disallow: /admin
+
+User-agent: PerplexityBot
+Allow: /
+Allow: /api/
+Allow: /docs/
+Disallow: /login.php
+Disallow: /admin
+
+User-agent: Googlebot
+Allow: /
+Allow: /api/
+Allow: /api-status.php
+Allow: /weather
+Disallow: /login.php
+Disallow: /admin
+Disallow: /va-admin.php
+
+User-agent: Bingbot
+Allow: /
+Allow: /api/
+Allow: /api-status.php
+Allow: /weather
+Disallow: /login.php
+Disallow: /admin
+Disallow: /va-admin.php
+
+# Block training on sensitive data (optional)
+# Uncomment if you want to block AI training
+# User-agent: GPTBot
+# Disallow: /
+
+# HTTP/2 Push hints (if supported)
+# Push: /assets/css/main.css
+# Push: /assets/js/seo.js
+
+# Crawl-delay for politeness (optional)
+# Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://runwayhub.github.io/sitemap.xml
+Sitemap: https://runwayhub.github.io/api-docs/sitemap.xml
+
+# HTTP/2 Push hints for performance
+# Push: /assets/css/main.css
+# Push: /assets/js/seo.js
+
+# Crawl-delay for politeness (if needed)
+# Crawl-delay: 1
+
+# Last modification time
+Last-mod: 2026-05-28T09:00:00+02:00
+
+# SEO meta directives (for reference)
+# max-snippet: infinite - Allow full snippets
+# max-image-preview: large - Allow full image previews
+# max-video-preview: large - Allow full video previews

@@ -20,14 +20,14 @@ REST API für RunwayHub - Virtual Airline Manager.
 
 - ✅ OpenAIP: 12 Endpunkte
 - ✅ Wetter-API: 6 Endpunkte
-- ✅ FlightAware: 4 Endpunkte
+- ✅ ACARS: 4 Endpunkte
 - ✅ Gesamt: 22+ Endpunkte
 
 ### Geschriebene Endpunkte
 
 - ✅ `GET /airport/{airport}` - Flughafeninfos
 - ✅ `GET /weather/{airport}` - Wetterdaten
-- ✅ `GET /flightaware/{flight}` - Flugverfolgung
+- ✅ `GET /ACARS/{flight}` - Flugverfolgung
 - ✅ `GET /aircraft/{aircraft}` - Flugzeuginfos
 - ✅ `GET /pilots/{callsign}` - Pilotendaten
 - ✅ `GET /airlines` - Airline-Liste
@@ -71,12 +71,12 @@ Erhalten Sie Ihren API Key aus dem Admin-Panel unter `/admin/api-keys`.
 - `GET /weather/turbulence` - Turbulenzdaten
 - `GET /weather/visibility` - Sichtbarkeitsdaten
 
-### FlightAware
+### ACARS
 
-- `GET /flightaware/flights` - Flugverfolgung
-- `GET /flightaware/{flight}` - Einzelflug-Details
-- `GET /flightaware/airports` - Flughafen-Liste
-- `GET /flightaware/delays` - Verspätungsstatistiken
+- `GET /ACARS/flights` - Flugverfolgung
+- `GET /ACARS/{flight}` - Einzelflug-Details
+- `GET /ACARS/airports` - Flughafen-Liste
+- `GET /ACARS/delays` - Verspätungsstatistiken
 
 ### Status
 
@@ -104,7 +104,7 @@ Vollständige API-Dokumentation verfügbar unter: [/api/docs](/api/docs)
 |----------|------------|
 | OpenAIP | 100 requests/min |
 | Wetter-API | 60 requests/min |
-| FlightAware | 10 requests/min |
+| ACARS | 10 requests/min |
 | Status | Unlimited |
 
 ---

@@ -12,7 +12,7 @@ use Ramsey\Uuid\Uuid;
  * Webhook Controller
  * 
  * Handles external integrations:
- * - FlightAware webhook
+ * - ACARS webhook
  * - OTA (AeroTools) integration
  * - Email notifications (SMTP)
  */
@@ -36,7 +36,7 @@ class WebhookController
         // Validate webhook source
         $source = $data['source'] ?? null;
         
-        if (!in_array($source, ['flightaware', 'ota', 'email', 'acars'])) {
+        if (!in_array($source, ['ACARS', 'ota', 'email', 'acars'])) {
             return Response::error('Unknown webhook source', 400);
         }
         
@@ -52,8 +52,8 @@ class WebhookController
         
         // Process webhook based on source
         switch ($source) {
-            case 'flightaware':
-                return $this->handleFlightAware($data);
+            case 'ACARS':
+                return $this->handleACARS($data);
             case 'ota':
                 return $this->handleOTA($data);
             case 'email':
@@ -64,9 +64,9 @@ class WebhookController
     }
     
     /**
-     * Handle FlightAware webhook
+     * Handle ACARS webhook
      */
-    private function handleFlightAware(array $data): Response
+    private function handleACARS(array $data): Response
     {
         // Process flight status updates
         $flightId = $data['flight_id'] ?? null;
@@ -100,7 +100,7 @@ SQL;
         
         return Response::json([
             'success' => true,
-            'message' => 'FlightAware webhook received',
+            'message' => 'ACARS webhook received',
             'data' => $data
         ]);
     }
