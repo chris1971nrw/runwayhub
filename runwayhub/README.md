@@ -1,223 +1,388 @@
-# RunwayHub - Virtual Airline Manager
+# RunwayHub
 
-**Moderne, Open Source, Multi-Airline Fluggesellschaft-Management-Software**
+<!-- badges -->
+[![Version](https://img.shields.io/badge/version-1.0.0-blue)]()
+[![License](https://img.shields.io/badge/license-MIT-green)]()
+[![PHP](https://img.shields.io/badge/PHP-8.3.6+-orange)]()
+[![SQLite](https://img.shields.io/badge/SQLite-3.39+-purple)]()
+[![Docker](https://img.shields.io/badge/Docker-supported-brightgreen)]()
 
-![Version](https://img.shields.io/badge/version-2.0.3-blue.svg)
-![PHP](https://img.shields.io/badge/PHP-8.3+-green.svg)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Sicherheit](https://img.shields.io/badge/sicherheit-gehärtet-brightgreen.svg)
-![SEO](https://img.shields.io/badge/SEO-97.5%25-green.svg)
+<!-- description -->
+RunwayHub ist ein **Virtual Airline Management System** zur Verwaltung von Fluggesellschaften. Das System umfasst Flugmanagement, Flottenmanagement, Pilotenverwaltung, Buchungsmanagement, ACARS-Integration, Wetter-API und Admin-Funktionen.
 
----
+<!-- features -->
 
-## 📋 Überblick
+**Funktionen:**
+- ✈️ Flugmanagement (CREATE, READ, UPDATE, DELETE)
+- ✈️ Flottenmanagement (Flugzeuge, Wartung)
+- 👨‍✈️ Pilotenverwaltung
+- 🎫 Buchungsverwaltung
+- 📡 ACARS-Integration
+- 🌤️ Wetter-API (OpenMeteo)
+- 🔐 Admin-Management
+- 🔄 Update-Checker mit GitHub Releases
+- 🐛 Issue-Reporting mit Logfile-Anhang
+- 🐳 Docker-Support
+- 🌐 Web-basierte Installation
 
-RunwayHub ist eine **kostenlose, Open Source**-Virtual Airline Manager Software, entwickelt mit modernem PHP 8.3+. Das System bietet umfassende Flugmanagement-Funktionalitäten, Wetterintegration und Virtual Airline Management (VA) für FBOs, Flughäfen und Luftfahrtunternehmen.
+<!-- installation -->
 
-### Hauptmerkmale
+## 🚀 Installation
 
-- ✅ **Multi-Airline-Unterstützung** - Kompatibel mit mehreren Airlines und Systemen
-- ✅ **Wetter-API** - METAR/TAF-Wetterdaten mit Caching
-- ✅ **VA-Management** - Virtual Airline Management
-- ✅ **Statistik & Berichte** - Umfassende Fluganalysen und Reporting
-- ✅ **PIREP-System** - Integration von Pilotenwetterberichten
-- ✅ **Leaderboards** - Verfolgen der Top-Performer
-- ✅ **Sicherheit** - Branchensicherheitsstandards (bcrypt, CSRF, XSS-Prävention)
-- ✅ **ACARS-Entwicklung** - Eigene ACARS-Technologie für Echtzeitflugstatus
-
----
-
-## 🚀 Schnellstart
-
-### Installation und Start
+### Web-basiert
 
 ```bash
+unzip runwayhub.zip
 cd runwayhub
-php -S localhost:8000 -t public
+cp .env.example .env
+php scripts/init-database.php
+php install.php
 ```
 
-### Demo-Zugangsdaten
+### Docker
 
-```
-Admin:    demo_admin     / admin123
-Pilot:    demo_pilot     / pilot123
-Guest:    demo_guest     / guest123
-```
-
-Besuchen Sie das Live-Demo: <a href="https://runwayhub.github.io">https://runwayhub.github.io</a>
-
----
-
-## 📖 Dokumentation
-
-- [**Architektur**](runwayhub/docs/architecture.md) - Systemdesign und Struktur
-- [**Funktionen**](runwayhub/docs/features.md) - vollständige Feature-Liste
-- [**Datenbank**](runwayhub/docs/database.md) - SQLite-Schema-Dokumentation
-- [**Deployment**](runwayhub/docs/deployment.md) - Produktionsaufbau und Deployment
-- [**Wetter-API**](runwayhub/docs/weather-api.md) - METAR/TAF-Integration
-- [**ACARS**](runwayhub/docs/acars.md) - Eigene ACARS-Entwicklung für Echtzeitflugstatus
-- [**Sicherheit**](runwayhub/docs/security.md) - Sicherheits-Härtung und Best Practices
-- [**Performance**](runwayhub/docs/performance-guide.md) - Optimierung und Caching
-
----
-
-## 🎯 Kernfunktionen
-
-### Flight Management
-
-- **Multi-Airline-Unterstützung**
-  - Kompatibel mit mehreren Airlines
-  - Vereinheitlichte Dateninterface
-  
-- **Flugüberwachung**
-  - Eigene ACARS-Integration für Echtzeitflugstatus
-  - Flugverlauf und Historie
-  - Ankunfts- und Abflugbretter
-  
-- **Wetterintegration**
-  - **METAR-Wetterdaten** - METAR-Wetterberichte
-  - **TAF-Prognosen** - TAF-Forecasts
-  - **Wetterwarnungen** - Wetteralerts und notifications
-
-### Wetter-Datenquellen
-
-- **OpenMeteo** - METAR/TAF-Daten
-- **Wetter-APIs** - Integration von Wetter-Diensten
-- **ACARS-Integration** - Eigene Wetter-Datenintegration
-
-### Virtual Airline Management (VA)
-
-- **Airline-Management** - Verwaltung Ihrer Fluggesellschaften
-- **Flugmanagement** - Flugplanung und Buchung
-- **Flottenmanagement** - Flugzeugflotte verwalten
-- **Passagiermanagement** - Reservationen und Check-in
-- **Statistik & Reports** - Umfassende Analysen
-- **Wetterintegration** - METAR/TAF-Daten
-- **ACARS-Integration** - Eigene ACARS-Technologie
-
-### API & Integration
-
-- **40+ RESTful Endpoints** - Vollständige API mit JSON-Antworten
-- **RESTful Services** - Vollständige CRUD-Operationen
-- **Ratenbegrenzung** - Schutz vor Missbrauch und DDoS
-- **CORS-Unterstützung** - Cross-Origin Resource Sharing
-- **Dokumentation** - Vollständige API-Dokumentation
-
----
-
-## 🔧 Technische Stack
-
-- **Backend:** PHP 8.3.6+
-- **Datenbank:** SQLite (15 Tabellen)
-- **Caching:** TTL-basiertes Caching (5-300 Sekunden)
-- **API:** RESTful-Architektur
-- **Frontend:** Statische HTML, schnelle Ladezeiten
-- **SEO:** Vollständig optimiert
-- **Sicherheit:** Enterprise-grade
-
----
-
-## 🛡️ Sicherheit
-
-RunwayHub beinhaltet branchenübliche Sicherheitsmaßnahmen:
-
-- **Passwort-Hashing:** bcrypt (Kosten-Faktor=12)
-- **CSRF-Schutz:** Token-basierte Schutzmechanismen
-- **XSS-Prävention:** Automatische Ausgabe-escaping
-- **SQL-Injection:** Préparierte Statements
-- **Sitzungssicherheit:** HttpOnly, Secure, SameSite-Cookies
-- **Ratenbegrenzung:** DDoS-Schutz
-- **CSP:** Content Security Policy Header
-- **HSTS:** HTTP Strict Transport Security
-
-Siehe [Sicherheitsdokumentation](runwayhub/docs/security.md) für detaillierte Informationen.
-
----
-
-## 📊 Technische Daten
-
-- **PHP-Dateien:** 144 (alle syntaktisch gültig)
-- **API-Endpoints:** 40+
-- **Datenbanktabellen:** 15
-- **Dokumentationsdateien:** 54 Dateien
-- **Zeilen Code:** ~65.000
-- **PHP-Version:** 8.3.6+
-- **SQLite:** 15 Tabellen
-- **Sicherheit:** Enterprise-grade
-
----
-
-## 🎓 Lizenz
-
-Dieses Projekt ist unter der MIT-Lizenz veröffentlicht - frei verfügbar und Open Source.
-
-```
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software.
+```bash
+cp .env.example .env
+docker-compose up -d --build
 ```
 
----
+Zur Hauptseite:
 
-## 👥 Community & Support
+```bash
+http://dein-domain.de/install.php
+```
 
-- **GitHub:** [@chris1971nrw](https://github.com/chris1971nrw)
-- **Issues:** [Fehler melden](https://github.com/chris1971nrw/runwayhub/issues)
-- **Diskussionen:** [Diskussionen beitreten](https://github.com/chris1971nrw/runwayhub/discussions)
-- **Email:** demo@airline.com
+<!-- admin -->
 
----
+## 🔐 Admin-Account
 
-## 📞 Hilfe & Support
+**Benutzer:** `admin`  
+**Passwort:** `admin123`  
 
-Benötigen Sie Unterstützung?
+> ⚠️ **Wichtig:** Passwort nach dem ersten Login ändern!
 
-- **Email:** demo@airline.com
-- **GitHub Issues:** [Fehler melden](https://github.com/chris1971nrw/runwayhub/issues)
-- **Community:** [Discussions beitreten](https://github.com/chris1971nrw/runwayhub/discussions)
+**Funktionen:**
+- ✅ Alle Airlines verwalten
+- ✅ Admin-Profil bearbeiten
+- ✅ Passwort ändern
+- ✅ Update-Checker
+- ✅ Issue-Reporting
 
----
+<!-- documentation -->
 
-## 🚀 Warum Virtual Airline Manager?
+## 📚 Dokumentation
 
-- **Kostenlos:** Keine Lizenzgebühren oder versteckte Kosten
-- **Open Source:** Vollständiger Quellcode verfügbar
-- **Selbstgehostet:** Vollständige Kontrolle über Ihre Daten
-- **Datenschutz:** Alle Daten bleiben auf Ihrem Server
-- **Multi-Airline:** Funktioniert mit mehreren Airlines gleichzeitig
-- **Eigene ACARS-Technologie** - Proprietäre Echtzeitflugstatus-Integration
-- **Sicher:** Enterprise-grade Sicherheitsstandards
-- **Flexibel:** Vollständige Anpassungsmöglichkeiten
+- [CHANGELOG.md](./CHANGELOG.md) - Änderungen
+- [INSTALLATION.md](./INSTALLATION.md) - Installation
+- [USER_HANDBUCH.md](./USER_HANDBUCH.md) - Benutzerhandbuch
+- [DEPLOYMENT.md](./DEPLOYMENT.md) - Deployment-Guide
+- [README_DOCKER.md](./README_DOCKER.md) - Docker-Support
 
----
+<!-- api -->
 
-## 📰 Blog & Updates
+## 🔌 API-Endpunkte
 
-Verfolgen Sie die neuesten Entwicklungen:
+### Flight API
 
-- **Flugüberwachungs-Leitfaden**
-- **Wetterwarnungen**
-- **ACARS-Entwicklungs-Updates**
-- **Buchungstutorials**
-- **Luftfahrt-News**
-- **Nutzer-Tipps**
+- `GET /api/flights` - Alle Flüge
+- `POST /api/flights` - Flug erstellen
+- `GET /api/flights/{id}` - Flug anzeigen
+- `PUT /api/flights/{id}` - Flug aktualisieren
+- `DELETE /api/flights/{id}` - Flug löschen
 
----
+### Aircraft API
 
-## 🖼️ Screenshots
+- `GET /api/aircrafts` - Alle Flugzeuge
+- `POST /api/aircrafts` - Flugzeug erstellen
+- `GET /api/aircrafts/{id}` - Flugzeug anzeigen
+- `PUT /api/aircrafts/{id}` - Flugzeug aktualisieren
+- `DELETE /api/aircrafts/{id}` - Flugzeug löschen
 
-![Dashboard](https://runwayhub.github.io/assets/screenshots/dashboard.jpg)
-![Flight Board](https://runwayhub.github.io/assets/screenshots/flight-board.jpg)
+### Pilot API
 
----
+- `GET /api/pilots` - Alle Piloten
+- `POST /api/pilots` - Pilot erstellen
+- `GET /api/pilots/{id}` - Pilot anzeigen
+- `PUT /api/pilots/{id}` - Pilot aktualisieren
+- `DELETE /api/pilots/{id}` - Pilot löschen
 
-**Version:** 2.0.3  
-**Build:** 2026-05-28  
-**Status:** ✅ Production Ready  
-**Lizenz:** MIT
+### Booking API
 
----
+- `GET /api/bookings` - Alle Buchungen
+- `POST /api/bookings` - Buchung erstellen
+- `GET /api/bookings/{id}` - Buchung anzeigen
+- `PUT /api/bookings/{id}` - Buchung aktualisieren
+- `DELETE /api/bookings/{id}` - Buchung löschen
 
-![RunwayHub](https://runwayhub.github.io/assets/og-image.jpg)
+### Admin API
+
+- `POST /api/admin/login` - Admin-Login
+- `POST /api/admin/logout` - Admin-Logout
+- `POST /api/admin/change-password` - Passwort ändern
+- `GET /api/admin/profile` - Profil abrufen
+- `GET /api/admin/stats` - Statistiken
+- `GET /api/admin/check-update` - Version-Check
+- `POST /api/admin/issues/submit` - Issue erstellen
+
+<!-- acars -->
+
+## 📡 ACARS-Tracking
+
+### Flight Status API
+
+```bash
+curl -X GET http://dein-domain.de/api/acars/flights?flight_number=LH456
+```
+
+### Wetter API
+
+```bash
+curl -X GET "http://dein-domain.de/api/weather?origin=FRA&destination=JFK"
+```
+
+<!-- security -->
+
+## 🔒 Sicherheit
+
+- ✅ Passwort-Hashing (PASSWORD_DEFAULT)
+- ✅ Login-Logging
+- ✅ Admin-Zugriffskontrolle
+- ✅ HTTPS-Empfehlung
+- ✅ Rate Limiting
+
+### Rate Limiting
+
+```env
+RATE_LIMIT_ENABLED=true
+RATE_LIMIT_REQUESTS=60
+RATE_LIMIT_DURATION=60
+```
+
+### CORS
+
+```env
+CORS_ORIGIN=http://dein-domain.de
+```
+
+<!-- requirements -->
+
+## 📋 Voraussetzungen
+
+- PHP 8.3.6+
+- Composer 2.0+
+- SQLite 3.39+
+- Git 2.30+
+- Webserver (Apache, Nginx)
+- Docker (optional)
+
+<!-- database -->
+
+## 📊 Datenbank
+
+**SQLite** (Standard):
+
+```env
+DB_CONNECTION=sqlite
+DB_DATABASE=/app/database.sqlite
+```
+
+**MySQL/MariaDB**:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=runwayhub
+DB_USERNAME=runwayhub
+DB_PASSWORD=secret
+```
+
+**PostgreSQL**:
+
+```env
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=runwayhub
+DB_USERNAME=runwayhub
+DB_PASSWORD=secret
+```
+
+<!-- tables -->
+
+## 📝 Datenbank-Tabellen
+
+- `flights` - Flugmanagement
+- `flight_history` - Flugverlauf
+- `aircrafts` - Flugzeugmanagement
+- `maintenance` - Wartungsplanung
+- `pilots` - Pilotenverzeichnis
+- `pilot_history` - Pilotenverlauf
+- `bookings` - Buchungsverwaltung
+- `passengers` - Passagierdaten
+- `seats` - Sitzplatzmanagement
+- `weather_cache` - Wetter-Daten
+- `acars_flights` - ACARS-Tracking
+- `airlines` - Airlines-Management
+- `admins` - Admin-Accounts
+
+<!-- features-detailed -->
+
+## ✨ Features
+
+### Dashboard
+
+- ✅ Statistiken
+- ✅ Navigation
+- ✅ Update-Nachricht
+- ✅ Issue-Reporting
+
+### Flugmanagement
+
+- ✅ Alle Flüge
+- ✅ Flug Status
+- ✅ Flug Details
+- ✅ Flug erstellen
+- ✅ Flug aktualisieren
+- ✅ Flug löschen
+
+### Flottenmanagement
+
+- ✅ Alle Flugzeuge
+- ✅ Flugzeug Details
+- ✅ Flugzeug erstellen
+- ✅ Flugzeug aktualisieren
+- ✅ Wartung planen
+- ✅ Wartungstermine
+
+### Pilotenmanagement
+
+- ✅ Alle Piloten
+- ✅ Pilot Details
+- ✅ Pilot erstellen
+- ✅ Pilot deaktivieren
+- ✅ Zu Flug zuweisen
+- ✅ Pilotenverlauf
+
+### Buchungsverwaltung
+
+- ✅ Alle Buchungen
+- ✅ Buchung Details
+- ✅ Verfügbarkeit prüfen
+- ✅ Buchung erstellen
+- ✅ Buchung aktualisieren
+- ✅ Buchung löschen
+
+### ACARS-Integration
+
+- ✅ Flight Status API
+- ✅ Status-Typen
+- ✅ Update-Nachrichten
+- ✅ Caching (1 Stunde)
+
+### Wetter-API
+
+- ✅ OpenMeteo Integration
+- ✅ Wetterdaten
+- ✅ METAR-TAF-Daten
+- ✅ Wetter-Cache
+
+### Admin-Funktionen
+
+- ✅ Login/Logout
+- ✅ Passwort-Änderung
+- ✅ Profil-Verwaltung
+- ✅ Statistiken
+- ✅ Version-Check
+- ✅ Update durchzuführen
+- ✅ Issue-Reporting
+
+### Deployment
+
+- ✅ install.php
+- ✅ Docker-Support
+- ✅ Deployment-Paket (tar.gz)
+- ✅ Installation-Guide
+- ✅ Docker-Support
+
+<!-- security -->
+
+## 🔐 Sicherheit
+
+- ✅ Passwort-Hashing
+- ✅ Login-Logging
+- ✅ Admin-Zugriffskontrolle
+- ✅ HTTPS-Empfehlung
+- ✅ Rate Limiting
+- ✅ CORS-Konfiguration
+
+<!-- troubleshooting -->
+
+## 🔧 Troubleshooting
+
+### Fehler: Datenbank nicht gefunden
+
+```bash
+php scripts/init-database.php
+```
+
+### Fehler: PHP-Fehler
+
+```bash
+php -v
+php -m
+```
+
+### Fehler: SQLite nicht gefunden
+
+```bash
+sudo apt-get install sqlite3
+```
+
+### Fehler: Docker nicht gefunden
+
+```bash
+curl -fsSL https://get.docker.com | bash -s docker
+```
+
+<!-- support -->
+
+## 📞 Support
+
+**GitHub Issues:** https://github.com/chris1971nrw/runwayhub/issues  
+**Documentation:** https://github.com/chris1971nrw/runwayhub/blob/main/README.md  
+**Email:** support@runwayhub.de
+
+<!-- release -->
+
+## 📦 Release v1.0.0
+
+- ✅ Flugmanagement
+- ✅ Flottenmanagement
+- ✅ Pilotenmanagement
+- ✅ Buchungsverwaltung
+- ✅ ACARS-Integration
+- ✅ Wetter-API
+- ✅ Admin-Management
+- ✅ Update-Checker
+- ✅ Issue-Reporting
+- ✅ Docker-Support
+- ✅ Web-Installation
+- ✅ Produktions-ready
+
+### Changelog
+
+Siehe [CHANGELOG.md](./CHANGELOG.md)
+
+### Lizenz
+
+MIT License
+
+<!-- related -->
+
+## 📝 Related
+
+- [GitHub Repository](https://github.com/chris1971nrw/runwayhub)
+- [GitHub Issues](https://github.com/chris1971nrw/runwayhub/issues)
+- [API-Documentation](./USER_HANDBUCH.md)
+- [Deployment-Guide](./DEPLOYMENT.md)
