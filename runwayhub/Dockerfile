@@ -1,64 +1,33 @@
-# Multi-stage Dockerfile for RunwayHub
-# Virtual Airline Management System
+# RunwayHub Docker Build
+FROM php:8.2-apache
 
-# Stage 1: Build
-FROM php:8.2-cli AS builder
+# Set working directory
+WORKDIR /app
 
 # Install extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath
+RUN docker-php-ext-install pdo_sqlite mbstring xml && \
+    pecl install redis && \
+    docker-php-ext-enable redis
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    git \
-    curl \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip \
-    unzip \
-    && rm -rf /var/lib/apt/lists/*
-
-# Copy composer files
-WORKDIR /app
-COPY composer.json composer.lock ./
+# Copy application files
+COPY . /app
 
 # Install dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Copy source code
-COPY . .
+# Configure Apache
+COPY config/apache2/vhosts.conf /etc/apache2/sites-enabled/000-default.conf
+COPY config/apache2/php.ini /etc/php/8.2/apache2/php.ini
+COPY config/apache2/.htaccess /app/.htaccess
 
-# Stage 2: Production
-FROM php:8.2-fpm
+# Create directories
+RUN mkdir -p /app/logs /app/uploads
 
-# Install extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+# Expose port
+EXPOSE ${APP_PORT:-8080}
 
-# Copy from builder
-COPY --from=builder /app/vendor /var/www/html/vendor
-COPY --from=builder /app/public /var/www/html/public
-COPY --from=builder /app/runwayhub /var/www/html
-
-# Set permissions
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
-
-# Configure PHP-FPM
-COPY --from=builder /etc/php/8.2/fpm/php.ini /etc/php/8.2/fpm/php.ini
-COPY --from=builder /etc/php/8.2/fpm/conf.d/ /etc/php/8.2/fpm/conf.d/
-
-# Copy custom php-fpm config
-COPY php-fpm.conf /usr/local/etc/php-fpm.d/www-fpm-ssl.conf
-
-# Expose ports
-EXPOSE 9000
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost:9000/ || exit 1
-
-# Command
-CMD ["php-fpm"]
+# Start Apache
+CMD ["apache2-foreground"]

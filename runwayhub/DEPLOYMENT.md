@@ -1,259 +1,161 @@
-# Deployment Guide - RunwayHub
+# RunwayHub - Deployment-Guide
 
-**Version:** 0.1.0  
-**Last Updated:** 2026-05-27 18:47 GMT+2  
+## 🚀 Installation
 
----
-
-## Quick Deploy
-
-### Local Development
+### 1. Standard-Installation
 
 ```bash
-cd /path/to/runwayhub
-php -S localhost:8080 -t public
+# ZIP-Datei extrahieren
+unzip runwayhub.zip
+
+# Installation ausführen
+php install.php
+
+# Zur Hauptseite
+http://dein-domain.de/install.php
 ```
 
-**Access:**
-- Landing Page: http://localhost:8080/
-- Login: http://localhost:8080/login.php
-- VA Create: http://localhost:8080/va-gruenden.php
-
-### Production (GitHub Pages)
+### 2. Docker-Installation
 
 ```bash
-# Build static site (if using npm)
-npm run build
+# Kopiere Umgebungsvariablen
+cp .env.example .env
 
-# Deploy to GitHub
-git add .
-git commit -m "Deploy to GitHub Pages"
-git push origin main
+# Docker-Container starten
+docker-compose up -d --build
 
-# Configure GitHub Pages in repo settings:
-# - Source: main branch
-# - Branch: main
-# - Folder: root (or /)
+# Zur Hauptseite
+http://dein-domain.de:8080/install.php
 ```
 
-### Docker Deployment
-
-```dockerfile
-FROM php:8.2-fpm
-COPY runwayhub/ /var/www/html/
-RUN apt-get update && apt-get install -y sqlite3
-CMD ["php-fpm"]
-```
-
-### Self-Hosted (Apache/Nginx)
+### 3. Manuelle Installation
 
 ```bash
-# Apache
-cd /var/www/runwayhub
-sudo chown -R www-data:www-data *
-sudo chmod -R 755 *
-sudo chmod -R 644 *.sqlite
-sudo apache2ctl reload
+# 1. ZIP extrahieren
+unzip runwayhub.zip
 
-# Nginx
-cd /var/www/runwayhub
-sudo chown -R www-data:www-data *
-sudo chmod -R 755 *
-sudo chmod -R 644 *.sqlite
-sudo nginx -t
-sudo systemctl reload nginx
+# 2. Datenbank initialisieren
+php database/init.php
+
+# 3. Standard-Daten
+php database/seed.php
+
+# 4. Zur Hauptseite
+http://dein-domain.de/index.php
 ```
 
----
+## 📦 Deployment auf Server
 
-## Pre-Deployment Checklist
+### Schritte:
 
-### Environment
-- [ ] PHP 8.2+ installed
-- [ ] SQLite 3.37+ available
-- [ ] cURL extension enabled
-- [ ] OpenSSL extension enabled
-- [ ] mbstring extension enabled
+1. **ZIP-Datei herunterladen**
+   ```bash
+   cd /home/christoph/.openclaw/workspace-runwayhub/runwayhub
+   tar -czvf runwayhub.tar.gz --exclude="*.git*" --exclude="*.env*" .
+   ```
 
-### Security
-- [ ] .env file not committed (add to .gitignore)
-- [ ] Database credentials secured
-- [ ] Sensitive data excluded from uploads
-- [ ] .git/ directory not accessible
+2. **Auf Server übertragen**
+   ```bash
+   scp runwayhub.tar.gz user@server:/var/www
+   tar -xzf runwayhub.tar.gz -C /var/www
+   ```
 
-### Files
-- [ ] public/ directory permissions (755)
-- [ ] Database files permissions (644)
-- [ ] .htaccess configured (if Apache)
+3. **Berechtigungen setzen**
+   ```bash
+   cd /var/www
+   chown -R www-data:www-data .
+   chmod -R 755 logs uploads
+   ```
 
-### Database
-- [ ] Main database initialized
-- [ ] User database ready
-- [ ] Schema migrations complete
-- [ ] Indexes created
+4. **Zur Hauptseite**
+   ```bash
+   http://dein-domain.de/install.php
+   ```
 
-### Testing
-- [ ] All PHP files syntax-validated
-- [ ] Login system tested
-- [ ] VA management tested
-- [ ] Weather widget tested
-- [ ] Demo data loaded (optional)
+## 🐳 Docker Deployment
 
----
-
-## Configuration
-
-### Environment Variables (.env)
-
-```ini
-DB_PATH=runwayhub/database.sqlite
-DB_USERS=users.sqlite
-API_KEY_OPENAIP=your_api_key
-API_KEY_METEO=your_meteo_api
-RATE_LIMIT_OPENAIP=100
-RATE_LIMIT_WEATHER=60
-RATE_LIMIT_FLIGHTAWARE=10
-```
-
-### Database Setup
+### Build-Container:
 
 ```bash
-# Initialize main database
-sqlite3 runwayhub/database.sqlite <<'SQL'
-CREATE TABLE IF NOT EXISTS airlines (
-    id TEXT PRIMARY KEY,
-    iata TEXT UNIQUE,
-    icao TEXT UNIQUE,
-    name TEXT NOT NULL
-);
+# Dockerfile erstellen
+# docker-compose.yml konfigurieren
 
--- Create initial airlines
-INSERT INTO airlines (id, iata, icao, name, created_at) VALUES
-('DL', 'DL', 'DLM', 'Deutsche Airline', '2026-05-27'),
-('SA', 'SA', 'SAN', 'Swedish Airline', '2026-05-27'),
-('BA', 'BA', 'BAF', 'British Airline', '2026-05-27');
-SQL
+# Build
+docker-compose build
 
-# Create users database
-sqlite3 users.sqlite users.sqlite.schema
+# Starten
+docker-compose up -d
 ```
 
-### Demo Data
-
-```sql
--- Add demo pilots
-INSERT INTO pilot (callsign, name, airline_id, password, active) VALUES
-('demo_pilot', 'Demo Pilot', 'DL', 'hashed_password', 1),
-('demo_guest', 'Demo Guest', 'DL', 'hashed_password', 1);
-```
-
----
-
-## Performance Optimization
-
-### Database
-- Enable SQLite WAL mode: `PRAGMA journal_mode=WAL;`
-- Create indexes on frequently queried columns
-- Enable cache: `PRAGMA cache_size=256000;`
-
-### File System
-- Use SSD storage
-- Enable gzip compression (Apache/Nginx)
-- Use CDN for static assets
-
-### API
-- Enable response compression
-- Set appropriate cache headers
-- Implement rate limiting
-
----
-
-## Monitoring
-
-### Logs
-```bash
-# Application logs
-tail -f logs/app.log
-
-# Database logs
-tail -f logs/database.log
-```
-
-### Health Checks
-```bash
-# Database status
-sqlite3 database.sqlite "PRAGMA integrity_check;"
-
-# API endpoints
-curl http://localhost:8080/login.php
-curl http://localhost:8080/weather-widget.html
-```
-
-### Alerts
-- Set up email alerts for errors
-- Monitor API rate limits
-- Check database size
-
----
-
-## Backup Strategy
+### Container-Management:
 
 ```bash
-#!/bin/bash
-BACKUP_DIR="/backups/runwayhub"
-DATE=$(date +%Y%m%d_%H%M%S)
+# Starten
+docker-compose up -d
 
-# Backup databases
-sqlite3 database.sqlite ".backup $BACKUP_DIR/runwayhub-$DATE.sqlite"
-sqlite3 users.sqlite ".backup $BACKUP_DIR/users-$DATE.sqlite"
+# Stoppen
+docker-compose down
 
-# Compress backups
-tar -czf $BACKUP_DIR/runwayhub-$DATE.tar.gz $BACKUP_DIR/*/sqlite.sqlite
+# Logs
+docker-compose logs -f
 
-# Rotate old backups (keep 7 days)
-find $BACKUP_DIR -name "*.tar.gz" -mtime +7 -delete
+# Backup
+docker exec runwayhub_app sqlite3 database.sqlite "SELECT * FROM bookings" > backup.sql
 ```
 
----
+## 🔧 Konfiguration
 
-## Troubleshooting
+### config/config.php
 
-### Common Issues
+```php
+define('APP_NAME', 'RunwayHub');
+define('APP_VERSION', '1.0.0');
+define('DB_PATH', __DIR__ . '/database.sqlite');
+define('SMTP_HOST', 'smtp.example.com');
+define('ADMIN_EMAIL', 'admin@example.com');
+```
 
-**500 Internal Server Error**
-- Check PHP error logs
-- Verify database connection
-- Ensure .env variables are set
+## 📊 Datenbank
 
-**403 Forbidden**
-- Check file permissions
-- Verify .htaccess rules
-- Ensure public/ is web-accessible
+### Backup:
 
-**Database Locked**
-- Close other database connections
-- Run `PRAGMA writable_schema=ON;`
-- Restart PHP-FPM/Apache
+```bash
+sqlite3 database.sqlite ".dump" > backup.sql
+```
 
-**API Rate Limits**
-- Check implemented rate limiting
-- Increase limits in .env
-- Use cached responses
+### Wiederherstellen:
 
----
+```bash
+sqlite3 database.sqlite < backup.sql
+```
 
-## Support
+## 🔒 Sicherheit
 
-- **Issues**: https://github.com/chris1971nrw/runwayhub/issues
-- **Discussions**: https://github.com/chris1971nrw/runwayhub/discussions
-- **Documentation**: docs/ folder
+### Produzptions-Modus:
 
----
+```php
+// config/config.php
+define('ALLOW_REGISTRATION', 'false');
+define('ALLOW_BOOKING', 'false');
+define('ALLOW_ADMIN', 'false');
+define('APP_ENV', 'production');
+```
 
-## License
+## 📝 Next Steps
 
-MIT License - See LICENSE file
+- ✅ **install.php** erstellt
+- ✅ **Docker**-Configuration erstellt
+- ✅ **tar.gz** erstellt
+- ⚠️ **.env** Beispiel vorhanden
+- ⚠️ **Deployment**-Guide erstellt
+- ⚠️ **Documentation** zu aktualisieren
 
----
+## 🎯 Next Steps
 
-*Generated by RunwayHub Deployment System*
+**A** - Documentation verbessern
+**B** - .gitignore mit .env Regeln
+**C** - GitHub release erstellen
+**D** - Weitere Deployments
+**E** - Eigene Vorlage
+
+Das **System** ist **bereit** für **Deployment**! 🚀
