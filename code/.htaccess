@@ -1,0 +1,17 @@
+# RunwayHub Manager - .htaccess
+RewriteEngine On
+
+# Dashboard
+RewriteRule ^dashboard$ /public/dashboard.html [L]
+RewriteRule ^admin$ /public/dashboard.html [L]
+
+# Login
+RewriteRule ^login\.php$ /login.php [L]
+RewriteRule ^api/login$ /api/LoginController.php [L]
+RewriteRule ^api/login-pilot\.php$ /api/LoginController.php [L]
+
+# API
+RewriteRule ^api/ /public/api.php [L]
+
+# Default
+RewriteRule ^.*$ /index.php [L]
