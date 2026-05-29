@@ -94,7 +94,7 @@ $backup_info = [
 
 file_put_contents($config['log_file'], json_encode($backup_info) . PHP_EOL, FILE_APPEND);
 
-echo '' . PHP_EOL;
+echo PHP_EOL;
 echo '=== Backup Status: SUCCESS ===' . PHP_EOL;
 echo "Total backups in directory: " . count(glob("{$config['backup_dir']}/runwayhub_backup_*.gz")) . PHP_EOL;
 echo "Oldest backup: " . (glob("{$config['backup_dir']}/runwayhub_backup_*.gz") ? min(array_map('filemtime', glob("{$config['backup_dir']}/runwayhub_backup_*.gz"))) : 'None' . PHP_EOL;
