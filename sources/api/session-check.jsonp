@@ -1,0 +1,7 @@
+{
+  "_comment": "VAVS API Endpunkte - Session-Ping & JSON-RPC",  
+  "/api/login-check": {    
+    "method":"POST,   
+    "handler":"SessionCheckController::verify_session_jsonp","description':'JSON-API für Inaktive UIs mit AJAX-Calls',
+    "parameters":[], 
+    "response_type:'json' || 'jsonp'}  
