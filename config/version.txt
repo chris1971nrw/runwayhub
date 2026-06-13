@@ -1,0 +1,6 @@
+Virtuelle Airline System (VAVS)  
+Version: 1.0.0-beta MVP Release  
+Tech Stack: PHP 8.x + MySQL InnoDB, Vanilla JS/JQuery optional ⭐⭐⚡  
+
+Author: Christoph Vavs Team | Apache-2 compatible for hobby aviation enthusiasts! 🛫✨
+

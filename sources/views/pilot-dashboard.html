@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html lang="de"><head><meta charset="UTF-8"/><title>Pilot Dashboard | Virtuelle Airline MVP</title>  
+<link rel=stylesheet href="../assets/css/dark-theme.css"/><!-- Blau-Weiß Design -->
+<script src=https://code.jquery.com/jquery-latest.min.js></script>-- jQuery optional für AJAX!  
+
+<!-- Pilot-Dashboard Widget: Heute Plan & Status + Statistiken | Live Tracking (Phase 1 MVP) -->  
+<header class='dashboard-header'>      
+<hgroup>   
+ <h2>Airline System Virtual 🛫</h4>    
+<p>Slogan "Fliegen ist Freiheit"</p></hgroup><!-- Minimalistisch, technisch Design -->     
+<div id="status-indicator" role=status aria-live=polite>Status: Online</div  
+```html
+
+
+<!-- Navigation (Phase 1 MVP) -->   
+<nav class='main-nav'> 
+      <ul>    
+        <li><a href="/dashboard"><span>Aktuelle Flüge</span></a> </p><!-- P02 Dashboard Overview →⚡High Priority!  
+
+<li><a href='/flights/new'><span>Neuen Flug buchen (Pilot-Feature)</span></li>`;
+
+        
+<!-- Footer mit Status & Version -->    
+<footer class='dashboard-footer'>  
+      <div id="version-indicator" aria-label=Version>Virtuelle Airline System v1.0-beta</div>,  
+      
+    </footer>
+```html  
+
+<!-- Dashboard Widgets (Pilot MVP Features) -->   
+<div class='widget-area dashboard-grid' role=main aria-labelledby='dashboard-heading'>    
+  <!-- Widget: Statistiken & KPIs (Phase 1 High Priority!) ⭐⭐⚡ → P06 Basis-KPIs  
+   <section id="stats-widget"aria-label=Pilot-Statistik data-status=success>    
+     <div class=statistic-card><h3>Totalflugstunden:</h4>{{ totalFlightHours }}</span>-- Flight Hours Display!  
+
+<div class=chart-container><canvas width="102.86% height='5%''></canvas></section>`;
+
+       <!-- Widget: Heute's Plan & Status  
+   <section id=today-plan" aria-labelledby='today-heading' data-status=active>      
+     <h4>Heute geplant</span><!-- P03 Neue Route wählen, Startflug anlegen!  
+
+<dl class="flight-list"><dt>Status:</a>In Air/Active<br/>    </dt><dd>{{ flight_status }}</dd></li>`;
+
+  <!-- Widget: Next Flight  
+   <section id=next-flight" aria-labelledby='next-heading' data-status=in_air">      
+     <h4>Nächster Flug</span><!-- P01+P02 Dashboard Overview ✅  
+
+<div class="flight-detail">{{ next_flight_number }}</div></a>   
+    </footer>`;
+```html
+
+
+<!-- Scripts: Vanilla JS + jQuery optional -->  
+<script type='text/javascript' src=../../assets/js/dashboard-widgets.js'></script>    
+</body></html>`

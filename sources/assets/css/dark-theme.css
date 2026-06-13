@@ -1,0 +1,21 @@
+/** VAVS - Virtuelle Airline System (Release 1 MVP)  
+ * Design: Airbus/Lufthansa-Inspiration + Blau-Weiß Grundlayout  
+ * Akzentfarbe Orange/Türkis für moderne Dashboards  
+
+** Autor Christoph */
+
+
+/* Dark Theme Base Variables for Modern Cockpit UI */
+html{font-family:'Open Sans',sans-serif; --primary-color:#0d47a1;} /* Lufthansa Blau Basis */
+
+:root {   
+    color-scheme'light','dark'; 
+        body{background':'#0f2938'}/* Deep Navy Blue (Airbus Cockpit Style) }
+            --accent-color:#ff6d57; Orange Akzent für Buttons/Highlights ⚡    
+                    .card-dashboard,header,pages {     
+                         background:linear-gradient(135deg,'rgba(0,0,29))'  
+                                'rgba(0, 80%,#ffffff); /* Modern Gradient */ 
+                            border-radius:'4px;'/* Minimalistisch Design wie angefordert */
+
+                        }  
+
