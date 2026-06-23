@@ -57,28 +57,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!empty($route)) {
                 $db = getDB();
 
-                # Determine routes to process (handles multi-leg entries like "City A -> City B")
-                $routes_to_process = [$route];
-                if (strpos($route, '->') !== false) {
+                # Identify ICAO codes and distances (basic grouping)
+                preg_match_all('/[A-Z]{4}/', $route, $matches);
+                $icao_codes = $matches[0];
+
+                # Determine routes to process
+                $routes_to_process = [];
+                if (str_contains($route, '->')) {
                     $parts = explode('->', $route);
                     $parts = array_map('trim', $parts);
-                    if (count($parts) >= 2 && $parts[0] !== '' && $parts[1] !== '') {
-                        $routes_to_process = [
-                            $parts[0] . ' -> ' . $parts[1],
-                            $parts[1] . ' -> ' . $parts[0]
-                        ];
+                    if (count($parts) >= 2) {
+                        $routes_to_process[] = $parts[0] . ' -> ' . $parts[1];
+                        // Add automatic return flight if it doesn't exist in the current request?
+                        // For now, just process what is entered.
                     }
+                } else {
+                    $routes_to_process[] = $route;
                 }
 
                 $results = [];
                 foreach ($routes_to_process as $r) {
-                    # Generate unique Flight Number (e.g., RH0123) for each route
+                    # Generate unique Flight Number (e.g., RW0123)
                     $max_val = 0;
                     $stmt_max = $db->query("SELECT MAX(CAST(SUBSTRING(flight_number, 3) AS UNSIGNED)) FROM flights");
                     $res = $stmt_max->fetch();
                     $max_val = (int)($res[0] ?? 0);
                     $next_num = $max_val + 1;
-                    $f_num = 'RH' . str_pad($next_num, 4, '0', STR_PAD_LEFT);
+                    $f_num = 'RW' . str_pad($next_num, 4, '0', STR_PAD_LEFT);
 
                     $stmt = $db->prepare("INSERT INTO flights (route, date, status, flight_number) VALUES (?, ?, ?, ?)");
                     $stmt->execute([$r, $date, $status, $f_num]);
@@ -131,7 +136,7 @@ include 'header.php';
                                             $flights = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                             foreach ($flights as $flight) {
                                                 echo '<tr class="align-middle">';
-                                                echo '<td>' . htmlspecialchars($flight['route']) { } . '</td>';
+                                                echo '<td>' . htmlspecialchars($flight['route']) . '</td>';
                                                 echo '<td>' . (date('d.m.Y H:i', strtotime($flight['date'])) ?: $flight['date']) . '</td>';
                                                 echo '<td>' . renderStatusBadge($flight['status'] ?? 'scheduled') . '</td>';
                                                 echo '<td class="text-end">';
@@ -144,7 +149,7 @@ include 'header.php';
                                                 echo '</tr>';
                                             }
                                         } else {
-                                            echo '<tr><td colspan="4" class="text-center">Fehler bei der Datenabfrage.</td></tr>';
+                                            echo '<tr style="border-bottom: 2px solid #eee;">\n                                                <td colspan="4" class="text-center text-muted py-5">Noch keine Flüge im System eingetragen.</td>\n                                            </tr>';
                                         }
                                         ?>
                                     </tbody>
@@ -199,7 +204,7 @@ include 'header.php';
                                                 <option value="pending">Ausstehend (Pending)</option>
                                             </select>
                                         </div>
-                                        <button type="submit" name="add_flight" class="btn btn-success w-100">Zum System hinzufügen</button>
+                                        <button type="submit" name="add_flight" class="btn btn-primary w-100 py-2">Zum System hinzufügen</button>
                                     </form>
                                 <?php endif; ?>
                             </div>

@@ -10,23 +10,26 @@ Dieses Dokument dient zur Verfolgung des Fortschritts der Entwicklung von **Runw
 - [x] Header und Footer Integration
 - [x] Sidebar Navigation Implementierung
 - [x] Basis-CSS Definitionen & Branding-Platzhalter
+- [x] **GitHub-Vorbereitung**: .gitignore und strukturierte Dokumentation
+- [x] Kernmodule Extraktion (Library-Struktur)
 
 ## 🏗️ In Bearbeitung / Nächste Schritte
 ### 1. Flugzeugverwaltung (Aircraft Management)
-- [ ] Datenbankmodell für die Flotte erstellen
+- [ ] Datenbankmodell für die Flotte finalisieren
 - [ ] **Wartungsmodul** implementieren:
-    - [ ] Berechnung von Werte wie "Nächste Inspektion"
+    - [ ] Berechnung von Werten wie "Nächste Inspektion"
     - [ ] Protokollierung von Instandhaltungsarbeiten
-- [ ] Verwaltung individueller Flugzeugdetails (RH-Kennung, Status)
+    - [ ] Verwaltung individueller Flugzeugdetails (RH-Kennung, Status)
 
 ### 2. Benutzerrollen & Mitglieder
 - [ ] Rollenverwaltung: Administrator vs. Pilot
-- [ ] Login/Registrierung Schnittstellen
-- [ ] Mitgliedsverwaltung (Member Services)
+- [ ] Login/Registrierung Schnittstellen vervollständigen
+- [ ] Mitgliedsverwaltung (Member Services) ausbauen
 
-### 3. Systemarchitektur
-- [ ] Migration vorbereiten: SQL-Skripte für SQLite zu MySQL Übergang
-- [ ] Backend-Bereinigung und Dokumentation der Core-Logik
+### 3. Systemarchitektur & Skalierung
+- [ ] Migration Vorbereitung: SQL-Skripte für SQLite zu MySQL Übergang optimieren
+- [x] **Backend-Bereinigung**: Entfernung von Debug-Tools und Dokumentation der Core-Logik
+- [ ] Performance-Optimierung für die Mitgliederdatenbank
 
 ---
 
@@ -38,3 +41,4 @@ Dieses Dokument dient zur Verfolgung des Fortschritts der Entwicklung von **Runw
 
 ## 📝 Notizen
 *Projektpfad: /home/christoph/runwayhub/*
+*Technik: Native PHP & SQLite Portfolio.*

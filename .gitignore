@@ -1,0 +1,30 @@
+# PHP & SQLite project gitignore
+
+# --- Repository specific ---
+# Local databases
+*.db
+*.sqlite
+database.db
+database.sqlite
+
+# Logs and cache
+*.log
+.cache/
+tmp/
+
+# Debugging scripts (to be removed or kept out of production)
+debug_*.php
+test_*.php
+info.php
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Composer stuff (if any - though we don't use it, good to have for standard)
+vendor/
+composer.*.lock
+
+# Environment variables
+.env
+.env.local

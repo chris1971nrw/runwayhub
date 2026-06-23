@@ -5,7 +5,7 @@ RunwayHub ist eine Management-Plattform für betriebliche Abläufe in der Luftfa
 
 ## 2. Kernmodule und Funktionen
 - **Flottenmanagement:** Verfolgung des Status, der Typen (z. B. A320, B737) und der Kapazitäten von Flugzeugen.
-- **Flugbetrieb:** Verwaltung von Routen, Zeitplänen und dem aktuellen Status der Flüge in Echtzeit.
+|--- **Flugbetrieb:** Verwaltung von Routen, Zeitplänen und dem aktuellen Status der Flüge in Echtzeit (inklusive automatischer Rückflug-Generierung mit dedizierten Flugnummern im Format RWXXXX und ICAO-basiertem Grouping).\n
 - **ACARD-System:** Integration einer dedizierten Datenverarbeitung über spezialisierte Parser (`lib/parsers`).
 - **Wartung & Finanzen:** Module zur Verfolgung von Ausfallzeiten für Flugzeuge sowie zu damit verbundenen Kosten.
 - **Simulation:** Enthält einen ACARS-Simulator zum Testen von Kommunikation.
