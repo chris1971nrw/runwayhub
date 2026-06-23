@@ -13,7 +13,7 @@ database.sqlite
 tmp/
 
 # Debugging scripts (to be removed or kept out of production)
-debug_*.php
+
 test_*.php
 info.php
 
@@ -28,3 +28,7 @@ composer.*.lock
 # Environment variables
 .env
 .env.local
+DEBUG_FILES_PATTERN=debug_*.php
+TEST_FILES_PATTERN=test_*.php
+INFO_FILE=info.php
+DATABASE_FILES=*.[db|sqlite]
