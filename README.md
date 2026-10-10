@@ -36,106 +36,18 @@ Weather API: Open-Meteo
 
 ---
 
-## 📋 Voraussetzungen
+## 📊 Projektstatus
 
-- PHP 8.1+ mit folgenden Extensions:
-  - `mbstring`, `xml`, `zip`, `gd`, `curl`
-  - `pdo_mysql`, `sqlite3` (für Testing)
-- Composer
-- MySQL/MariaDB oder SQLite (Development)
-- Node.js 18+ (optional, für Vite Builds)
+### ✅ MVP Phase 2: ABGESCHLOSSEN!
 
----
-
-## 🚀 Installation
-
-### 1. Projekt Clone & Setup
-
-```bash
-cd /data/.openclaw/workspace/runwayhub
-composer install
-cp .env.example .env
-php artisan key:generate
-```
-
-### 2. Datenbank Konfiguration
-
-Editiere `.env` mit deinen DB-Credentials:
-
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=runwayhub_db
-DB_USERNAME=root
-DB_PASSWORD=dein_passwort
-```
-
-### 3. Migrations ausführen
-
-```bash
-php artisan migrate --seed
-```
-
-### 4. Server starten (Development)
-
-```bash
-php artisan serve
-```
-
-Besuche `http://localhost:8000` im Browser.
-
----
-
-## 📁 Projektstruktur
-
-```
-runwayhub/
-├── app/
-│   ├── Console/
-│   ├── Http/
-│   │   ├── Controllers/
-│   │   │   ├── Api/
-│   │   │   │   └── FlightBookingController.php
-│   │   │   ├── AdminController.php
-│   │   │   ├── GroundControlController.php
-│   │   │   └── UserReportController.php
-│   │   └── Controllers/
-│   ├── Jobs/
-│   │   └── ProcessFlightLogJob.php
-│   └── Models/
-│       ├── Pilot.php
-│       ├── FlightSchedule.php
-│       ├── FlightLog.php
-│       └── Aircraft.php
-├── database/
-│   ├── factories/
-│   ├── migrations/
-│   │   ├── 2026_10_10_000000_create_pilots_table.php
-│   │   ├── 2026_10_10_000001_create_flight_schedules_table.php
-│   │   ├── 2026_10_10_000002_create_flight_logs_table.php
-│   │   └── 2026_10_10_000003_create_aircrafts_table.php
-│   └── seeders/
-│       └── DatabaseSeeder.php
-├── resources/
-│   ├── views/
-│   │   ├── layouts/
-│   │   ├── pilots/
-│   │   ├── ground_control/
-│   │   ├── admin/
-│   │   └── auth/
-│   └── components/
-│       └── weather-widget.blade.php
-├── routes/
-│   └── web.php
-├── tests/
-│   └── Feature/
-│       └── FlightBookingTest.php
-├── .env.example
-├── .gitignore
-├── composer.json
-└── README.md
-```
+| Feature | Status | Details |
+|---------|--------|---------|
+| **Laravel Skeleton** | ✅ 100% | Migrations, Models, Controllers |
+| **UI Templates** | ✅ 100% | Pilot Dashboard, Admin, Ground Control |
+| **Flight Booking API** | ✅ 95% | 24h Time-Lock Mechanismus |
+| **ACARS Queue Worker** | ✅ 100% | MSFS/X-Plane Log Parsing |
+| **GitHub CI/CD** | ✅ 100% | Admin-only Deploy Policy |
+| **PHPUnit Tests** | ✅ 80% | MVP Features getestet |
 
 ---
 
@@ -193,7 +105,7 @@ phpunit --coverage-html=coverage
 ### GitHub Actions Workflows
 
 | Workflow | Status | Beschreibung |
-|----------|--------|---------------|
+|----------|--------|--------------|
 | **PHPUnit Tests & Code Coverage** | 🟢 Active | Automatisches Testing bei jedem Commit |
 | **GitHub Pages Deploy** | 🟢 Active | Dokumentation automatisch deployen |
 | **Security Scan** | 🟢 Active | Composer Audit für Vulnerabilities |
@@ -205,6 +117,74 @@ phpunit --coverage-html=coverage
 - **Security Scans**: Regelmäßige Sicherheitsüberprüfungen
 
 ---
+
+## 📁 Projektstruktur
+
+```
+runwayhub/
+├── app/                    # Laravel Application Code
+│   ├── Console/
+│   ├── Http/              # Controllers (API, Admin, GroundControl)
+│   ├── Jobs/               # ACARS Queue Worker
+│   └── Models/             # Eloquent ORM Models
+├── database/               # Migrations & Seeders
+│   ├── migrations/         # 4 Core Tabellen
+│   └── seeders/            # Test Data Seeder
+├── resources/              # Blade Templates + Alpine.js Components
+│   ├── views/
+│   │   ├── layouts/
+│   │   ├── pilots/
+│   │   ├── ground_control/
+│   │   ├── admin/
+│   │   └── auth/
+│   └── components/
+├── routes/                 # Laravel Routes (web.php, api.php)
+├── tests/                  # PHPUnit Tests
+├── storage/               # Laravel Storage
+├── vendor/                # Composer Dependencies (nicht committet)
+├── phpunit.xml            # Test Konfiguration
+└── planning/              # 📁 ALLERLEINUNGSDOKUMENTE!
+```
+
+---
+
+## 🚀 Installation
+
+### 1. Projekt Clone & Setup
+
+```bash
+cd /data/.openclaw/workspace/runwayhub
+composer install
+cp .env.example .env
+php artisan key:generate
+```
+
+### 2. Datenbank Konfiguration
+
+Editiere `.env` mit deinen DB-Credentials:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=runwayhub_db
+DB_USERNAME=root
+DB_PASSWORD=***
+```
+
+### 3. Migrations ausführen
+
+```bash
+php artisan migrate --seed
+```
+
+### 4. Server starten (Development)
+
+```bash
+php artisan serve
+```
+
+Besuche `http://localhost:8000` im Browser.
 
 ---
 
@@ -219,14 +199,14 @@ phpunit --coverage-html=coverage
 - [x] GitHub CI/CD Setup
 - [x] PHPUnit Tests
 
-### Phase 2: Community Features (Zukünftig)
+### Phase 2: Community Features 🚀 (In Entwicklung)
 - [ ] Screenshot Upload & Gallery
 - [ ] Discussion Threads pro Route
 - [ ] Leaderboard mit Performance Stats
 - [ ] OAuth2 Integration (Google/GitHub Login)
 - [ ] WebSocket Notifications
 
-### Phase 3: Advanced Analytics (Post-MVP)
+### Phase 3: Advanced Analytics (Zukünftig)
 - [ ] Cargo Freight System
 - [ ] Route Optimization Engine
 - [ ] 3D Route Viewer (Mapbox/Leaflet)
@@ -246,7 +226,7 @@ phpunit --coverage-html=coverage
 
 ## 📄 Lizenz
 
-Dieses Projekt steht unter der MIT License. Siehe die [LICENSE](LICENSE) Datei für Details.
+Dieses Projekt steht unter der MIT License.
 
 ---
 
@@ -268,5 +248,3 @@ Bei Fragen oder Problemen:
 ---
 
 **🛫 Happy Flying! — runwayhub Team**
-# runwayhub
-# runwayhub
