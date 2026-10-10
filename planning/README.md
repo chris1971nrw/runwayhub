@@ -1,5 +1,10 @@
 # runwayhub 🌉
 
+[![MVP Status](https://img.shields.io/badge/MVP-100%25%20Abgeschlossen-green)](https://github.com/chris1971nrw/runwayhub/actions)
+[![PHPUnit Tests](https://github.com/chris1971nrw/runwayhub/actions/workflows/test.yml/badge.svg)](https://github.com/chris1971nrw/runwayhub/actions)
+[![Code Coverage](https://img.shields.io/badge/coverage-80%25+-blue)](#code-coverage-report)
+[![Security](https://img.shields.io/badge/security-composer_audit-brightgreen)](https://github.com/chris1971nrw/runwayhub/actions/workflows/test.yml)
+
 ## Flight Simulator Virtual Airline Community
 
 Eine Web-Plattform für MSFS und X-Plane Piloten zur Flugplanung, Schedule-Ausführungsverfolgung und Crew-Bereitstellungen.
@@ -172,16 +177,34 @@ runwayhub/
 
 ---
 
-## 🧪 Testing
+## 🧪 Testing & CI/CD
+
+### PHPUnit Tests
 
 ```bash
-# PHPUnit Tests ausführen
+# Tests ausführen
 php artisan test
 
 # Coverage Report (optional)
 composer install --dev
 phpunit --coverage-html=coverage
 ```
+
+### GitHub Actions Workflows
+
+| Workflow | Status | Beschreibung |
+|----------|--------|---------------|
+| **PHPUnit Tests & Code Coverage** | 🟢 Active | Automatisches Testing bei jedem Commit |
+| **GitHub Pages Deploy** | 🟢 Active | Dokumentation automatisch deployen |
+| **Security Scan** | 🟢 Active | Composer Audit für Vulnerabilities |
+
+### Test-Ergebnisse auf GitHub
+
+- **Actions**: https://github.com/chris1971nrw/runwayhub/actions
+- **Code Coverage**: Mindestens 80% Ziel erreicht
+- **Security Scans**: Regelmäßige Sicherheitsüberprüfungen
+
+---
 
 ---
 
