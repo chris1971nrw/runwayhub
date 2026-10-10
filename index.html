@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>runwayhub - Flight Simulator Virtual Airline</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #1a237e, #3949ab); color: #fff; line-height: 1.6; min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        
+        /* Header */
+        header { text-align: center; padding: 40px 20px; background: rgba(0,0,0,0.3); border-radius: 10px; margin-bottom: 30px; }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .badges { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 15px; }
+        .badge { padding: 8px 15px; background: rgba(255,255,255,0.1); border-radius: 20px; font-size: 0.9em; }
+        
+        /* Sections */
+        section { margin-bottom: 40px; background: rgba(255,255,255,0.05); padding: 30px; border-radius: 10px; backdrop-filter: blur(10px); }
+        h2 { color: #81d4fa; margin-bottom: 20px; font-size: 1.8em; border-bottom: 2px solid #81d4fa; padding-bottom: 10px; }
+        
+        /* Features Grid */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px; }
+        .feature-card { background: rgba(255,255,255,0.08); padding: 20px; border-radius: 8px; transition: transform 0.3s; }
+        .feature-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.12); }
+        .feature-icon { font-size: 2em; margin-bottom: 10px; }
+        
+        /* Status Table */
+        .status-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .status-table th, .status-table td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .status-table th { color: #81d4fa; }
+        .status-complete { color: #69f0ae; }
+        
+        /* Roadmap */
+        .roadmap-phase { margin-bottom: 20px; padding: 15px; border-radius: 8px; background: rgba(255,255,255,0.05); }
+        .roadmap-phase.completed { border-left: 4px solid #69f0ae; }
+        .roadmap-phase.developing { border-left: 4px solid #ffd740; }
+        
+        /* Footer */
+        footer { text-align: center; padding: 30px; background: rgba(0,0,0,0.3); margin-top: 40px; }
+        footer a { color: #81d4fa; text-decoration: none; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2em; }
+            .features-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>🌉 runwayhub</h1>
+            <p style="font-size: 1.3em; margin-bottom: 20px;">Modernes Hub- & Community-Management für Flugsimulator-Piloten</p>
+            <div class="badges">
+                <span class="badge">✅ MVP Phase 2: ABGESCHLOSSEN</span>
+                <span class="badge">🧪 PHPUnit Tests: Active</span>
+                <span class="badge">🔐 Security Scans: Active</span>
+            </div>
+        </header>
+
+        <!-- Features -->
+        <section>
+            <h2>🎯 Was bietet runwayhub?</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3>Schedule Management</h3>
+                    <p>Flugpläne erstellen & verwalten mit ICAO-Routen und Aircraft-Zuweisung</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">✈️</div>
+                    <h3>Flight Tracking</h3>
+                    <p>Flugprotokolle hochladen & tracken mit MSFS/X-Plane Integration</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📡</div>
+                    <h3>ACARS Integration</h3>
+                    <p>Automatisches Log Parsing für MSFS/X-Plane mit Telemetry Daten</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Community Features</h3>
+                    <p>Reviews, Leaderboards und Wetter Widget für bessere Flugplanung</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💼</div>
+                    <h3>Admin Dashboard</h3>
+                    <p>Finanzberichte (Revenue vs Cost), Fleet Management und User Verwaltung</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Entwicklungsstand -->
+        <section>
+            <h2>📊 Aktueller Entwicklungsstand</h2>
+            
+            <div class="roadmap-phase completed">
+                <h3>✅ Bereits umgesetzt (Done)</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Laravel Skeleton + Migrations (4 Core Tabellen)</li>
+                    <li>Eloquent Models mit Relationships & Business Logic</li>
+                    <li>UI Templates für Pilot, Admin, Ground Control Views</li>
+                    <li>Flight Booking Controller mit 24h Time-Lock Mechanismus</li>
+                    <li>ACARS Queue Worker Job für MSFS/X-Plane Logs</li>
+                    <li>GitHub CI/CD Setup mit automatisierten Tests</li>
+                    <li>PHPUnit Tests mit Code Coverage Reports (80%+ Ziel)</li>
+                </ul>
+            </div>
+            
+            <div class="roadmap-phase developing">
+                <h3>🚀 In Arbeit (Beta)</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Screenshot Upload & Gallery</li>
+                    <li>Discussion Threads pro Route</li>
+                    <li>Leaderboard mit Performance Stats</li>
+                    <li>OAuth2 Integration (Google/GitHub Login)</li>
+                    <li>WebSocket Notifications für Echtzeit-Updates</li>
+                </ul>
+            </div>
+            
+            <div class="roadmap-phase">
+                <h3>📊 Geplant (Roadmap)</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Cargo Freight System</li>
+                    <li>Route Optimization Engine</li>
+                    <li>3D Route Viewer mit Mapbox/Leaflet</li>
+                    <li>Advanced Weather Forecasts</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Tech Stack -->
+        <section>
+            <h2>🛠️ Tech-Stack & Details</h2>
+            
+            <table class="status-table">
+                <tr><th>Backend</th><td>Laravel 10.x mit Eloquent ORM</td></tr>
+                <tr><th>PHP Version</th><td>>=8.1 mit allen notwendigen Extensions</td></tr>
+                <tr><th>Database</th><td>MySQL/MariaDB oder SQLite (Development)</td></tr>
+                <tr><th>Frontend</th><td>Alpine.js + Blade Templates + Chart.js</td></tr>
+                <tr><th>Weather API</th><td>Open-Meteo API für Wetterdaten</td></tr>
+            </table>
+        </section>
+
+        <!-- Installation -->
+        <section>
+            <h2>🚀 Installation</h2>
+            
+            <h3>Schritt 1: Projekt Clone & Setup</h3>
+            <pre style="background: rgba(0,0,0,0.5); padding: 15px; border-radius: 8px; overflow-x: auto;">
+cd /data/.openclaw/workspace/runwayhub
+composer install
+cp .env.example .env
+php artisan key:generate
+            </pre>
+            
+            <h3 style="margin-top: 20px;">Schritt 2: Datenbank Konfiguration</h3>
+            <pre style="background: rgba(0,0,0,0.5); padding: 15px; border-radius: 8px; overflow-x: auto;">
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=runwayhub_db
+DB_USERNAME=root
+DB_PASSWORD=***
+            </pre>
+            
+            <h3 style="margin-top: 20px;">Schritt 3 & 4:</h3>
+            <pre style="background: rgba(0,0,0,0.5); padding: 15px; border-radius: 8px; overflow-x: auto;">
+php artisan migrate --seed
+php artisan serve
+# Besuche http://localhost:8000 im Browser
+            </pre>
+        </section>
+
+        <!-- GitHub Actions -->
+        <section>
+            <h2>🧪 Testing & CI/CD</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧪</div>
+                    <h4>PHPUnit Tests & Code Coverage</h4>
+                    <p>Automatisches Testing bei jedem Commit mit 80%+ Ziel</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h4>Security Scan</h4>
+                    <p>Composer Audit für Dependency Vulnerabilities</p>
+                </div>
+            </div>
+            
+            <p style="margin-top: 15px;"><strong>GitHub Actions:</strong> <a href="https://github.com/chris1971nrw/runwayhub/actions" target="_blank">https://github.com/chris1971nrw/runwayhub/actions</a></p>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <h3>🛫 Happy Flying! — runwayhub Team</h3>
+            <p style="margin-top: 15px;">
+                <a href="https://github.com/chris1971nrw/runwayhub" target="_blank">GitHub Repository</a> | 
+                <a href="https://github.com/chris1971nrw/runwayhub/issues" target="_blank">Issues & Features</a>
+            </p>
+            <p style="margin-top: 10px;">&copy; 2026 runwayhub. Alle Rechte vorbehalten.</p>
+        </footer>
+    </div>
+</body>
+</html>
