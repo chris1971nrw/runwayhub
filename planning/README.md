@@ -245,7 +245,5 @@ Bei Fragen oder Problemen:
 ---
 
 **🛫 Happy Flying! — runwayhub Team**
-
-<!-- project: github.com/chris1971nrw/runwayhub -->
 # runwayhub
 # runwayhub
