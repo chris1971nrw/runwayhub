@@ -1,0 +1,93 @@
+name: Admin Update Check & Deploy
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"  # Cronjob check every 5 minutes
+  workflow_dispatch:
+    inputs:
+      deploy_type:
+        description: 'Type of deployment'
+        required: true
+        default: 'check-for-updates'
+        type: choice
+        options:
+          - check-for-updates
+          - manual-deploy
+
+jobs:
+  update-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: dom, curl, mbstring, zip, gd
+          
+      - name: Check for New Version Tag
+        run: |
+          VERSION=$(git describe --tags $(git rev-list --tags --max-count=1) 2>/dev/null || echo "v0.0.0")
+          LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+          
+          if [ "$VERSION" != "$LATEST_TAG" ]; then
+            echo "New version available: $LATEST_TAG" >> notifications.log
+            exit 1
+          fi
+          
+          echo "Current version is up to date: $VERSION" >> notifications.log
+      
+      - name: Run Laravel Tests (if needed)
+        run: |
+          composer install --no-interaction --prefer-dist
+          php artisan test
+      
+      - name: Notify Admin Dashboard
+        if: failure()
+        run: |
+          echo "New version available! Admin only can apply update." >> notifications.log
+          # TODO: Add webhook notification to admin dashboard
+      
+  deploy-update:
+    needs: update-check
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.actor == 'admin-user-identifier'
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          
+      - name: Pull Latest Changes
+        run: |
+          git fetch origin
+          git reset --hard origin/main
+          git pull origin main
+      
+      - name: Install Dependencies
+        run: composer install --no-interaction --prefer-dist
+      
+      - name: Run Migrations
+        run: php artisan migrate --force
+      
+      - name: Clear Caches
+        run: |
+          php artisan config:clear
+          php artisan cache:clear
+          php artisan route:clear
+      
+      - name: Tag Current Version
+        run: |
+          VERSION=$(git describe --tags $(git rev-list --tags --max-count=1))
+          git tag $VERSION --force HEAD
+          git push origin $VERSION --force
+      
+      - name: Deploy Complete
+        run: echo "Deployment completed successfully at $(date)" >> deployment.log

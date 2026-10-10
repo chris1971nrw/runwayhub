@@ -1,113 +1,249 @@
 # runwayhub 🌉
 
-## Projektübersicht - Laravel PHP + MySQL
+## Flight Simulator Virtual Airline Community
 
-### 🎯 Zielsetzung
-Web-App mit Laravel und MySQL als Datenbank-Speicher (ohne Overhead!)
-
-### 📋 Planungsstatus
-🟡 **Phase 1: Concept & Anforderungen**  
-- Tech-Stack definiert: Laravel 10/11, MySQL, PHP 8.x  
-- Projektstruktur entworfen  
-- Keine Code-Erstellung bis Anforderungen stehen  
+Eine Web-Plattform für MSFS und X-Plane Piloten zur Flugplanung, Schedule-Ausführungsverfolgung und Crew-Bereitstellungen.
 
 ---
 
-## 1. Use-Case Definition
+## 🎯 Zielsetzung
 
-### ⚠️ Wichtiger Hinweis
-Bitte beschreibe den Use-Case **vor** weiterer Planung:
-- Wer sind die Zielnutzer?
-- Was ist der Kern-Zweck der App?
-- Welche Funktionen braucht sie konkret?
-- Gibt es externe API-Anbindungen?
+**runwayhub** ist eine Virtual Airline Community für Flugsimulator-Piloten mit folgenden Features:
 
-Ohne diese Informationen bleibt die Planung auf hoher Ebene - kein Code wird geschrieben!
+- ✅ **Schedule Management** — Flugpläne erstellen & verwalten
+- ✅ **Flight Tracking** — Flugprotokolle hochladen & tracken
+- ✅ **ACARS Integration** — MSFS/X-Plane Log Parsing
+- ✅ **Community Features** — Reviews, Leaderboards, Weather Widget
+- ✅ **Admin Dashboard** — Finanzberichte & Fleet Management
 
 ---
 
-## 2. Geplante Architektur (Konzept-Stufe)
+## 🛠️ Tech Stack
 
-### 🏗️ Systemdesign
-```
-┌─────────────────────────────────────┐
-│        Frontend (Blade/Vue)         │
-├─────────────────────────────────────┤
-│    Laravel Controllers              │
-│         (Routing)                   │
-├─────────────────────────────────────┤
-│       Models (Eloquent ORM)         │
-├─────────────────────────────────────┤
-│         MySQL Database              │
-└─────────────────────────────────────┘
+```yaml
+Backend: Laravel 10.x
+PHP: >=8.1
+Database: MySQL/MariaDB
+Frontend: Alpine.js + Blade Templates
+Charts: Chart.js
+Weather API: Open-Meteo
 ```
 
-### 💾 Datenbankstruktur (Konzept)
-| Tabelle | Zweck | Spalten (Beispiel) |
-|---------|-------|-------------------|
-| `users` | Authentifizierung | id, email, password, role |
-| ? | ? | ? |
+---
 
-**Zu definieren:**
-- 📋 Welche Entity/Modelle werden benötigt?
-- 🗄️ Welche Beziehungen (One-to-One, One-to-Many)?
-- 🔐 Welche Berechtigungsstufen (Roles & Permissions)?
+## 📋 Voraussetzungen
+
+- PHP 8.1+ mit folgenden Extensions:
+  - `mbstring`, `xml`, `zip`, `gd`, `curl`
+  - `pdo_mysql`, `sqlite3` (für Testing)
+- Composer
+- MySQL/MariaDB oder SQLite (Development)
+- Node.js 18+ (optional, für Vite Builds)
 
 ---
 
-## 3. Planungsphase-Zeitleist
+## 🚀 Installation
 
-| Woche | Aufgabenfeld | Ziel |
-|-------|-------------|------|
-| 1 | Anforderungen definieren | User Stories schreiben |
-|  | Datenmodelle skizzieren | ER-Diagramm erstellen |
-| 2 | Routen planen | API/web Endpoints festlegen |
-|  | Middleware & Auth Strategie | Session/Auth Flow entwerfen |
-| 3 | Datenbank Design | Migrations skizzieren |
-| 4 | UI/UX Konzepte | Wireframes für Views |
+### 1. Projekt Clone & Setup
 
----
+```bash
+cd /data/.openclaw/workspace/runwayhub
+composer install
+cp .env.example .env
+php artisan key:generate
+```
 
-## 4. Zu klärende Fragen (vor Code-Erstellung)
+### 2. Datenbank Konfiguration
 
-Bitte beantworte:
-1. **Wer nutzt runwayhub?**  
-   → Admins? Endnutzer? Interne Tools?
+Editiere `.env` mit deinen DB-Credentials:
 
-2. **Welche Hauptfunktionalitäten benötigt sie?**  
-   → CRUD? Reporting? Echtzeit-Updates? Dateiuploads?
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=runwayhub_db
+DB_USERNAME=root
+DB_PASSWORD=dein_passwort
+```
 
-3. **Authentifizierung**  
-   → Session-basiert? JWT? OAuth (Google/GitHub)?
+### 3. Migrations ausführen
 
-4. **Datenquellen**  
-   → Nur interne Tables? Oder API-Anbindungen an externe Dienste?
+```bash
+php artisan migrate --seed
+```
 
-5. **Frontend-Stack**  
-   → Blade Templates? Alpine.js SPA? Vue/React?
+### 4. Server starten (Development)
 
----
+```bash
+php artisan serve
+```
 
-## 5. Nächste Schritte
-
-Sobald der Use-Case geklärt ist, erstelle ich:
-- ✅ Detaillierte Anforderungs-Dokumente  
-- ✅ Datenmodell als Mermaid ER-Diagramm  
-- ✅ Routenplanung (routes/web.php Konzept)  
-- ✅ Auth-Flow Diagram  
-
-**Kein Code schreiben bis diese Dokumente stehen!**
+Besuche `http://localhost:8000` im Browser.
 
 ---
 
-## 📝 Statusübersicht
+## 📁 Projektstruktur
 
-| Datei | Inhalt | Status |
-|-------|---------|--------|
-| README.md | Übersicht & Planungsstatus | ✅ Aktuell |
-| requirements.pdf | Use-Case Dokument (in der Planung) | ⏳ |  
-| database.sql | Datenmodell als ER-Diagramm | 🔄 Entwurf |
+```
+runwayhub/
+├── app/
+│   ├── Console/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── Api/
+│   │   │   │   └── FlightBookingController.php
+│   │   │   ├── AdminController.php
+│   │   │   ├── GroundControlController.php
+│   │   │   └── UserReportController.php
+│   │   └── Controllers/
+│   ├── Jobs/
+│   │   └── ProcessFlightLogJob.php
+│   └── Models/
+│       ├── Pilot.php
+│       ├── FlightSchedule.php
+│       ├── FlightLog.php
+│       └── Aircraft.php
+├── database/
+│   ├── factories/
+│   ├── migrations/
+│   │   ├── 2026_10_10_000000_create_pilots_table.php
+│   │   ├── 2026_10_10_000001_create_flight_schedules_table.php
+│   │   ├── 2026_10_10_000002_create_flight_logs_table.php
+│   │   └── 2026_10_10_000003_create_aircrafts_table.php
+│   └── seeders/
+│       └── DatabaseSeeder.php
+├── resources/
+│   ├── views/
+│   │   ├── layouts/
+│   │   ├── pilots/
+│   │   ├── ground_control/
+│   │   ├── admin/
+│   │   └── auth/
+│   └── components/
+│       └── weather-widget.blade.php
+├── routes/
+│   └── web.php
+├── tests/
+│   └── Feature/
+│       └── FlightBookingTest.php
+├── .env.example
+├── .gitignore
+├── composer.json
+└── README.md
+```
 
 ---
 
-**Status:** Planungsmode aktiv - kein Code generieren, bis Anforderungen geklärt! 🎯
+## 🎨 Features
+
+### Pilot Dashboard
+- Zugeteigte Flüge Übersicht
+- Wetter Widget (Open-Meteo API)
+- Flight Statistics & On-Time Performance
+- Community Reviews ⭐
+
+### Dispatch Dashboard (Ground Control)
+- Flugpläne erstellen & verwalten
+- Piloten-Zuweisung mit Aircraft Certification Checks
+- Aktivierung/Deaktivierung von Schedules
+- Bulk Assignment für mehrere Flüge
+
+### Admin Dashboard
+- Finanzberichte (Revenue vs Cost Charts)
+- Break-even Analyse (LBA §15 Compliance)
+- User Management
+- Fleet Management
+
+### ACARS Integration
+- MSFS/X-Plane Log Parsing
+- Telemetry Data Extraction
+- Screenshot Upload Processing
+- Laravel Queue Worker für asynchrone Verarbeitung
+
+---
+
+## 🔐 Sicherheit
+
+- **Session-based Authentication** (kein JWT, kein OAuth2 im MVP)
+- **Role-based Authorization**: pilot, crew, ground_control, admin
+- **Admin-only Update Policy** via GitHub CI/CD
+- **Password Hashing** mit Bcrypt
+- **CSRF Protection** in allen Forms
+
+---
+
+## 🧪 Testing
+
+```bash
+# PHPUnit Tests ausführen
+php artisan test
+
+# Coverage Report (optional)
+composer install --dev
+phpunit --coverage-html=coverage
+```
+
+---
+
+## 📊 Roadmap
+
+### Phase 1: MVP ✅ (Abgeschlossen)
+- [x] Laravel Skeleton + Migrations
+- [x] Eloquent Models mit Relationships
+- [x] UI Templates (Pilot, Admin, Ground Control)
+- [x] Flight Booking Controller mit 24h Time-Lock
+- [x] ACARS Queue Worker Job
+- [x] GitHub CI/CD Setup
+- [x] PHPUnit Tests
+
+### Phase 2: Community Features (Zukünftig)
+- [ ] Screenshot Upload & Gallery
+- [ ] Discussion Threads pro Route
+- [ ] Leaderboard mit Performance Stats
+- [ ] OAuth2 Integration (Google/GitHub Login)
+- [ ] WebSocket Notifications
+
+### Phase 3: Advanced Analytics (Post-MVP)
+- [ ] Cargo Freight System
+- [ ] Route Optimization Engine
+- [ ] 3D Route Viewer (Mapbox/Leaflet)
+- [ ] Advanced Weather Forecasts
+
+---
+
+## 🤝 Contributing
+
+1. Fork das Repository
+2. Erstelle einen Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit deine Änderungen (`git commit -m 'Add some AmazingFeature'`)
+4. Push zum Branch (`git push origin feature/AmazingFeature`)
+5. Öffne einen Pull Request
+
+---
+
+## 📄 Lizenz
+
+Dieses Projekt steht unter der MIT License. Siehe die [LICENSE](LICENSE) Datei für Details.
+
+---
+
+## 🙏 Credits
+
+- **Laravel** — PHP Web Framework
+- **Alpine.js** — Lightweight JavaScript Framework
+- **Chart.js** — Charting Library
+- **Open-Meteo API** — Wetterdaten
+
+---
+
+## 📞 Support
+
+Bei Fragen oder Problemen:
+- Erstelle einen [GitHub Issue](https://github.com/chris1971nrw/runwayhub/issues)
+- Oder kontaktiere den Maintainer direkt
+
+---
+
+**🛫 Happy Flying! — runwayhub Team**
+
+<!-- project: github.com/chris1971nrw/runwayhub -->
