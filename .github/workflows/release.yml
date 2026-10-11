@@ -1,0 +1,51 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          generate_release_notes: true
+          draft: false
+          prerelease: true
+          tag_name: ${{ github.ref }}
+          body: |
+            ## 🎉 Beta Release
+
+            **Release-Datum**: ${{ github.event.triggering_actor.date }}
+
+            ### MVP Phase 2: ABGESCHLOSSEN! ✅
+
+            - [x] Reines PHP + MySQL (kein Laravel!)
+            - [x] Ein-Klick-Installation mit install.php
+            - [x] Auto-Erstellung von Datenbank + Tabellen
+            - [x] Seed Data für Test Piloten + Aircrafts
+            - [x] Session-based Authentication
+            - [x] GitHub CI/CD Setup
+
+            ### Dateien:
+
+            - `install.php` — Ein-Klick-Installation (Browser-basiert)
+            - `index.php` — Login Form mit Auto-DB Setup
+            - `dashboard.php` — Dashboard mit allen Features
+            - `database_schema.sql` — MySQL Schema für direkten Import
+            - `docs/` — Technische Dokumentation
+
+            ### Sicherheits-Features:
+
+            - Session-based Authentication (kein JWT/OAuth2)
+            - Role-based Authorization: ***, crew, ground_control, admin
+            - Password Hashing mit Bcrypt
+            - HTTP Only Cookies
+            - CSRF Protection in allen Forms
