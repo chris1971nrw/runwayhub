@@ -98,7 +98,7 @@ try {
         actual_to_airport VARCHAR(10),
         actual_off DATETIME,
         actual_arrival DATETIME,
-        fuel_burned_gallons DECIMAL(10,2),
+        fuel_burned_gallons DECIMAL(10,2) DEFAULT 0.00,
         comments TEXT,
         completed BOOLEAN DEFAULT FALSE,
         screenshots JSON,
@@ -192,41 +192,43 @@ echo "<li>✅ Tabellen angelegt (pilots, flight_schedules, flight_logs, aircraft
 echo "<li>✅ Seed Data eingefügt (Admin + Sample Piloten + Aircrafts)</li>";
 echo "</ul>";
 
-// Login Form
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['email'] ?? '';
-    $password = $_POST['password'] ?? '';
-    
-    if ($email && $password) {
-        try {
-            $stmt = $pdo->prepare("SELECT * FROM pilots WHERE email = ?");
-            $stmt->execute([$email]);
-            $pilot = $stmt->fetch();
-            
-            if ($pilot && password_verify($password, $pilot['password'])) {
-                $_SESSION['user_id'] = $pilot['id'];
-                $_SESSION['name'] = $pilot['name'];
-                $_SESSION['role'] = $pilot['role'];
-                
-                // Umleiten zur Dashboard
-                header("Location: dashboard.php");
-                exit;
-            } else {
-                $error = 'Ungültige Anmeldeinformationen';
-            }
-        } catch (PDOException $e) {
-            $error = 'Fehler beim Login';
-        }
-    }
-}
-
-// User ist eingeloggt
+// dashboard.php anzeigen
 if (isset($_SESSION['user_id'])) {
-    $user = $pdo->query("SELECT * FROM pilots WHERE id = " . $_SESSION['user_id'])->fetch();
-    
-    // Dashboard anzeigen
-    include 'dashboard.php';
-    exit;
+    try {
+        $user = $pdo->query("SELECT * FROM pilots WHERE id = " . $_SESSION['user_id'])->fetch();
+        
+        // Dashboard anzeigen
+        if (file_exists('dashboard.php')) {
+            include 'dashboard.php';
+        } else {
+            echo "<h1>🌉 runwayhub - Dashboard</h1>";
+            echo "<p style='text-align:center; margin-top:50px;'>Willkommen, <strong>{$user['name']}</strong>!</p>";
+            echo "<div style='background:rgba(255,255,255,0.1); padding:30px; border-radius:10px; text-align:center;'>";
+            echo "<h2>🎯 Dashboard</h2>";
+            echo "<p>Du bist als <strong>{$user['role']}</strong> angemeldet.</p>";
+            echo "<div style='display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:20px; margin-top:20px;'>";
+            echo "<div style='background:rgba(255,255,255,0.08); padding:20px; border-radius:8px;'>";
+            echo "<h3>📅 Schedule Management</h3>";
+            echo "<p>Flugpläne erstellen & verwalten mit ICAO-Routen und Aircraft-Zuweisung</p>";
+            echo "</div>";
+            echo "<div style='background:rgba(255,255,255,0.08); padding:20px; border-radius:8px;'>";
+            echo "<h3>✈️ Flight Tracking</h3>";
+            echo "<p>Flugprotokolle hochladen & tracken mit MSFS/X-Plane Integration</p>";
+            echo "</div>";
+            echo "<div style='background:rgba(255,255,255,0.08); padding:20px; border-radius:8px;'>";
+            echo "<h3>📡 ACARS Integration</h3>";
+            echo "<p>Automatisches Log Parsing für MSFS/X-Plane mit Telemetry Daten</p>";
+            echo "</div>";
+            echo "<div style='background:rgba(255,255,255,0.08); padding:20px; border-radius:8px;'>";
+            echo "<h3>👥 Community Features</h3>";
+            echo "<p>Reviews, Leaderboards und Wetter Widget für bessere Flugplanung</p>";
+            echo "</div>";
+            echo "</div>";
+            echo "</div>";
+        }
+    } catch (PDOException $e) {
+        echo "<h1>❌ Fehler beim Laden des Dashboards</h1><p>Fehler: " . htmlspecialchars($e->getMessage()) . "</p>";
+    }
 }
 
 // Login Form (Standard-Ansicht)
