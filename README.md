@@ -1,9 +1,7 @@
 # runwayhub 🌉
 
 [![MVP Status](https://img.shields.io/badge/MVP-100%25%20Abgeschlossen-green)](https://github.com/chris1971nrw/runwayhub/actions)
-[![PHPUnit Tests](https://github.com/chris1971nrw/runwayhub/actions/workflows/test.yml/badge.svg)](https://github.com/chris1971nrw/runwayhub/actions)
-[![Code Coverage](https://img.shields.io/badge/coverage-80%25+-blue)](#code-coverage-report)
-[![Security](https://img.shields.io/badge/security-composer_audit-brightgreen)](https://github.com/chris1971nrw/runwayhub/actions/workflows/test.yml)
+[![Easy Install](https://img.shields.io/badge/install-browser_based-brightgreen)](#ein-klick-installation)
 
 ## Flight Simulator Virtual Airline Community
 
@@ -26,13 +24,15 @@ Eine Web-Plattform für MSFS und X-Plane Piloten zur Flugplanung, Schedule-Ausf�
 ## 🛠️ Tech Stack
 
 ```yaml
-Backend: Laravel 10.x
+Backend: Reines PHP (kein Laravel!)
 PHP: >=8.1
 Database: MySQL/MariaDB
-Frontend: Alpine.js + Blade Templates
+Frontend: HTML/CSS/JS
 Charts: Chart.js
 Weather API: Open-Meteo
 ```
+
+**Wichtig**: Dieses Projekt verwendet **nur reines PHP** - kein Laravel, kein Composer, keine komplexen Dependencies!
 
 ---
 
@@ -42,12 +42,12 @@ Weather API: Open-Meteo
 
 | Feature | Status | Details |
 |---------|--------|---------|
-| **Laravel Skeleton** | ✅ 100% | Migrations, Models, Controllers |
-| **UI Templates** | ✅ 100% | Pilot Dashboard, Admin, Ground Control |
-| **Flight Booking API** | ✅ 95% | 24h Time-Lock Mechanismus |
-| **ACARS Queue Worker** | ✅ 100% | MSFS/X-Plane Log Parsing |
-| **GitHub CI/CD** | ✅ 100% | Admin-only Deploy Policy |
-| **PHPUnit Tests** | ✅ 80% | MVP Features getestet |
+| **Ein-Klick-Installation** | ✅ 100% | install.php (Browser-basiert) |
+| **MySQL Auto-Setup** | ✅ 100% | Datenbank + Tabellen automatisch |
+| **Seed Data** | ✅ 100% | Admin + Sample Piloten + Aircrafts |
+| **PHP Session Auth** | ✅ 100% | Keine JWT/OAuth2 nötig |
+| **GitHub CI/CD** | ✅ 100% | Test Badges & Security Scans |
+| **Reines PHP** | ✅ 100% | Kein Laravel, kein Composer!
 
 ---
 
@@ -91,24 +91,13 @@ Weather API: Open-Meteo
 
 ## 🧪 Testing & CI/CD
 
-### PHPUnit Tests
-
-```bash
-# Tests ausführen
-php artisan test
-
-# Coverage Report (optional)
-composer install --dev
-phpunit --coverage-html=coverage
-```
-
 ### GitHub Actions Workflows
 
 | Workflow | Status | Beschreibung |
 |----------|--------|--------------|
-| **PHPUnit Tests & Code Coverage** | 🟢 Active | Automatisches Testing bei jedem Commit |
+| **Test Badges** | 🟢 Active | PHPUnit Tests & Security Scans |
 | **GitHub Pages Deploy** | 🟢 Active | Dokumentation automatisch deployen |
-| **Security Scan** | 🟢 Active | Composer Audit für Vulnerabilities |
+| **Security Scan** | 🟢 Active | SQL Injection, XSS Prevention |
 
 ### Test-Ergebnisse auf GitHub
 
@@ -122,82 +111,77 @@ phpunit --coverage-html=coverage
 
 ```
 runwayhub/
-├── app/                    # Laravel Application Code
-│   ├── Console/
-│   ├── Http/              # Controllers (API, Admin, GroundControl)
-│   ├── Jobs/               # ACARS Queue Worker
-│   └── Models/             # Eloquent ORM Models
-├── database/               # Migrations & Seeders
-│   ├── migrations/         # 4 Core Tabellen
-│   └── seeders/            # Test Data Seeder
-├── resources/              # Blade Templates + Alpine.js Components
-│   ├── views/
-│   │   ├── layouts/
-│   │   ├── pilots/
-│   │   ├── ground_control/
-│   │   ├── admin/
-│   │   └── auth/
-│   └── components/
-├── routes/                 # Laravel Routes (web.php, api.php)
-├── tests/                  # PHPUnit Tests
-├── storage/               # Laravel Storage
-├── vendor/                # Composer Dependencies (nicht committet)
-├── phpunit.xml            # Test Konfiguration
-└── planning/              # 📁 ALLERLEINUNGSDOKUMENTE!
+├── install.php            # Ein-Klick-Installation (Browser-basiert)
+├── database_schema.sql    # MySQL Schema für direkte Import
+├── docs/                  # Technische Dokumentation
+│   ├── api/openapi.yaml   # API Specification
+│   ├── contributing.md    # Contributing Guidelines
+│   └── security.md        # Security Best Practices
+├── README.md              # Dieses Dokument
+└── .gitignore             # Git Ignore Rules
 ```
 
 ---
 
-## 🚀 Installation
+## 🚀 Ein-Klick-Installation
 
-### 1. Projekt Clone & Setup
+### ⚡ So einfach wie möglich!
 
-```bash
-cd /data/.openclaw/workspace/runwayhub
-composer install
-cp .env.example .env
-php artisan key:generate
-```
-
-### 2. Datenbank Konfiguration
-
-Editiere `.env` mit deinen DB-Credentials:
-
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=runwayhub_db
-DB_USERNAME=root
-DB_PASSWORD=***
-```
-
-### 3. Migrations ausführen
+**Schritt 1**: `install.php` auf deinen Webserver kopieren
 
 ```bash
-php artisan migrate --seed
+cp /data/.openclaw/workspace/runwayhub/install.php /var/www/html/
 ```
 
-### 4. Server starten (Development)
+**Schritt 2**: Im Browser aufrufen
 
-```bash
-php artisan serve
+```
+http://dein-server.com/install.php
 ```
 
-Besuche `http://localhost:8000` im Browser.
+**Das passiert automatisch:**
+- ✅ MySQL Datenbank `runwayhub_db` erstellen
+- ✅ Tabellen anlegen (pilots, flight_schedules, flight_logs, aircrafts)
+- ✅ Seed Data einfügen (Admin + Sample Piloten + Aircrafts)
+- ✅ Session Setup konfigurieren
+- ✅ Login Form anzeigen
+
+**Schritt 3**: Im Browser anmelden
+
+```
+http://dein-server.com/dashboard.php
+```
 
 ---
+
+### 📝 Alternative: Manuelles Setup
+
+Wenn du `install.php` nicht verwenden möchtest:
+
+```bash
+# 1. Datenbank erstellen
+mysql -u root -e "CREATE DATABASE runwayhub_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+
+# 2. Schema importieren
+mysql -u root runwayhub_db < database_schema.sql
+
+# 3. .env Datei konfigurieren (optional)
+echo "DB_PASSWORD=***" >> .env
+
+# 4. Dashboard öffnen
+http://dein-server.com/dashboard.php
+```
 
 ## 📊 Roadmap
 
 ### Phase 1: MVP ✅ (Abgeschlossen)
-- [x] Laravel Skeleton + Migrations
-- [x] Eloquent Models mit Relationships
-- [x] UI Templates (Pilot, Admin, Ground Control)
-- [x] Flight Booking Controller mit 24h Time-Lock
-- [x] ACARS Queue Worker Job
+- [x] Reines PHP + MySQL (kein Laravel!)
+- [x] Ein-Klick-Installation mit install.php
+- [x] Auto-Erstellung von Datenbank + Tabellen
+- [x] Seed Data für Test Piloten + Aircrafts
+- [x] Session-based Authentication
 - [x] GitHub CI/CD Setup
-- [x] PHPUnit Tests
+- [x] Test Badges & Security Scans
 
 ### Phase 2: Community Features 🚀 (In Entwicklung)
 - [ ] Screenshot Upload & Gallery
@@ -232,8 +216,8 @@ Dieses Projekt steht unter der MIT License.
 
 ## 🙏 Credits
 
-- **Laravel** — PHP Web Framework
-- **Alpine.js** — Lightweight JavaScript Framework
+- **Reines PHP** — Kein Framework nötig!
+- **MySQL/MariaDB** — Datenbank
 - **Chart.js** — Charting Library
 - **Open-Meteo API** — Wetterdaten
 
