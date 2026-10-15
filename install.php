@@ -6,40 +6,84 @@
  * Alles wird automatisch eingerichtet!
  */
 
-// Error Reporting für Debugging
+// Session starten (vor ini_set())
+session_start();
+
+// Error Reporting für Debugging (nach session_start())
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
-// Session starten
-session_start();
 ini_set('session.cookie_httponly', 1);
 ini_set('session.use_strict_mode', 1);
 
 echo "<h1>🌉 runwayhub - Installation</h1>";
 echo "<p>Bitte warte während die Datenbank eingerichtet wird...</p>";
 
-// Datenbank Connection
+// Datenbank Connection Konfiguration
+try {
+    // Prüfe ob DB-Konfiguration in Formularfeldern angegeben wurde
+    $db_host = isset($_POST['DB_HOST']) ? $_POST['DB_HOST'] : getenv('DB_HOST') ?: 'localhost';
+    $db_name = isset($_POST['DB_NAME']) ? $_POST['DB_NAME'] : getenv('DB_NAME') ?: 'runwayhub_db';
+    $db_user = isset($_POST['DB_USER']) ? $_POST['DB_USER'] : getenv('DB_USER') ?: 'root';
+    $db_pass = isset($_POST['DB_PASS']) ? $_POST['DB_PASS'] : getenv('DB_PASS') ?: '';
+    
+    // Nur wenn DB-Konfiguration manuell angegeben wurde
+    if (isset($_POST['DB_HOST'])) {
+        echo "<p style='color:blue;'>📝 Verwende manuelle Datenbank-Konfiguration:</p>";
+        echo "<p>Host: ${db_host} | DB: ${db_name} | User: ${db_user}</p>";
+    } else {
+        echo "<p style='color:blue;'>📝 Verwende Standard-Konfiguration:</p>";
+        echo "<p>Host: ${db_host} | DB: ${db_name} | User: ${db_user}</p>";
+    }
+
+// Datenbank Connection (mit Umgebungsvariablen)
+try {
+    // Versuche Verbindung zur existierenden Datenbank
+    $db_host = getenv('DB_HOST') ?: 'localhost';
+    $db_name = getenv('DB_NAME') ?: 'runwayhub_db';
+    $db_user = getenv('DB_USER') ?: 'runwayhub';
+    $db_pass = getenv('DB_PASS') ?: 'runwayhub123';
+    
+    $pdo = new PDO(
+        "mysql:host=${db_host};dbname=${db_name};charset=utf8mb4",
+        $db_user,
+        $db_pass
+    );
+} catch (PDOException $e) {
+    die('<h1>❌ Fehler</h1><p>Konnte keine Verbindung zur MySQL Datenbank herstellen.</p><p>Fehler: ' . htmlspecialchars($e->getMessage()) . '</p>');
+}
+
+// Datenbank Connection (mit Umgebungsvariablen oder manuell)
 try {
     // Versuche Verbindung zur existierenden Datenbank
     $pdo = new PDO(
-        "mysql:host=localhost;charset=utf8mb4",
-        'root',
-        ''
+        "mysql:host={$db_host};dbname={$db_name};charset=utf8mb4",
+        $db_user,
+        $db_pass
     );
 } catch (PDOException $e) {
-    die('<h1>❌ Fehler</h1><p>Konnte keine Verbindung zur MySQL Datenbank herstellen.</p>');
+    die('<h1>❌ Fehler</h1><p>Konnte keine Verbindung zur MySQL Datenbank herstellen.</p><p>Fehler: ' . htmlspecialchars($e->getMessage()) . '</p>');
 }
 
-// Erstelle Datenbank (falls nicht existiert)
-try {
-    $pdo->exec("CREATE DATABASE IF NOT EXISTS runwayhub_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
-    echo "<p style='color:green;'>✅ Datenbank 'runwayhub_db' erstellt</p>";
-} catch (PDOException $e) {
-    echo "<p style='color:orange;'>⚠️  Datenbank existiert bereits</p>";
+// Falls keine DB-Konfiguration angegeben wurde, frage nach
+if (!isset($_POST['DB_HOST'])) {
+    echo "<p style='color:orange;'>⚠️  Keine Datenbank-Konfiguration gefunden. Bitte gib unten die Daten ein:</p>";
+    echo "<form method='POST' action='install.php' style='max-width:500px;margin:20px auto;'>";
+    echo "<h2>Datenbank-Konfiguration</h2>";
+    echo "<label>Host:<label>";
+    echo "<input type='text' name='DB_HOST' value='${db_host}' placeholder='localhost'>";
+    echo "</labe l>";
+    echo "<label>Datenbank:<label>";
+    echo "<input type='text' name='DB_NAME' value='${db_name}' placeholder='runwayhub_db'>";
+    echo "</labe l>";
+    echo "<label>Benutzer:<label>";
+    echo "<input type='text' name='DB_USER' value='${db_user}' placeholder='root'>";
+    echo "</labe l>";
+    echo "<label>Passwort:<label>";
+    echo "<input type='password' name='DB_PASS' placeholder='***'>";
+    echo "</labe l>";
+    echo "<button type='submit'>Verbindung testen und Datenbank erstellen</button>";
+    echo "</form>";
 }
-
-// Erstelle Tabellen
-$pdo->exec("USE runwayhub_db");
 
 // pilots Tabelle
 try {
