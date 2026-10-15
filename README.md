@@ -130,7 +130,7 @@ runwayhub/
 **Schritt 1**: `install.php` auf deinen Webserver kopieren
 
 ```bash
-cp /data/.openclaw/workspace/runwayhub/install.php /var/www/html/
+cp install.php /var/www/html/
 ```
 
 **Schritt 2**: Im Browser aufrufen
@@ -228,48 +228,3 @@ Dieses Projekt steht unter der MIT License.
 Bei Fragen oder Problemen:
 - Erstelle einen [GitHub Issue](https://github.com/chris1971nrw/runwayhub/issues)
 - Oder kontaktiere den Maintainer direkt
-
----
-
-## 🐛 GitHub Issues Status
-
-### Issue #1: HTTP 500 Fehler bei install.php
-
-**Status:** ✅ **BEHEBEN** (Commit `f0f6be8`)
-
-**Reparierte Fehler:**
-
-1. **SQL-Syntax-Fehler**: `DEFAULT0.00` → `DEFAULT 0.00`
-2. **Dashboard-Fehlerbehandlung**: try/catch umgeben
-3. **Seed Data Fehlerbehandlung**: try/catch hinzugefügt
-
-**GitHub Response:**
-```markdown
-### Issue: HTTP 500 Fehler bei install.php
-
-**Status:** ✅ BEHEBEN
-
-**Reparierte Fehler:**
-
-1. **SQL-Syntax-Fehler**: `DEFAULT0.00` → `DEFAULT 0.00`
-2. **Dashboard-Fehlerbehandlung**: try/catch umgeben
-3. **Seed Data Fehlerbehandlung**: try/catch hinzugefügt
-
-**Commit:** `f0f6be8`
-
-**Testen:**
-- `http://dein-server.com/install.php` - sollte jetzt funktionieren
-- Dashboard nach Login sollte ohne Fehler laden
-
-**Nächste Schritte:**
-- [ ] Testen auf Produktionsserver
-- [ ] GitHub Release erneuern (v1.0.0-beta-2)
-```
-
-### Issue #2: Weitere Issues bearbeiten
-
-Bitte prüfe https://github.com/chris1971nrw/runwayhub/issues und bearbeite die offenen Issues mit dem oben bereitgestellten Response.
-
----
-
-**🛫 Happy Flying! — runwayhub Team**
