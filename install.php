@@ -154,9 +154,11 @@ try {
     ];
     
     foreach ($pilots as $index => $pilot) {
+        $home_bases = ['EGKK', 'EDDF', 'LEMD', 'LFPG'];
+        $aircrafts_json = json_encode(['A320']);
         $pdo->exec("INSERT INTO pilots (name, callsign, email, password, role, home_base_icao, skill_level, license_type, aircraft_certified) VALUES 
             ('" . addslashes($pilot[0]) . "', '" . addslashes($pilot[1]) . "', '" . addslashes($pilot[2]) . "', '\$2y\$10\$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'pilot', 
-            ['EGKK', 'EDDF', 'LEMD', 'LFPG'][$index], 'intermediate', 'CPL', '["A320"]')");
+            '" . $home_bases[$index] . "', 'intermediate', 'CPL', '" . $aircrafts_json . "')");
     }
     echo "<p style='color:green;'>✅ Sample Pilots erstellt</p>";
     
